@@ -1,0 +1,61 @@
+# Makefile 03 - Split object and header dependences
+
+# Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
+#
+# This file is part of POSIXeg.
+#
+# POSIXeg is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Default target
+
+all: main
+
+# Objects
+
+OBJECTS = main.o circle.o rectangle.o square.o
+
+# Binary
+
+main : $(OBJECTS)
+	gcc $^ -o $@
+
+# Object-source dependences
+
+main.o : main.c 
+	gcc -I. -c $<
+
+circle.o : circle.c 
+	gcc -I. -c $<
+
+rectangle.o : rectangle.c
+	gcc -I. -c $<
+
+square.o : square.c 
+	gcc -I. -c $<
+
+# Object-header dependences
+
+main.o : circle.h rectangle.h square.h
+circle.o: circle.h
+rectangle.o :
+square.o: rectangle.h
+
+# Cleaning
+
+clean:
+	rm -f *.o main
+	rm -f *~ \#*
+
+
+
