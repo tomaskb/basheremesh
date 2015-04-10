@@ -31,7 +31,7 @@
 
 #define fail(expression, status)   do {if (expression) {fprintf (stderr, \
                            "%s : %d : %s\n", __FILE__, __LINE__,  \
-                           strerror(errno)); return 1;}} while (0)
+                           strerror(errno)); return status;}} while (0)
 
 /* Report system error and exits with value EXIT_FAILURE. */
 
