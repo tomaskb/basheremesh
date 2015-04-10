@@ -119,7 +119,7 @@ uninstall:
 
 
 $(tests-bin) : % : %.o $(libfile) $(libheaders)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 -l$(PROJECTNAME)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $< -o $@	 -l$(PROJECTNAME)
 
 $(aux-bin) : % : %.o
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 
