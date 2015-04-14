@@ -23,6 +23,6 @@
 
 float circle (float radius)
 {
-  return 2*PI*radius*radius;
+  return PI*radius*radius;
 }
 
