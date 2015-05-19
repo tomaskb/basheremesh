@@ -83,9 +83,7 @@ makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
 %.d : %.c
 	$(CC) $(CPP_FLAGS) $(CPFLAGS) -MM -MT '$(<:.c=.o) $@' $< > $@
 
-ifeq ($(INCLUDE_D),NO)
 include $(makefiles)
-endif
 
 tests-source = $(tests-bin:%=%.c)
 
@@ -99,11 +97,10 @@ dist: $(libsources) *.h Makefile $(tests-source) $(aux-source)
 	rm -rf $(PROJECTNAME)
 
 
-clean: 
+clean: uploadclean
 	rm -f *.o $(makefiles) $(libfile) *~ $(tests-bin) $(aux-bin) *\# \.\#* 
 	rm -f *.txt
 	rm -rf $(PROJECTNAME) $(NUSP)
-	$(MAKE) uploadclean
 
 distclean: clean
 	rm -f $(PROJECTNAME).tgz
@@ -128,17 +125,24 @@ $(aux-bin) : % : %.o
 
 # Test
 
+# test:	all
+# 	@rm -f nosuchfile *.log
+# 	@echo "\nRunning tests...\n"
+# 	@for i in $(tests-bin); do echo;\
+# 	if ! ./$$i ; then echo "\nAll tests ok!"; else echo "\nSome tests failed. See log file."; fi;\
+# 	done
+# 	@echo 
+
 test:	all
 	@rm -f nosuchfile *.log
 	@echo "\nRunning tests...\n"
-	@for i in $(tests-bin); do echo;\
-	if ! ./$$i ; then echo "\nAll tests ok!"; else echo "\nSome tests failed. See log file."; fi;\
-	done
+	@for i in $(tests-bin); do echo; \
+	if ./$$i ; then echo ; fi;\
+	done; 
 	@echo 
 
 
 .PHONY = clean 
-clean uploadclean: INCLUDE_D=NO
 
 # Upload (for USP students)
 
