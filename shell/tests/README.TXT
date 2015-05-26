@@ -5,8 +5,8 @@ Your shall should pass the following tests
 
 Run the command line
 
-$ fillpipe | wc -l | 
-
+$ fillpipe | wc -c
+q
 The output should probably be two lines
 
 131087
