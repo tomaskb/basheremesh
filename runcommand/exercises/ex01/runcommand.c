@@ -24,6 +24,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <unistd.h>
 
 #include <foo.h>
 #include <debug.h>
@@ -33,9 +34,13 @@
 
 int runcommand (command_t *command) 
 {
-  int pid, status;
+  int pid, status, pipefd[2];
   int aux;
-  
+  char c;
+
+  aux = pipe (pipefd);
+  fatal (aux<0);
+
   /* Create the subproccess. */
 
   pid = fork();
@@ -45,11 +50,24 @@ int runcommand (command_t *command)
     {
       aux = wait (&status);
       fail (aux<0, -1);
+
+
       command->exit_status = WEXITSTATUS (status);
+
+      close (pipefd[1]);
+      if (read(pipefd[0],&c, 1)>0)
+	return -2;
+      else 
+	return pid ;
+
     }
   else				/* Child (subprocess). */
     {
       aux = execvp (command->args[0], command->args);
+
+      close(pipefd[0]);
+      write (pipefd[1],"a", 1);
+
       if (aux<0)
 	exit (-1);
     }

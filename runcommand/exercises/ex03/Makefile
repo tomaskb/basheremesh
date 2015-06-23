@@ -83,9 +83,9 @@ makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
 %.d : %.c
 	$(CC) $(CPP_FLAGS) $(CPFLAGS) -MM -MT '$(<:.c=.o) $@' $< > $@
 
-ifeq ($(INCLUDE_D),NO)
+
 include $(makefiles)
-endif
+
 
 tests-source = $(tests-bin:%=%.c)
 

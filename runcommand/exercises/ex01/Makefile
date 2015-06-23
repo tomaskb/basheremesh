@@ -49,7 +49,7 @@ PREFIX=.
 
 # Name your tests (baz is made from baz.c with the library)
 
-tests-bin = test-runcommand 
+tests-bin = test-runcommand foo
 
 # Auxiliary programs (baz is made from baz.c only)
 
@@ -83,9 +83,8 @@ makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
 %.d : %.c
 	$(CC) $(CPP_FLAGS) $(CPFLAGS) -MM -MT '$(<:.c=.o) $@' $< > $@
 
-ifeq ($(INCLUDE_D),NO)
+
 include $(makefiles)
-endif
 
 tests-source = $(tests-bin:%=%.c)
 
@@ -99,10 +98,9 @@ dist: $(libsources) *.h Makefile $(tests-source) $(aux-source)
 	rm -rf $(PROJECTNAME)
 
 
-clean: 
+clean: uploadclean
 	rm -f *.o $(makefiles) $(libfile) *~ $(tests-bin) $(aux-bin) *\# \.\#* 
 	rm -rf $(PROJECTNAME) $(NUSP)
-	$(MAKE) uploadclean
 
 distclean: clean
 	rm -f $(PROJECTNAME).tgz
@@ -135,9 +133,7 @@ test:	all
 	done
 	@echo 
 
-
-.PHONY = clean 
-clean uploadclean: INCLUDE_D=NO
+.PHONY = clean uploadclean
 
 # Upload (for USP students)
 
@@ -156,3 +152,6 @@ upload: $(libsources) *.h Makefile $(tests-source) $(aux-source)
 
 uploadclean:
 	@if test ! -z $(NUSP) ; then rm -f $(NUSP).tgz; fi\
+
+
+
