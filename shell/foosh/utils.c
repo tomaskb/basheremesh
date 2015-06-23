@@ -49,7 +49,7 @@ void release_list (list_t *list)
   p = list->first;
   while (p)
     {
-      list->del (p);
+      del_node (list, p);
       p = p->next;
     }
 
@@ -112,7 +112,8 @@ int del_node (list_t *list, list_node_t *node)
   else
     node->next->previous = node->previous;
 
-  list->del (node);
+  list->del (node->value);
+  free (node);
 
   list->size--;
 
