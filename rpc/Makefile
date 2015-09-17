@@ -67,8 +67,8 @@ client-04_obj = client-04.o
 # foo_lib = libfoobar
 # bar_lib = libfoobar libm
 
-rpc-server_lib = libpthread 
-rpc-server-faulty_lib = libpthread 
+# rpc-server_lib = libpthread 
+# rpc-server-faulty_lib = libpthread 
 
 ifneq ($(RPC),yes)
 client-01_lib = libstuff
@@ -82,11 +82,13 @@ client-03_lib = libstuff-rpc
 client-04_lib = libstuff-rpc
 endif
 
+rpc-server_lib_other = libpthread 
+rpc-server-faulty_lib_other = libpthread 
+
 # Name your project's libraries (to be installed), e.g.
 # lib = libfoobar
 
 lib = libstuff libstuff-rpc
-
 
 # For each item in $(lib), name the objects needed to build it, e.g.
 # libfoobar_obj = foo.o bar.o
@@ -97,6 +99,8 @@ libstuff-rpc_obj = stuff-rpc.o log-rpc.o
 
 # For each item in $(lib), name the headers your project installs, e.g.
 #libfoobar_h = foos.h
+
+libstuff_h = stuff.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # aux_bin = example
@@ -157,16 +161,14 @@ $(lib_static) : %.a : $$($$*_obj)
 $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 	$(CC) -shared $(LD_FLAGS) $(LDFLAGS) $^ -o $@
 
-
-
 # Automatic rules for building binaires
 
-$(bin) $(aux_bin): % : $$($$*_obj)  $(lib_all)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) -o $@
+$(bin) $(aux_bin): % : $$($$*_obj)  $$($$*_lib:%.%.so)  
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 
 
-$(bin:%=%-static) $(aux_bin:%=%-static): %-static : $$($$*_obj)  $(lib_static)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) -Wl,-Bstatic $(patsubst lib%, -l%, $($*_lib)) -Wl,-Bdynamic -o $@ 
+$(bin:%=%-static) $(aux_bin:%=%-static): %-static : $$($$*_obj)  $$($$*_lib:%.%.so)  
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
 
 
 # Automatic sufix-rules
