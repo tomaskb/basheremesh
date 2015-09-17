@@ -46,9 +46,13 @@ PROJECT =
 # foo_obj = main_foo.o 
 # bar_obj = main_bar.o 
 
-# For each item in $(bin), name the libraries to which it shall be linked, e.g.
+# For each item in $(bin), name the project libraries to which it shall be linked, e.g.
 # foo_lib = libfoobar
 # bar_lib = libfoobar libm
+
+# For each item in $(bin), name the other libraries to which it shall be linked, e.g.
+# foo_lib_other = libfoobar
+# bar_lib_other = libfoobar libm
 
 # Name your project's libraries (to be installed), e.g.
 # lib = libfoobar
@@ -122,12 +126,12 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 
 # Automatic rules for building binaires
 
-$(bin) $(aux_bin): % : $$($$*_obj)  $(lib_all)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) -o $@
+$(bin) $(aux_bin): % : $$($$*_obj)  $$($$*_lib:%.%.so)  
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 
 
-$(bin:%=%-static) $(aux_bin:%=%-static): %-static : $$($$*_obj)  $(lib_static)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) -Wl,-Bstatic $(patsubst lib%, -l%, $($*_lib)) -Wl,-Bdynamic -o $@ 
+$(bin:%=%-static) $(aux_bin:%=%-static): %-static : $$($$*_obj)  $$($$*_lib:%.%.so)  
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
 
 
 # Automatic sufix-rules
