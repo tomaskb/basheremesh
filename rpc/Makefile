@@ -24,7 +24,6 @@
 # make clean	    clean up the mess
 # make dist	    pack files to distribute
 # make distcheck    make dist and check package
-# make distclean    restore to original state
 # make install      install the libraries
 # make uninstall    uninstall the libraries
 # make test         perform all runtime tests
@@ -230,7 +229,6 @@ distcheck: dist
 	if $(MAKE) -C $(PROJECT) ; then echo "\n$(PROJECT).tgz ready for distribution"; \
 	else echo "\nSomething wrong with $(PROJECT).tgz"; fi; echo 
 
-distclean: clean
 
 # Install, uninstall
 
