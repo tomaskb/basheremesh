@@ -75,10 +75,10 @@ client-02_lib = libstuff
 client-03_lib = libstuff
 client-04_lib = libstuff
 else
-client-01_lib = libstuff-rpc
-client-02_lib = libstuff-rpc
-client-03_lib = libstuff-rpc
-client-04_lib = libstuff-rpc
+client-01_lib = libstuff-rpc librpc
+client-02_lib = libstuff-rpc librpc
+client-03_lib = libstuff-rpc librpc
+client-04_lib = libstuff-rpc librpc
 endif
 
 rpc-server_lib_other = libpthread 
@@ -87,7 +87,7 @@ rpc-server-faulty_lib_other = libpthread
 # Name your project's libraries (to be installed), e.g.
 # lib = libfoobar
 
-lib = libstuff libstuff-rpc
+lib = libstuff libstuff-rpc librpc
 
 # For each item in $(lib), name the objects needed to build it, e.g.
 # libfoobar_obj = foo.o bar.o
@@ -95,6 +95,8 @@ lib = libstuff libstuff-rpc
 libstuff_obj = stuff.o log.o
 
 libstuff-rpc_obj = stuff-rpc.o log-rpc.o
+
+librpc_obj = rpc-client.o
 
 # For each item in $(lib), name the headers your project installs, e.g.
 #libfoobar_h = foos.h

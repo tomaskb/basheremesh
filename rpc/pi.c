@@ -25,6 +25,7 @@
 int main (int argc, char **argv)
 {
 
-  
+  printf ("3.14\n");
+
   return EXIT_SUCCESS;
 }

@@ -24,7 +24,6 @@
 # make clean	    clean up the mess
 # make dist	    pack files to distribute
 # make distcheck    make dist and check package
-# make distclean    restore to original state
 # make install      install the libraries
 # make uninstall    uninstall the libraries
 # make test         perform all runtime tests
