@@ -24,6 +24,8 @@
 
 float pi(void);
 
+float phi (void);
+
 int plusone (int );
 
 void increment (int *);

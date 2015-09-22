@@ -1,4 +1,4 @@
-/* stuff.c - Very Simple RPC Server, vr. 01
+/* myrpc-server-v01 - Very Simple RPC Server, vr. 01
 
    Copyright 2014  Monaco F. J.   <monaco@icmc.usp.br>
 
@@ -21,32 +21,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <stuff.h>
 
-/* Return the value of PI. */
-
-float pi(void)
+int main (int argc, char **argv)
 {
-  return 3.14;
-}
 
-/* Return the value of Phi. */
+  printf ("Pi = %f\n", pi());
 
-float phi (void)
-{
-  return 1.618;
-}
+  printf ("Phi = %f\n", phi());
 
-/* Return n+1. */
-
-int plusone (int n)
-{
-  return n+1;
-}
-
-/* Increment n. */
-
-void increment (int *n)
-{
-  *n = *n+1;
+  return EXIT_SUCCESS;
 }

@@ -41,7 +41,7 @@ PROJECT = RPCeg
 # Name your project's binaires, eg.
 # bin = foo bar
 
-bin = rpc-server foo increment pi plusone read_log write_log client-01 client-02 client-03 client-04 rpc-server-faulty
+bin = rpc-server foo increment pi plusone read_log write_log client-01 client-01a client-02 client-03 client-04 rpc-server-faulty
 
 # For each item in $(bin), name the objects needed to build it, e.g.
 # foo_obj = main_foo.o 
@@ -58,9 +58,11 @@ read_log_obj = read_log.o
 write_log_obj = write_log.o
 
 client-01_obj = client-01.o
+client-01a_obj = client-01a.o
 client-02_obj = client-02.o
 client-03_obj = client-03.o
 client-04_obj = client-04.o
+
 
 # For each item in $(bin), name the libraries to which it shall be linked, e.g.
 # foo_lib = libfoobar
@@ -71,11 +73,13 @@ client-04_obj = client-04.o
 
 ifneq ($(RPC),yes)
 client-01_lib = libstuff
+client-01a_lib = libstuff
 client-02_lib = libstuff
 client-03_lib = libstuff
 client-04_lib = libstuff
 else
 client-01_lib = libstuff-rpc librpc
+client-01a_lib = libstuff-rpc librpc
 client-02_lib = libstuff-rpc librpc
 client-03_lib = libstuff-rpc librpc
 client-04_lib = libstuff-rpc librpc
@@ -114,7 +118,7 @@ libstuff_h = stuff.h
 
 # Extra files to go in the distribution (add as needed)
 
-EXTRA_DIST = Makefile 
+EXTRA_DIST = Makefile AUTHORS
 
 # Installation prefix
 
