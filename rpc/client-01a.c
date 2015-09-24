@@ -29,7 +29,9 @@ int main (int argc, char **argv)
 
   printf ("Pi = %f\n", pi());
 
-  printf ("Phi = %f\n", phi());
+  /* Uncomment the line bellow. */
+
+  /* printf ("Phi = %f\n", phi());  */
 
   return EXIT_SUCCESS;
 }
