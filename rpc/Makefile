@@ -154,7 +154,9 @@ all_aux_bin_obj = $(foreach i, $(aux_bin:%=%_obj), $($i))
 
 all: $(lib_static) $(lib_shared) $(bin) $(aux_bin) 
 
-static: $(lib_static) $(bin:%=%-static) $(aux_bin:%=%-static) 
+#static: $(lib_static) $(bin:%=%-static) $(aux_bin:%=%-static) 
+
+static: all
 
 .SECONDEXPANSION:
 
@@ -168,13 +170,17 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 
 # Automatic rules for building binaires
 
+ifeq (,$(findstring static,$(MAKECMDGOALS)))
+
 $(bin) $(aux_bin): % : $$($$*_obj)  $$($$*_lib:%.%.so)  
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 
+else
 
-$(bin:%=%-static) $(aux_bin:%=%-static): %-static : $$($$*_obj)  $$($$*_lib:%.%.so)  
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
+$(bin) $(aux_bin): % : $$($$*_obj)  $$($$*_lib:%.%.a)  
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) -Wl,-Bstatic $(patsubst lib%, -l%, $($*_lib)) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
 
+endif
 
 # Automatic sufix-rules
 
