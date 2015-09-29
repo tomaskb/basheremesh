@@ -118,7 +118,7 @@ libstuff_h = stuff.h
 
 # Extra files to go in the distribution (add as needed)
 
-EXTRA_DIST = Makefile AUTHORS
+EXTRA_DIST = Makefile AUTHORS rpc.config
 
 # Installation prefix
 
@@ -153,8 +153,6 @@ all_aux_bin_obj = $(foreach i, $(aux_bin:%=%_obj), $($i))
 # Build everything
 
 all: $(lib_static) $(lib_shared) $(bin) $(aux_bin) 
-
-#static: $(lib_static) $(bin:%=%-static) $(aux_bin:%=%-static) 
 
 static: all
 
