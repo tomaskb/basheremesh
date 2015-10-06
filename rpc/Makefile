@@ -41,7 +41,7 @@ PROJECT = RPCeg
 # Name your project's binaires, eg.
 # bin = foo bar
 
-bin = rpc-server foo increment pi plusone read_log write_log client-01 client-01a client-02 client-03 client-04 rpc-server-faulty client-05 rpc-server-memory rpc-server-cmds
+bin = rpc-server foo increment pi plusone read_log write_log client-01 client-01a client-02 client-03 client-04 rpc-server-faulty client-05
 
 # For each item in $(bin), name the objects needed to build it, e.g.
 # foo_obj = main_foo.o 
@@ -49,9 +49,6 @@ bin = rpc-server foo increment pi plusone read_log write_log client-01 client-01
 
 rpc-server_obj = rpc-server.o
 rpc-server-faulty_obj = rpc-server-faulty.o
-rpc-server-memory_obj = rpc-server-memory.o commands.o
-
-rpc-server-cmds_obj = rpc-server-cmds.o cmds.o
 
 foo_obj = foo.o
 increment_obj = increment.o
@@ -66,6 +63,7 @@ client-02_obj = client-02.o
 client-03_obj = client-03.o
 client-04_obj = client-04.o
 client-05_obj = client-05.o
+
 
 # For each item in $(bin), name the libraries to which it shall be linked, e.g.
 # foo_lib = libfoobar
@@ -88,13 +86,21 @@ client-02_lib = libstuff-rpc librpc
 client-03_lib = libstuff-rpc librpc
 client-04_lib = libstuff-rpc librpc
 client-05_lib = libstuff-rpc librpc
+
+   # MacOS, libstuff-rpc has rpc-client.o 
+   ifeq ($(OS),Mac)
+   client-01_lib = libstuff-rpc
+   client-01a_lib = libstuff-rpc
+   client-02_lib = libstuff-rpc
+   client-03_lib = libstuff-rpc
+   client-04_lib = libstuff-rpc
+   client-05_lib = libstuff-rpc
+   endif
+
 endif
 
 rpc-server_lib_other = libpthread 
 rpc-server-faulty_lib_other = libpthread 
-rpc-server-memory_lib_other = libpthread 
-rpc-server-cmds_lib_other = libpthread 
-
 
 # Name your project's libraries (to be installed), e.g.
 # lib = libfoobar
@@ -106,9 +112,15 @@ lib = libstuff libstuff-rpc librpc
 
 libstuff_obj = stuff.o log.o memory.o
 
-libstuff-rpc_obj = stuff-rpc.o log-rpc.o memory-rpc.o
+libstuff-rpc_obj = stuff-rpc.o log-rpc.o memory.o
 
 librpc_obj = rpc-client.o
+
+# MacOS seems to have issues with inter-library dependencies
+# We therefore add all objects to libstuff-rpc
+ifeq ($(OS),Mac)
+libstuff-rpc_obj = stuff-rpc.o log-rpc.o rpc-client.o memory-rpc.o
+endif
 
 # For each item in $(lib), name the headers your project installs, e.g.
 #libfoobar_h = foos.h
