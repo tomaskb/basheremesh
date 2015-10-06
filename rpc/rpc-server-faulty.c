@@ -45,7 +45,7 @@ int parse_args (char *buffer, char **args)
   int i;
   i=0; 
   do
-    args[i] = strtok (i==0 ? buffer : NULL, " \t\n\r");
+    args[i] = strtok (i==0 ? buffer : NULL, " \t\r\n");
   while (args[i++]);
   args[i]=NULL;
 
