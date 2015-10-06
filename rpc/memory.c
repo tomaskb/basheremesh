@@ -1,8 +1,8 @@
-/* stuff.h- Very Simple RPC Server, vr. 01
+/*  memory.c - 
+    
+    Copyright 2015  Francisco Jose Monaco   <moanco@icmc.usp.br>
 
-   Copyright 2014  Monaco F. J.   <monaco@icmc.usp.br>
-
-   This file is part of POSIXeg. 
+    This file is part of POSIXeg. 
 
     POSIXeg is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,28 +19,37 @@
 
 */
 
-#ifndef STUFF_H
-#define STUFF_H
+#include <stdlib.h>
+#include <stuff.h>
 
-float pi(void);
+buffer_t new_buffer (int size)
+{
+  void *p;
+  
+  p = malloc (size);
 
-float phi (void);
+  return p;
+}
 
-int plusone (int );
+void set_buffer (buffer_t target, const char *source, int length)
+{
+  int i;
 
-void increment (int *);
+  for (i=0; i<length; i++)
+    target[i] = source[i];
+  
+}
 
-#define LOGFILE "log.txt"
-#define LOGBUFFSIZE 1024
+void get_buffer (char *target, buffer_t source, int length)
+{
+  int i;
 
-int read_log (void);
-int write_log (void);
+  for (i=0; i<length; i++)
+    target[i] = source[i];
+  
+}
 
-typedef char * buffer_t;
-
-buffer_t new_buffer (int);
-void set_buffer (buffer_t , const char *, int);
-void get_buffer (char *, buffer_t, int);
-void free_buffer (buffer_t);
-
-#endif	/* STUFF_H */
+void free_buffer (buffer_t buffer)
+{
+  free (buffer);
+}

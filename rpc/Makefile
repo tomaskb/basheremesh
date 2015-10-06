@@ -41,7 +41,7 @@ PROJECT = RPCeg
 # Name your project's binaires, eg.
 # bin = foo bar
 
-bin = rpc-server foo increment pi plusone read_log write_log client-01 client-01a client-02 client-03 client-04 rpc-server-faulty
+bin = rpc-server foo increment pi plusone read_log write_log client-01 client-01a client-02 client-03 client-04 rpc-server-faulty client-05 rpc-server-memory rpc-server-cmds
 
 # For each item in $(bin), name the objects needed to build it, e.g.
 # foo_obj = main_foo.o 
@@ -49,6 +49,9 @@ bin = rpc-server foo increment pi plusone read_log write_log client-01 client-01
 
 rpc-server_obj = rpc-server.o
 rpc-server-faulty_obj = rpc-server-faulty.o
+rpc-server-memory_obj = rpc-server-memory.o commands.o
+
+rpc-server-cmds_obj = rpc-server-cmds.o cmds.o
 
 foo_obj = foo.o
 increment_obj = increment.o
@@ -62,7 +65,7 @@ client-01a_obj = client-01a.o
 client-02_obj = client-02.o
 client-03_obj = client-03.o
 client-04_obj = client-04.o
-
+client-05_obj = client-05.o
 
 # For each item in $(bin), name the libraries to which it shall be linked, e.g.
 # foo_lib = libfoobar
@@ -77,16 +80,21 @@ client-01a_lib = libstuff
 client-02_lib = libstuff
 client-03_lib = libstuff
 client-04_lib = libstuff
+client-05_lib = libstuff
 else
 client-01_lib = libstuff-rpc librpc
 client-01a_lib = libstuff-rpc librpc
 client-02_lib = libstuff-rpc librpc
 client-03_lib = libstuff-rpc librpc
 client-04_lib = libstuff-rpc librpc
+client-05_lib = libstuff-rpc librpc
 endif
 
 rpc-server_lib_other = libpthread 
 rpc-server-faulty_lib_other = libpthread 
+rpc-server-memory_lib_other = libpthread 
+rpc-server-cmds_lib_other = libpthread 
+
 
 # Name your project's libraries (to be installed), e.g.
 # lib = libfoobar
@@ -96,9 +104,9 @@ lib = libstuff libstuff-rpc librpc
 # For each item in $(lib), name the objects needed to build it, e.g.
 # libfoobar_obj = foo.o bar.o
 
-libstuff_obj = stuff.o log.o
+libstuff_obj = stuff.o log.o memory.o
 
-libstuff-rpc_obj = stuff-rpc.o log-rpc.o
+libstuff-rpc_obj = stuff-rpc.o log-rpc.o memory-rpc.o
 
 librpc_obj = rpc-client.o
 
@@ -118,7 +126,7 @@ libstuff_h = stuff.h
 
 # Extra files to go in the distribution (add as needed)
 
-EXTRA_DIST = Makefile AUTHORS
+EXTRA_DIST = Makefile AUTHORS rpc.config
 
 # Installation prefix
 

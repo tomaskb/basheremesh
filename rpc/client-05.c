@@ -1,8 +1,8 @@
-/* stuff.h- Very Simple RPC Server, vr. 01
+/*  client-05.c - Allocate memory.
+    
+    Copyright 2015  Francisco Jose Monaco   <moanco@icmc.usp.br>
 
-   Copyright 2014  Monaco F. J.   <monaco@icmc.usp.br>
-
-   This file is part of POSIXeg. 
+    This file is part of POSIXeg. 
 
     POSIXeg is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,28 +19,31 @@
 
 */
 
-#ifndef STUFF_H
-#define STUFF_H
+#include <stdio.h>
+#include <stdio.h>
 
-float pi(void);
+#include <debug.h>
+#include <stuff.h>
 
-float phi (void);
+#define LENGTH 10
 
-int plusone (int );
+int main (int argc, char **argv)
+{
+  buffer_t buffer;
+  char *p;
 
-void increment (int *);
+  buffer = new_buffer (LENGTH);
+  fatal (!buffer, "Can't allocate memory");
 
-#define LOGFILE "log.txt"
-#define LOGBUFFSIZE 1024
+  set_buffer (buffer, "abcd", 5);
 
-int read_log (void);
-int write_log (void);
+  p = malloc (LENGTH);
+  get_buffer (p, buffer, 5);
 
-typedef char * buffer_t;
+  printf ("Buffer: %s\n", p);
 
-buffer_t new_buffer (int);
-void set_buffer (buffer_t , const char *, int);
-void get_buffer (char *, buffer_t, int);
-void free_buffer (buffer_t);
+  free_buffer (buffer);
 
-#endif	/* STUFF_H */
+
+  return EXIT_SUCCESS;
+}
