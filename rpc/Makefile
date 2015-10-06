@@ -112,7 +112,7 @@ lib = libstuff libstuff-rpc librpc
 
 libstuff_obj = stuff.o log.o memory.o
 
-libstuff-rpc_obj = stuff-rpc.o log-rpc.o memory.o
+libstuff-rpc_obj = stuff-rpc.o log-rpc.o memory-rpc.o
 
 librpc_obj = rpc-client.o
 
