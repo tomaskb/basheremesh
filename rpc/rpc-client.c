@@ -107,7 +107,6 @@ void call_remote (const char *hostname, int port, char *string, char *buffer)
   file = fdopen (fd, "w");
   sysfatal (!file);
 
-  /* write (fd, string, strlen (string)); */
   fprintf (file, "%s\r\n", string);
   fflush (file);
   read (fd, buffer, 1024);

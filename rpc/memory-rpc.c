@@ -1,4 +1,4 @@
-/*  memory.c - 
+/*  memory-rpc.c - 
     
     Copyright 2015  Francisco Jose Monaco   <moanco@icmc.usp.br>
 
@@ -22,8 +22,9 @@
 #include <stdlib.h>
 #include <stuff.h>
 
-/* These functions reproduce the local implementation of memory.c.
-   Please, modify them to implement the rpc version (remote buffer).*/
+/* These functions correspond to the local implementation and were
+   copied from memory. c. Please, modify them to implement the
+   RPC version. */
 
 buffer_t new_buffer (int size)
 {
