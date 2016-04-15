@@ -22,7 +22,10 @@ void runcommand_wait (int num, siginfo_t *info, void *ucontext)
 }
 
 /* Execute a command in a subprocess as specified by argument 'command'. 
-   See documentation of command_t for further information. */
+   Information on the subprocess execution is stored in 'result'. Argument
+   'io', if non NULL, should be a vector of three integers representing
+   file descriptors to where standard input, output and error should be
+   redirected.*/
 
 
 int runcmd (char *command, int *result, int *io) 
