@@ -64,7 +64,6 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
     {
       aux = execvp (args[0], args);
       fail (aux<0, -1);
-      exit (-1);
     }
   return pid;			/* Only parent reaches this point. */
 }
