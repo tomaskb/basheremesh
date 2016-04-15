@@ -36,7 +36,7 @@ int tryrun (char *command,  int *io, int correct_termination, int correct_exit_s
 
   /* Run the command.*/
 
-  runcommand_onexit = finish;
+  runcmd_onexit = finish;
 
   pid = runcmd (command_line,  &result, io);
 

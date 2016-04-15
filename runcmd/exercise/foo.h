@@ -63,8 +63,6 @@ int runcmd (char *command, int *result, int *io);
 
 /* Hanlder for SIGCHLD in NONBLOCK mode. */
 
-extern void (*runcommand_onexit)(void);
-
 extern void (*runcmd_onexit)(void);
 
 #endif	/* FOO_H */
