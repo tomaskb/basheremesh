@@ -57,6 +57,7 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
       aux = wait (&status);
       fail (aux<0, -1);
       
+      /* Collect termination mode. */
       if (WIFEXITED(status)) 
 	*result |= NORMAL;
     }
