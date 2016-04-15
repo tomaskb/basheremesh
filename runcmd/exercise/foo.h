@@ -1,4 +1,4 @@
-/* foo.h - Header of our example-library.
+/* foo.h - Header of libfoo.
 
    Copyright (c) 2014, Francisco José Monaco <moanco@icmc.usp.br>
 
@@ -22,46 +22,62 @@
 #ifndef FOO_H
 #define FOO_H
 
-#define NORMAL_TERMINATION    0
-#define ABNORMAL_TERMINATION  1
+/* Definitions for the command line parser. */
 
-#define BLOCK 0
-#define NONBLOCK 1
+#define RCMD_MAXARGS   1024	/* Max number of arguments. */
+#define RCMD_DELIM    " \n\t\r" /* Command line delimiters.   */
+#define RCMD_NONBLOCK '&'	/* Command line nonblock sign.*/
 
+/* Bit mask for interpreting command execution results. */
 
-/* This struct is passed to function runcommand. */
+#define NORMTERM    (1 <<  8)	/* 256 */
+#define EXECOK      (1 <<  9)	/* 1024 */
+#define NONBLOCK    (1 << 10)	/* 2048 */
+#define RETSTATUS   (0xFF)	/* 255 */
 
-typedef struct 
-{
-  char **args;			/* A command vector as it is passed to exec. */
-  int exit_status;		/* Exit status code returned by the program. */
-  int termination;		/* Process terminated normally or abnormally. */
-  int *io;			/* io[i]: standard input, ouput and error. */
-  int mode;			/* Either BLOCK or NONBLOCK. */
-} command_t;
+/*  
+ *   This is the user API.
+ */
 
+/* Macros to obtain information on command execution results
+   reported by 'runcmd' call.
+
+   IS_NORMTERM(result) returns true if the subprocess has terminated 
+                       normally; false otherwise.
+   IS_NONBLOCK(result) returns true if the subprocess has been executed
+                       in nonblocking mode; false otherwise.
+   IS_EXECOK(result)   returns true if 'exec' has been successful in
+                       the subprocess; false otherwise.
+   EXITSTATUS(result)  returns the exit status returned by the
+                       subproccess.
+
+   
+   Notice the following. 
+
+   In nonblocking mode, the subprocess's termination mode and exit status 
+   are not known. In this case IS_NORMTERM and EXITSTATUS both return zero
+   and have no meaning. IS_NONBLOCK may be used for disambiguation.
+
+   In blocking mode if 'exec' has failed, the exit status must be that of 
+   the (unmodified) subprocess itself. In this case, the subprocess terminates
+   successfully with exit status 127; IS_EXECOK may be used for disambiguation.
+
+   In blocking mode with successful 'exec' execution, if termination is
+   abnormal the process' exit status is unknown. In this case, EXIT_STATUS
+   returns zero and has no meaning. IS_NORMTERM may be used for disambiguation.
+   
+*/
+
+#define IS_NORMTERM(result) ((*result & NORMTERM) && 1) 
+#define IS_NONBLOCK(result) ((*result & NONBLOCK) && 1) 
+#define EXITSTATUS(result)  ( *result & RETSTATUS)
+#define IS_EXECOK(result)   ((*result & EXECOK) && 1)
 
 /* Run a command in a subprocess. */
 
-int runcommand (command_t *command);
-
-#define CMD_MAX_ARGS   1024
-#define CMD_DELIMITERS " \n\t\r"
-#define CMD_BACKGROUND '&'
-#define NORMAL        (1 <<  8)	/* 256 */
-#define EXECOK        (1 <<  9)	/* 1024 */
-#define BACKGROUND    (1 << 10)	/* 2048 */
-#define EXITSTATUS    (0xFF)	/* 255 */
-
-
-#define IS_NORMAL(result)        ((*result & NORMAL) && 1)
-#define IS_NONBLOCK(result)      ((*result & BACKGROUND) && 1)
-#define IS_EXECOK(result)        ((*result & EXECOK) && 1)
-#define EXITVALUE(result)        ( *result & EXITSTATUS)
-
 int runcmd (char *command, int *result, int *io);
 
-/* Hanlder for SIGCHLD in NONBLOCK mode. */
+/* Hanlder for SIGCHLD in nonblock mode. */
 
 extern void (*runcmd_onexit)(void);
 

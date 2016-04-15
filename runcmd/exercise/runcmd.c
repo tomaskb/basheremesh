@@ -1,4 +1,23 @@
-/* runcommand.c - Execute a user-specified command as a subprocess. */
+/* runcmd.c - Execute a command as a subprocess. 
+
+   Copyright (c) 2014, Francisco José Monaco <moanco@icmc.usp.br>
+
+   This file is part of POSIXeg
+
+   POSIXeg is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+*/
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -36,15 +55,15 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
 {
   int pid, status; 
   int aux, i;
-  char *args[CMD_MAX_ARGS]; 	
+  char *args[RCMD_MAXARGS]; 	
 
   *result = 0;
 
   /* Parse arguments to obtain an argv vector. */
 
   i=0;
-  args[i++] = strtok (command, CMD_DELIMITERS);
-  while ((i<CMD_MAX_ARGS) && (args[i++] = strtok (NULL, CMD_DELIMITERS)));
+  args[i++] = strtok (command, RCMD_DELIM);
+  while ((i<RCMD_MAXARGS) && (args[i++] = strtok (NULL, RCMD_DELIM)));
   i--;
 
   /* Create a subprocess. */
@@ -59,7 +78,7 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
       
       /* Collect termination mode. */
       if (WIFEXITED(status)) 
-	*result |= NORMAL;
+	*result |= NORMTERM;
     }
   else				/* Subprocess (child) */
     {
@@ -70,8 +89,9 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
 }
 
 /* If function runcmd is called in non-blocking mode, then function
-   pointed by runcmd_onexit is asynchronously evoked upon the subprocess
+   pointed by rcmd_onexit is asynchronously evoked upon the subprocess
    termination. If this variable points to NULL, no action is performed.
 */
 
 void (*runcmd_onexit)(void) = NULL;
+

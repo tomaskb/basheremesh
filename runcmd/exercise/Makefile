@@ -55,10 +55,12 @@ aux-bin = segfault io delay
 
 # Building tools
 
+INCLUDEPATH = . ../../utils 
+
 CC = gcc
-CPP_FLAGS = -I. -Wall -Werror -std=c89 --pedantic-errors -D_POSIX_C_SOURCE=200112L 
+CPP_FLAGS = $(INCLUDEPATH:%=-I%) -Wall -Werror -std=c89 --pedantic-errors -D_POSIX_C_SOURCE=200112L 
 C_FLAGS = 
-LD_FLAGS = -L.
+LD_FLAGS = -L. 
 MAKE = make
 SHELL = /bin/sh 
 
@@ -76,11 +78,11 @@ $(libfile): $(libobjects)
 	ar rcs $@ $^
 
 %.o : %.c 
-	$(CC) $(CPP_FLAGS) $(CPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $<
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $<
 
 makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
 %.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPFLAGS) -MM -MT '$(<:%.c=%.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:%.c=%.o) $@' $< > $@
 
 ifneq ($(INCLUDE_D),NO)
 include $(makefiles)

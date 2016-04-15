@@ -1,4 +1,25 @@
-/* test-runcommand-v1 - Program to test runcommand function version 1. */
+/* test-runcmd - Program to test runcmd function
+
+   Copyright (c) 2014, Francisco José Monaco <moanco@icmc.usp.br>
+
+   This file is part of POSIXeg
+
+   POSIXeg is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+*/
+
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,9 +42,11 @@ void finish (void)
   go_on = 0;
 }
 
-/* Run the "program with arguments and return 0 on success or 1 on error. */
+/* Run 'command' and redirects standard streams to open descriptors stored in the integer vector 'io'.
+   Compare the subprocess' execution results collected by 'runcmd' with those passed as arguments.
+   If they match, return true; otherwise return false. */
 
-int tryrun (char *command,  int *io, int correct_termination, int correct_exit_status, int execresult)
+int tryrun (const char *command,  int *io, int correct_termination, int correct_exit_status, int execresult)
 {
   int pid, nbytes, test, count;
   int result;
@@ -31,7 +54,7 @@ int tryrun (char *command,  int *io, int correct_termination, int correct_exit_s
 
   /* Needed because we'll change 'command'. */
   command_line = malloc ((strlen(command) * sizeof(char))+1);
-  fatal (!command_line);
+  sysfatal (!command_line);
   strcpy (command_line, command);
 
   /* Run the command.*/
@@ -39,7 +62,6 @@ int tryrun (char *command,  int *io, int correct_termination, int correct_exit_s
   runcmd_onexit = finish;
 
   pid = runcmd (command_line,  &result, io);
-
 
   if (pid==0)
     {
@@ -67,12 +89,12 @@ int tryrun (char *command,  int *io, int correct_termination, int correct_exit_s
   
     printf ("%s (pid %d) terminated %s  %s (status %d) %n", 
 	    command, pid, 
-	    IS_NORMAL(&result) ? "normally" : "abnormally", 
-	    IS_NORMAL(&result) ? (EXITVALUE(&result) == EXIT_SUCCESS ? "and sucessfully" : "and unsucessfully") :  "",
-	    EXITVALUE(&result), &nbytes);
+	    IS_NORMTERM(&result) ? "normally" : "abnormally", 
+	    IS_NORMTERM(&result) ? (EXITSTATUS(&result) == EXIT_SUCCESS ? "and sucessfully" : "and unsucessfully") :  "",
+	    EXITSTATUS(&result), &nbytes);
     
-    test =  (EXITVALUE(&result) == correct_exit_status) 
-      && (IS_NORMAL(&result) == correct_termination);
+    test =  (EXITSTATUS(&result) == correct_exit_status) 
+      && (IS_NORMTERM(&result) == correct_termination);
     test = ! test;
     
 
@@ -107,9 +129,9 @@ int main (int argc, char **argv)
   result = 0;
 
   /* Disable standard streams for convenience. */
-  fatal ((io[0] = open ("/dev/null", O_WRONLY)) <0);
-  fatal ((io[1] = open ("/dev/null", O_WRONLY)) <0);
-  fatal ((io[2] = open ("/dev/null", O_WRONLY)) <0);
+  sysfatal ((io[0] = open ("/dev/null", O_WRONLY)) <0);
+  sysfatal ((io[1] = open ("/dev/null", O_WRONLY)) <0);
+  sysfatal ((io[2] = open ("/dev/null", O_WRONLY)) <0);
 
   result +=tryrun (cmd1, io, 1, 0, EXECYES);   /* Normal, success. */
   result +=tryrun (cmd2, io, 0, 0, EXECYES);   /* Abnormal, any.   */
@@ -119,13 +141,13 @@ int main (int argc, char **argv)
 
   /* Test redirection. */
 
-  fatal ((fd = open ("in.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0);
+  sysfatal ((fd = open ("in.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0);
   write (fd, "a", 1);
-  fatal(close(fd)<0);
+  sysfatal(close(fd)<0);
 
-  fatal ((io2[0] = open ("in.txt", O_RDONLY)) <0);
-  fatal ((io2[1] = open ("out.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0);
-  fatal ((io2[2] = open ("err.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0);
+  sysfatal ((io2[0] = open ("in.txt", O_RDONLY)) <0);
+  sysfatal ((io2[1] = open ("out.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0);
+  sysfatal ((io2[2] = open ("err.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0);
 
 
   /* cmd, io, term, exit, exec */
