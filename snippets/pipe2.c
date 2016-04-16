@@ -1,10 +1,10 @@
-/* eg-pipe2 - Another pipe example, with redirection.
+/* pipe2 - Another pipe example, with redirection.
 
    Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
 
-   This file is part of POSIXeg.
+   This file is part of POSIX.
 
-   POSIXeg is free software: you can redistribute it and/or modify
+   POSIX is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
@@ -64,7 +64,7 @@ int main (int argc, char **argv)
 	 is within the kernel, so both process have access to it
 	 through the file descriptors.*/
       
-      /*  The trick is the same used to redirect output to a regular file.
+      /*  The trick is the same used to redirect output to a rular file.
 	  We close the standar output's descriptor (1) and duplicate the pipe's
 	  writting end (4).  We end up with file descriptors 1 and 4 pointing
 	  to the pipe writting end (output end).*/
