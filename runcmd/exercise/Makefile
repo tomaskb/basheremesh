@@ -34,7 +34,7 @@
 #
 
 # Give the project a name
-PROJECTNAME = foo
+PROJECTNAME = runcmd
 
 # Sources needed to build the library
 libsources = runcmd.c 
