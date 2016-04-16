@@ -42,7 +42,8 @@ int main (int argc, char **argv)
      action associated to SIGINT, we want the function say_hello to 
      be called. 
 
-     Note that signal() is obsolte. Use sigaction() instead.*/
+     Note that signal() is deprecated. 
+     Use sigaction() instead (see example signal2.c) */
 
   result = signal (SIGINT, say_hello); /* SIGINT is Ctr-C */
   sysfatal (result == SIG_ERR);

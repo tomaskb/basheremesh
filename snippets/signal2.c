@@ -1,4 +1,4 @@
-/* eg-signal.c - Example of signal handling (with sigaction). 
+/* signal2.c - Example of signal handling (with sigaction). 
 
    Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
 
