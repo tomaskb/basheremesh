@@ -1,5 +1,9 @@
 
 POSIX Exempli Gratia (POSIX by example) - Solved.                                                                                                                  
+
+Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
+This is Free Open Source Software. For licensing, see COPYING.TXT
+
 ----------------------------------------------------------------------                                                                                             
                                                                                                                                                                    
 POSIX-eg is small toolbox of simple POSIX function usage examples.                                                                                                 
