@@ -55,7 +55,7 @@ aux-bin = segfault io delay
 
 # Building tools
 
-INCLUDEPATH = . ../../utils 
+INCLUDEPATH = .  
 
 CC = gcc
 CPP_FLAGS = $(INCLUDEPATH:%=-I%) -Wall -Werror -std=c89 --pedantic-errors -D_POSIX_C_SOURCE=200112L 
@@ -140,4 +140,23 @@ test:	all
 
 .PHONY = clean 
 clean : INCLUDE_D=NO
+
+# THIS IS WORKING. We are testing an alternative, though.
+# Not really: make clean, rm debug.h, make does not work
+
+# include projfiles.mk
+
+# projfiles.mk :
+# 	touch $@
+
+# Alternative
+
+# bar=x
+# ifdef bar
+
+debug.h : ../../utils/debug.h 
+	@echo "######## copying $<"
+	cp ../../utils/debug.h .
+
+# endif
 
