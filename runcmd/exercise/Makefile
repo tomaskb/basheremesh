@@ -84,7 +84,7 @@ makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
 %.d : %.c
 	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:%.c=%.o) $@' $< > $@
 
-ifneq ($(INCLUDE_D),NO)
+ifeq (,$(filter clean,$(MAKECMDGOALS)))
 include $(makefiles)
 endif
 
