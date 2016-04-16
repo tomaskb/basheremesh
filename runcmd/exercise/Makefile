@@ -118,11 +118,10 @@ uninstall:
 	rm -f $(PREFIX)/lib/$(libfile)
 	rm -f $(PREFIX)/include/$(libheaders)
 
-
-$(tests-bin) : % : %.o $(libfile) $(libheaders)
+$(tests-bin) : % : %.o | $(libfile) $(libheaders)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 -l$(PROJECTNAME)
 
-$(aux-bin) : % : %.o
+$(aux-bin) : % : %.o | $(libfile) $(libheaders)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 
 
 
