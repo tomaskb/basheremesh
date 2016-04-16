@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-OBJECTS = crash.o eg-exec.o eg-fork.o eg-io-redirect.o eg-pipe2.o eg-pipe.o eg-pipeline.o eg-signal-better.o eg-signal.o loop.o toggle-output.o token.o
+OBJECTS = crash.o exec.o fork.o io-redirect.o pipe2.o pipe.o pipeline.o signal-better.o signal.o loop.o toggle-output.o token.o
 
 INCLUDEPATH = . ../utils 
 CPP_FLAGS = $(INCLUDEPATH:%=-I%) -Wall -Werror --std=c89 --pedantic-errors -D_POSIX_C_SOURCE=200112L 

@@ -40,7 +40,7 @@ int main (int argc, char **argv)
      already exists. */
   
   fd = open ("output.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR);
-  fatal(fd<0);
+  sysfatal(fd<0);
   
   /* Then we close the file descriptor associated to the
      standard output.  By default, it's file descriptor number 1
@@ -53,7 +53,7 @@ int main (int argc, char **argv)
      the file descriptor 1 is now empty, therefore it's choosen. */
   
   temp = dup (fd);
-  fatal (temp <0);
+  sysfatal (temp <0);
   
   /* We don't need two file descriptors associated to the open
      file, therefore we close fd.  Leaving it open, it's not 

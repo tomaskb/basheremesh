@@ -45,7 +45,7 @@ int main (int argc, char **argv)
      Note that signal() is obsolte. Use sigaction() instead.*/
 
   result = signal (SIGINT, say_hello); /* SIGINT is Ctr-C */
-  fatal (result == SIG_ERR);
+  sysfatal (result == SIG_ERR);
 
   while(1);
 

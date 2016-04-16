@@ -37,10 +37,10 @@ void doit (char *cmd[][NUM_COMMANDS], int pipeA[2], int count)
   if (cmd[0][0] != NULL)
     {
 
-      fatal (pipe (pipeB)<0);
+      sysfatal (pipe (pipeB)<0);
 
       pid = fork();
-      fatal (pid<0);
+      sysfatal (pid<0);
       
       if (pid>0)			/* Parent: exec */
 	{

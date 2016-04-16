@@ -43,7 +43,7 @@ int main (int argc, char **argv)
      here just zero all the fields we don't need to adjust properly. */
 
   temp = memset(&act, 0, sizeof(struct sigaction));
-  fatal (!temp);
+  sysfatal (!temp);
 
   /* The only field of the sigaction structure we are interested
      is the pointer to the handler function. */
@@ -55,7 +55,7 @@ int main (int argc, char **argv)
      be called. */
 
   result = sigaction(SIGTSTP, &act, NULL); /* SIGTSTP is ^Z */
-  fatal (result<0);
+  sysfatal (result<0);
 
   while(1);			/* Remain here forever. */
 

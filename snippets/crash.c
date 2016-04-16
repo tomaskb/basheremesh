@@ -74,7 +74,7 @@ int main (int argc, char **argv)
 	{
 
 	  pid = fork ();	/* Fork */
-	  fatal(pid<0);
+	  sysfatal(pid<0);
 
 	  if ( pid > 0 )	/* Parent. */
 	    {

@@ -39,7 +39,7 @@ main (int argc, char **argv)
   /* Here we create a child process. */
 
   pid = fork ();		/* From this point we (may) have 2 processes.*/
-  fatal(pid<0);
+  sysfatal(pid<0);
   
   if (pid >0)			/* In the parent process pid == child's PID. */
     {
