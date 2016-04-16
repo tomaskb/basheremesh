@@ -69,12 +69,12 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
   /* Create a subprocess. */
 
   pid = fork();
-  fail (pid<0, -1);
+  sysfail (pid<0, -1);
 
   if (pid>0)			/* Caller process (parent). */
     {
       aux = wait (&status);
-      fail (aux<0, -1);
+      sysfail (aux<0, -1);
       
       /* Collect termination mode. */
       if (WIFEXITED(status)) 
@@ -83,7 +83,7 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
   else				/* Subprocess (child) */
     {
       aux = execvp (args[0], args);
-      fail (aux<0, -1);
+      sysfail (aux<0, -1);
     }
   return pid;			/* Only parent reaches this point. */
 }

@@ -26,29 +26,26 @@ int main (int argc, char **argv)
   aux = write (1,"b",1);
   errors += (aux<0) ? 1 : 0;
   close(1);
-  fatal ((open ("/dev/null", O_WRONLY)) <0);
+  sysfatal ((open ("/dev/null", O_WRONLY)) <0);
 
-  fatal ((fd = open (outfile, O_RDONLY)) <0);
+  sysfatal ((fd = open (outfile, O_RDONLY)) <0);
   aux = read (fd,&c,1);
   errors += (aux<0) ? 1 : 0;
   errors += (c!='b') ? 1 : 0;
-  fatal (close(fd)<0);
+  sysfatal (close(fd)<0);
 
 
   /* Try to write to standard error (errnfile) and read it again.*/
   aux = write (2,"c",1);
   errors += (aux<0) ? 1 : 0;
   close(2);
-  fatal ((open ("/dev/null", O_WRONLY)) <0);
+  sysfatal ((open ("/dev/null", O_WRONLY)) <0);
 
-  fatal ((fd = open (errfile, O_RDONLY)) <0);
+  sysfatal ((fd = open (errfile, O_RDONLY)) <0);
   aux = read (fd,&c,1);
   errors += (aux<0) ? 1 : 0;
   errors += (c!='c') ? 1 : 0;
-  fatal (close(fd)<0);
-
-
-
+  sysfatal (close(fd)<0);
 
   return errors;
 }
