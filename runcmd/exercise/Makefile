@@ -1,21 +1,21 @@
 # Makefile - Build runcmd project.
 #
-# Copyright 2014  Monaco F. J.  <monaco@icmc.usp.br>
+# Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
 #
-# This file is part of POSIXeg. 
+# This file is part of POSIXeg.
 #
-#  POSIXeg is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or
-#  (at your option) any later version.
+# POSIXeg is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#  SICSE is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#  You should have received a copy of the GNU General Public License
-#  along with .  If not, see <http://www.gnu.org/licenses/>. 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 # Directions: 
@@ -23,141 +23,211 @@
 # make		    builds everything
 # make clean	    clean up the mess
 # make dist	    pack files to distribute
-# make distclean    restore to original state
+# make distcheck    make dist and check package
 # make install      install the libraries
 # make uninstall    uninstall the libraries
 # make test         perform all runtime tests
 
 
 #
-# Do not touch bellow this line.
+# COSTOMIZE FOR YOUR PROJECT
 #
 
-# Give the project a name
+# Give your project a name, e.g.
+# PROJECT = FooBar
 
-PROJECTNAME = runcmd
+PROJECT = runcmd
 
-# Sources needed to build the library
+# Name your project's binaires, eg.
+# bin = foo bar
+bin = test-runcmd
 
-libsources = runcmd.c 
+# For each item in $(bin), name the objects needed to build it, e.g.
+# foo_obj = main_foo.o 
+# bar_obj = main_bar.o 
+test-runcmd_obj = test-runcmd.o
 
-# Headers to be distributed
+# For each item in $(bin), name the project libraries to which it shall be linked, e.g.
+# foo_lib = libfoobar
+# bar_lib = libfoobar libm
+test-runcmd_lib = libruncmd
 
-libheaders = runcmd.h
+# For each item in $(bin), name the other libraries to which it shall be linked, e.g.
+# foo_lib_other = libfoobar
+# bar_lib_other = libfoobar libm
 
-# Where do you want to install the lib
 
-PREFIX=.
+# Name your project's libraries (to be installed), e.g.
+# lib = libfoobar
+lib = libruncmd
 
-# Name your tests (baz is made from baz.c with the library)
+# For each item in $(lib), name the objects needed to build it, e.g.
+# libfoobar_obj = foo.o bar.o
+libruncmd_obj = runcmd.o
 
-tests-bin = test-runcmd 
+# For each item in $(lib), name the headers your project installs, e.g.
+#libfoobar_h = foos.h
+libruncmd_h = foo.h
 
-# Auxiliary programs (baz is made from baz.c only)
-aux-bin = segfault io delay
+# Name your project's auxuliary binaries (not to be installed), e.g.
+# noinst_bin = example
+noinst_bin = delay io
 
-# Name the generated header files, if any
-GENERATED_HEADERS = debug.h
+# For each item in $(noinst_bin), name the objects needed to build it, e.g.
+# example_obj = example.o 
+delay_obj = delay.o
+io_obj = io.o
 
-# Building tools
+# For each item in $(noinst_bin), name the libraries to which it's to be linked, e.g.
+# example_lib = libfoobar
 
-INCLUDEPATH = .  
+# Extra files to go in the distribution (add as needed)
+
+EXTRA_DIST = Makefile 
+
+# Installation prefix
+
+PREFIX=./local
+
+# Customize the building environemnt (modify as desired)
+
 CC = gcc
-CPP_FLAGS = $(INCLUDEPATH:%=-I%) -Wall -Werror -std=c89 --pedantic-errors -D_POSIX_C_SOURCE=200112L 
+CPP_FLAGS = -I. -Wall --ansi --pedantic-errors -D_POSIX_C_SOURCE=200112L 
 C_FLAGS = 
-LD_FLAGS = -L. 
+LD_FLAGS = -L.
 MAKE = make
-SHELL = /bin/sh 
+AR = ar
 
 #
-# Mostly automatic from here on
+# YOU WON'T PROBABLY NEED TO MODIFY BELLOW THIS LINE
 #
+# Automatic from here on
 
-all: $(libfile) $(tests-bin) $(aux-bin)
 
-# How to make the library (static only)
+# Handy variables
 
-libfile = lib$(PROJECTNAME).a
+lib_static = $(lib:%=%.a)
+lib_shared = $(lib:%=%.so)
+lib_all = $(lib_static) $(lib_shared)
 
-libobjects = $(libsources:.c=.o)
+all_lib_obj = $(foreach i, $(lib:%=%_obj), $($i))
+all_lib_h = $(foreach i, $(lib:%=%_h), $($i))
+all_bin_obj = $(foreach i, $(bin:%=%_obj), $($i))
+all_noinst_bin_obj = $(foreach i, $(noinst_bin:%=%_obj), $($i))
 
-$(libfile): $(libobjects)
-	ar rcs $@ $^
+# Build everything
 
-# How to build the binaries
+all: $(lib_static) $(lib_shared) $(bin) $(noinst_bin) 
 
-$(tests-bin) : % : %.o | $(libfile) $(libheaders)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 -l$(PROJECTNAME)
+static: $(lib_static) $(bin:%=%-static) $(noinst_bin:%=%-static) 
 
-$(aux-bin) : % : %.o | $(libfile) $(libheaders)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 
+.SECONDEXPANSION:
 
-# How to make objects from sources
+# Automaic rules for building libraries
 
-%.o : %.c | $(GENERATED_HEADERS)
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $<
+$(lib_static) : %.a : $$($$*_obj)
+	$(AR) rcs $@ $^
 
-# Header dependencies
+$(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
+	$(CC) -shared $(LD_FLAGS) $(LDFLAGS) $^ -o $@
 
-makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
+
+
+# Automatic rules for building binaires
+
+$(bin) $(noinst_bin): % : $$($$*_obj)  $$($$*_lib:%.%.so)  
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+
+
+$(bin:%=%-static) $(noinst_bin:%=%-static): %-static : $$($$*_obj)  $$($$*_lib:%.%.so)  
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
+
+
+# Automatic sufix-rules
+
+%.o : %.c
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $< -o $@
+
+%-pic.o : %.c
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  -fPIC $< -o $@
+
+# Atuomatic header dependences
+
+all_bin_d = $(all_bin_obj:%.o=%.d)
+all_noinst_bin_d = $(all_noinst_bin_obj:%.o=%.d)
+all_lib_static_d = $(all_lib_obj:%.o=%.d)
+all_lib_shared_d = $(all_lib_obj:%.o=%-pic.d)
+
+
 %.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:%.c=%.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:.c=.o) $@' $< > $@
 
-ifeq (,$(filter clean distclean,$(MAKECMDGOALS)))
-include $(makefiles)
+%-pic.d : %.c
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:.c=-pic.o) $@' $< > $@
+
+# NO_D := 
+# NO_D := $(or $(NO_D), $(findstring clean,$(MAKECMDGOALS)))
+# NO_D := $(or $(NO_D), $(findstring uninstall,$(MAKECMDGOALS)))
+# ifeq (,$(NO_D))
+# include $(all_bin_d) $(all_noinst_bin_d) $(all_static_lib_d) $(all_lib_shared_d)
+# endif
+
+ifneq (,$(filter clean uninstall, $(MAKECMDGOALS)))
+include $(all_bin_d) $(all_noinst_bin_d) $(all_static_lib_d) $(all_lib_shared_d)
 endif
 
-# Generated headers (see headers.mk)
+# Housekeeping
 
-include headers.mk
+EXTRA_GARBAGE = *~ \#*
 
-headers.mk :
-	touch $@
-
-
-# How to make the distribution tarball
-
-tests-source = $(tests-bin:%=%.c)
-
-aux-source = $(aux-bin:%=%.c)
-
-dist: $(libsources) *.h Makefile $(tests-source) $(aux-source) tests.mk
-	rm -rf $(PROJECTNAME)
-	mkdir $(PROJECTNAME)
-	cp $^ $(PROJECTNAME)
-	tar zcvf $(PROJECTNAME).tgz $(PROJECTNAME)
-	rm -rf $(PROJECTNAME)
-
-# Clean garbage
+.PHONY: clean
 
 clean: 
-	rm -f *.o $(makefiles) $(libfile) *~ $(tests-bin) $(aux-bin) *\# \.\#* 
-	rm -f *.txt
-	rm -rf $(PROJECTNAME) $(NUSP)
+	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(noinst_bin) $(bin:%=%-static) $(noinst_bin:%=%-static)
+	rm -f $(EXTRA_GARBAGE) 
+	rm -rf $(PROJECT) $(PROJECT).tgz
 
-distclean: clean
-	rm -f $(PROJECTNAME).tgz
+# Distribution
 
-# Install rules
+all_sources = $(all_bin_obj:%.o=%.c) $(all_noinst_bin_obj:%.o=%.c) $(all_lib_obj:%.o=%.c) 
 
-install : $(libfile) $(libheaders)
+all_headers := $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT " " $(all_sources)) 
+all_headers := $(filter %.h, $(all_headers))
+all_headers := $(sort $(all_headers)) 
+
+dist: $(all_sources) $(all_headers) $(EXTRA_DIST)
+	rm -rf $(PROJECT)
+	mkdir $(PROJECT)
+	cp $^ $(PROJECT)
+	tar zcvf $(PROJECT).tgz $(PROJECT)
+
+distcheck: dist
+	if $(MAKE) -C $(PROJECT) ; then echo "\n$(PROJECT).tgz ready for distribution"; \
+	else echo "\nSomething wrong with $(PROJECT).tgz"; fi; echo 
+
+# Install, uninstall
+
+install : $(lib_all) $(bin) $(all_lib_h)
 	install -d $(PREFIX)/lib
 	install -d $(PREFIX)/include
-	cp $(libfile) $(PREFIX)/lib/
-	cp $(libheaders) $(PREFIX)/include/
+	install -d $(PREFIX)/bin
+	cp $(lib_all) $(PREFIX)/lib/
+	cp $(all_lib_h) $(PREFIX)/include/
+	cp $(bin) $(PREFIX)/bin/
+	for i in $(bin:%=%-static); do if test -f $$i ; then cp $$i $(PREFIX)/bin; fi; done
 
 uninstall: 
-	rm -f $(PREFIX)/lib/$(libfile)
-	rm -f $(PREFIX)/include/$(libheaders)
+	for i in $(lib_all) ; do rm -f $(PREFIX)/lib/$$i; done
+	for i in $(all_lib_h) ; do rm  -f $(PREFIX)/include/$$i; done
+	for i in $(bin) ; do rm -f $(PREFIX)/bin/$$i; done
+	for i in $(bin) ; do rm -f $(PREFIX)/bin/$$i-static; done
 
+# Tests(if any)
 
-
-# Perform some tests
-
-include tests.mk
-
-.PHONY = clean 
-clean : INCLUDE_D=NO
+test: all
+	@if test -f Makefile.tests ; then \
+	$(MAKE) -f Makefile.tests $(filter-out test, $(MAKECMDGOALS));\
+	else echo "No test to be performed"; fi
 
 
 
