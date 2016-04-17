@@ -27,7 +27,7 @@
 #include <signal.h>
 #include <string.h>
 
-#include <foo.h>
+#include <runcmd.h>
 #include <debug.h>
 
 

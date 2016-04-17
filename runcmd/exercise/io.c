@@ -4,7 +4,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <foo.h>
+#include <runcmd.h>
 #include <debug.h>
 
 #define infile "in.txt"

@@ -28,10 +28,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <foo.h>
+#include <runcmd.h>
 #include <debug.h>
 
-#define LOGFILE "foo.log"
+#define LOGFILE "runcmd.log"
 #define EXECYES 0
 #define EXECFAIL 1
 
