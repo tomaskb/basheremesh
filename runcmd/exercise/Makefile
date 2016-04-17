@@ -43,7 +43,7 @@ libsources = runcmd.c
 
 # Headers to be distributed
 
-libheaders = foo.h
+libheaders = runcmd.h
 
 # Where do you want to install the lib
 
