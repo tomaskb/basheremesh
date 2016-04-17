@@ -53,6 +53,10 @@ tests-bin = test-runcmd
 
 aux-bin = segfault io delay
 
+# Do we need to generate some header file?
+
+GENERATED_HEADERS = debug.h
+
 # Building tools
 
 INCLUDEPATH = .  
@@ -77,7 +81,7 @@ libobjects = $(libsources:.c=.o)
 $(libfile): $(libobjects)
 	ar rcs $@ $^
 
-%.o : %.c 
+%.o : %.c | $(GENERATED_HEADERS)
 	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $<
 
 makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
@@ -92,7 +96,7 @@ tests-source = $(tests-bin:%=%.c)
 
 aux-source = $(aux-bin:%=%.c)
 
-dist: $(libsources) *.h Makefile $(tests-source) $(aux-source)
+dist: $(libsources) *.h Makefile $(tests-source) $(aux-source) tests.mk
 	rm -rf $(PROJECTNAME)
 	mkdir $(PROJECTNAME)
 	cp $^ $(PROJECTNAME)
@@ -125,37 +129,19 @@ $(aux-bin) : % : %.o | $(libfile) $(libheaders)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 
 
 
-# Test
+# Generated headers (see headers.mk)
 
-test:	all
-	@rm -f nosuchfile *.log
-	@echo "\nRunning tests...\n"
-	@total=0;\
-	for i in $(tests-bin); do echo;\
-	./$$i; nerrors=$$?; total=$$(( $$total + $$nerrors)); done; \
-	echo; \
-	if test $$total -eq 0 ; then echo -n "Good! All tests ok!"; else echo -n "Found $$total error(s). Some tests failed."; fi;
-	@echo; echo
+include headers.mk
+
+headers.mk :
+	touch $@
+
+# Perform some tests
+
+include tests.mk
 
 .PHONY = clean 
 clean : INCLUDE_D=NO
 
-# THIS IS WORKING. We are testing an alternative, though.
-# Not really: make clean, rm debug.h, make does not work
 
-# include projfiles.mk
-
-# projfiles.mk :
-# 	touch $@
-
-# Alternative
-
-# bar=x
-# ifdef bar
-
-debug.h : ../../utils/debug.h 
-	@echo "######## copying $<"
-	cp ../../utils/debug.h .
-
-# endif
 
