@@ -47,7 +47,7 @@ bin = test-runcmd
 # bar_obj = main_bar.o 
 test-runcmd_obj = test-runcmd.o
 
-# For each item in $(bin), name the project libraries to which it shall be linked, e.g.
+# For each item in $(bin), name the project's libraries to which it shall be linked, e.g.
 # foo_lib = libfoobar
 # bar_lib = libfoobar libm
 test-runcmd_lib = libruncmd
@@ -80,6 +80,7 @@ io_obj = io.o
 
 # For each item in $(noinst_bin), name the libraries to which it's to be linked, e.g.
 # example_lib = libfoobar
+
 
 # Extra files to go in the distribution (add as needed)
 
@@ -117,9 +118,9 @@ all_noinst_bin_obj = $(foreach i, $(noinst_bin:%=%_obj), $($i))
 
 # Build everything
 
-all: $(lib_static) $(lib_shared) $(bin) $(noinst_bin) 
+all static: $(lib_static) $(lib_shared) $(bin) $(noinst_bin) 
 
-static: $(lib_static) $(bin:%=%-static) $(noinst_bin:%=%-static) 
+# static: $(lib_static) $(bin:%=%-static) $(noinst_bin:%=%-static) 
 
 .SECONDEXPANSION:
 
@@ -135,13 +136,22 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 
 # Automatic rules for building binaires
 
-$(bin) $(noinst_bin): % : $$($$*_obj)  $$($$*_lib:%.%.so)  
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+# $(bin) $(noinst_bin): % : $$($$*_obj)  $$($$*_lib:%.%.so)  
+# 	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 
 
-$(bin:%=%-static) $(noinst_bin:%=%-static): %-static : $$($$*_obj)  $$($$*_lib:%.%.so)  
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
+# $(bin:%=%-static) $(noinst_bin:%=%-static): %-static : $$($$*_obj)  $$($$*_lib:%.%.so)  
+# 	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
 
+ifneq (,$(filter static, $(MAKECMDGOALS)))
+# Statically linked
+$(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a) 
+	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+else
+# Dynamically linked
+$(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
+	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+endif
 
 # Automatic sufix-rules
 
@@ -165,14 +175,7 @@ all_lib_shared_d = $(all_lib_obj:%.o=%-pic.d)
 %-pic.d : %.c
 	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:.c=-pic.o) $@' $< > $@
 
-# NO_D := 
-# NO_D := $(or $(NO_D), $(findstring clean,$(MAKECMDGOALS)))
-# NO_D := $(or $(NO_D), $(findstring uninstall,$(MAKECMDGOALS)))
-# ifeq (,$(NO_D))
-# include $(all_bin_d) $(all_noinst_bin_d) $(all_static_lib_d) $(all_lib_shared_d)
-# endif
-
-ifneq (,$(filter clean uninstall, $(MAKECMDGOALS)))
+ifeq (,$(filter clean uninstall, $(MAKECMDGOALS)))
 include $(all_bin_d) $(all_noinst_bin_d) $(all_static_lib_d) $(all_lib_shared_d)
 endif
 
