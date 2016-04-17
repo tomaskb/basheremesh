@@ -1,4 +1,4 @@
-# Makefile - Simple Makefile to build a library.
+# Makefile - Build runcmd project.
 #
 # Copyright 2014  Monaco F. J.  <monaco@icmc.usp.br>
 #
@@ -34,15 +34,19 @@
 #
 
 # Give the project a name
+
 PROJECTNAME = runcmd
 
 # Sources needed to build the library
+
 libsources = runcmd.c 
 
 # Headers to be distributed
+
 libheaders = foo.h
 
 # Where do you want to install the lib
+
 PREFIX=.
 
 # Name your tests (baz is made from baz.c with the library)
@@ -50,17 +54,14 @@ PREFIX=.
 tests-bin = test-runcmd 
 
 # Auxiliary programs (baz is made from baz.c only)
-
 aux-bin = segfault io delay
 
-# Do we need to generate some header file?
-
+# Name the generated header files, if any
 GENERATED_HEADERS = debug.h
 
 # Building tools
 
 INCLUDEPATH = .  
-
 CC = gcc
 CPP_FLAGS = $(INCLUDEPATH:%=-I%) -Wall -Werror -std=c89 --pedantic-errors -D_POSIX_C_SOURCE=200112L 
 C_FLAGS = 
@@ -72,17 +73,31 @@ SHELL = /bin/sh
 # Mostly automatic from here on
 #
 
-libfile = lib$(PROJECTNAME).a
-
 all: $(libfile) $(tests-bin) $(aux-bin)
+
+# How to make the library (static only)
+
+libfile = lib$(PROJECTNAME).a
 
 libobjects = $(libsources:.c=.o)
 
 $(libfile): $(libobjects)
 	ar rcs $@ $^
 
+# How to build the binaries
+
+$(tests-bin) : % : %.o | $(libfile) $(libheaders)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 -l$(PROJECTNAME)
+
+$(aux-bin) : % : %.o | $(libfile) $(libheaders)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 
+
+# How to make objects from sources
+
 %.o : %.c | $(GENERATED_HEADERS)
 	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $<
+
+# Header dependencies
 
 makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
 %.d : %.c
@@ -91,6 +106,16 @@ makefiles = $(libobjects:%.o=%.d) $(tests-bin:%=%.d) $(aux-bin:%=%.d)
 ifeq (,$(filter clean distclean,$(MAKECMDGOALS)))
 include $(makefiles)
 endif
+
+# Generated headers (see headers.mk)
+
+include headers.mk
+
+headers.mk :
+	touch $@
+
+
+# How to make the distribution tarball
 
 tests-source = $(tests-bin:%=%.c)
 
@@ -103,6 +128,7 @@ dist: $(libsources) *.h Makefile $(tests-source) $(aux-source) tests.mk
 	tar zcvf $(PROJECTNAME).tgz $(PROJECTNAME)
 	rm -rf $(PROJECTNAME)
 
+# Clean garbage
 
 clean: 
 	rm -f *.o $(makefiles) $(libfile) *~ $(tests-bin) $(aux-bin) *\# \.\#* 
@@ -111,6 +137,8 @@ clean:
 
 distclean: clean
 	rm -f $(PROJECTNAME).tgz
+
+# Install rules
 
 install : $(libfile) $(libheaders)
 	install -d $(PREFIX)/lib
@@ -122,19 +150,7 @@ uninstall:
 	rm -f $(PREFIX)/lib/$(libfile)
 	rm -f $(PREFIX)/include/$(libheaders)
 
-$(tests-bin) : % : %.o | $(libfile) $(libheaders)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 -l$(PROJECTNAME)
 
-$(aux-bin) : % : %.o | $(libfile) $(libheaders)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@	 
-
-
-# Generated headers (see headers.mk)
-
-include headers.mk
-
-headers.mk :
-	touch $@
 
 # Perform some tests
 
