@@ -1,4 +1,5 @@
-# Generated header files
+# These files are generated in the development enviroment and 
+# distributed along with other source files.
 
 # Rationales. 
 #

@@ -67,7 +67,7 @@ libruncmd_obj = runcmd.o
 
 # For each item in $(lib), name the headers your project installs, e.g.
 #libfoobar_h = foos.h
-libruncmd_h = foo.h
+libruncmd_h = runcmd.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # noinst_bin = example
@@ -120,8 +120,6 @@ all_noinst_bin_obj = $(foreach i, $(noinst_bin:%=%_obj), $($i))
 
 all static: $(lib_static) $(lib_shared) $(bin) $(noinst_bin) 
 
-# static: $(lib_static) $(bin:%=%-static) $(noinst_bin:%=%-static) 
-
 .SECONDEXPANSION:
 
 # Automaic rules for building libraries
@@ -133,15 +131,11 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 	$(CC) -shared $(LD_FLAGS) $(LDFLAGS) $^ -o $@
 
 
-
-# Automatic rules for building binaires
-
-# $(bin) $(noinst_bin): % : $$($$*_obj)  $$($$*_lib:%.%.so)  
-# 	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
-
-
-# $(bin:%=%-static) $(noinst_bin:%=%-static): %-static : $$($$*_obj)  $$($$*_lib:%.%.so)  
-# 	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) $(patsubst lib%, -l%, $($*_lib)) $(patsubst lib%, -l%, $($*_lib_other)) -o $@ 
+# Automatic rules for building binaires. By default, both static and shared
+# libraries are built and installed. The binary is dynalically linked. If
+# the executables are to be linked against the static libraries, the target
+# 'static' produces this result. This does not prevent the building and
+# installation of the shared libraries, anyway..
 
 ifneq (,$(filter static, $(MAKECMDGOALS)))
 # Statically linked
@@ -168,12 +162,11 @@ all_noinst_bin_d = $(all_noinst_bin_obj:%.o=%.d)
 all_lib_static_d = $(all_lib_obj:%.o=%.d)
 all_lib_shared_d = $(all_lib_obj:%.o=%-pic.d)
 
-
 %.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:.c=.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT '$(<:.c=.o) $@' $< > $@
 
 %-pic.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:.c=-pic.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
 
 ifeq (,$(filter clean uninstall, $(MAKECMDGOALS)))
 include $(all_bin_d) $(all_noinst_bin_d) $(all_static_lib_d) $(all_lib_shared_d)
