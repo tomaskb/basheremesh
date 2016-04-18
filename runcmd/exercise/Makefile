@@ -196,7 +196,7 @@ ifeq (,$(filter clean uninstall, $(MAKECMDGOALS))) # Don't do it if not needed
 endif
 
 
-.PHONY: clean
+.PHONY: clean dist distcheck install uninstall
 
 clean: 
 	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(noinst_bin) $(bin:%=%-static) $(noinst_bin:%=%-static)
