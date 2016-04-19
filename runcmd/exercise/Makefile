@@ -139,9 +139,6 @@ proj_dep = $(proj_src:%.c=%.d)  # For building
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT " " $(proj_src)) )
 proj_headers += $(inst_headers) # For distribution
 
-# Internals
-
-TEMPINST = aux    # Temporary files 
 
 #
 # Rules
@@ -149,22 +146,10 @@ TEMPINST = aux    # Temporary files
 
 # Build everything
 
-TEMPINST:=$(TEMPINST:%/=%)# Do NOT allow trailing blanks here
 
-ifeq (,$(TEMPINST))       # Let's check anyway
-$(error TEMPINST not defined)
-endif
-ifneq (,$(word 2, $(TEMPINST)))
-$(error TEMPINST has trailing blanks)
-endif
-
-
-all static : $(TEMPINST:%=%) $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
+all static : $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
 
 .SECONDEXPANSION:
-
-$(TEMPINST:%=%) :
-	mkdir $@
 
 # Pattern rules for building libraries
 
@@ -182,23 +167,20 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 # This does not prevent the building and installation of the shared 
 # libraries, anyway.
 
-$(bin) $(noinst_bin): % : $(TEMPDIST)/$$*
-
 ifneq (,$(filter static, $(MAKECMDGOALS))) 
 # Statically linked
 
 $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a) 
-	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$@
-	echo "#!/bin/sh\n$(TEMPINST:%=%)/$@" > $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	echo "#!/bin/sh\n./$(@:%=.%)" > $@
 	chmod u+x $@
 else
 # Dynamically linked
 
-#$(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
 $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
 	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$@
-	echo "#!/bin/sh\nLD_LIBRARY_PATH=. $(TEMPINST:%=%)/$@" > $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
 endif
 
@@ -234,7 +216,6 @@ clean:
 	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(noinst_bin) $(bin:%=%-static) $(noinst_bin:%=%-static)
 	rm -f $(EXTRA_GARBAGE) 
 	rm -rf $(PROJECT) $(PROJECT).tgz
-	if test ! -z $(TEMPINST:%=%) ; then rm -rf $(TEMPINST:%=%) ; fi
 
 # Distribution
 
@@ -257,14 +238,12 @@ install : $(lib_all) $(bin) $(inst_headers)
 	install -d $(PREFIX)/bin
 	cp $(lib_all) $(PREFIX)/lib/
 	cp $(inst_headers) $(PREFIX)/include/
-	cp $(bin) $(PREFIX)/bin/
-	for i in $(TEMPINST)/$(bin); do if test -f $$i ; then cp $$i $(PREFIX)/bin; fi; done
-	@echo ToDo: copy the right file from TEMPINST
+	for i in $(bin:%=.%); do if test -f $$i ; then cp $${i#.} $(PREFIX)/bin; fi; done
 
 uninstall: 
 	for i in $(lib_all) ; do rm -f $(PREFIX)/lib/$$i; done
 	for i in $(inst_headers) ; do rm  -f $(PREFIX)/include/$$i; done
-	for i in $(bin) ; do rm -f $(PREFIX)/bin/$$i; done
+	for i in $(bin) ; do rm -f $(PREFIX)/bin/$${i#.}; done
 
 
 # Generated, distributed source files (see gendist.mk)
