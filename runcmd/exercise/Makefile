@@ -141,8 +141,7 @@ proj_headers += $(inst_headers) # For distribution
 
 # Internals
 
-TEMPINST = aux# Temporary files (do *NOT* allow trailing blanks)
-
+TEMPINST = aux    # Temporary files 
 
 #
 # Rules
@@ -150,9 +149,15 @@ TEMPINST = aux# Temporary files (do *NOT* allow trailing blanks)
 
 # Build everything
 
-ifeq (,$(TEMPINST))
+TEMPINST:=$(TEMPINST:%/=%)# Do NOT allow trailing blanks here
+
+ifeq (,$(TEMPINST))       # Let's check anyway
 $(error TEMPINST not defined)
-endif 
+endif
+ifneq (,$(word 2, $(TEMPINST)))
+$(error TEMPINST has trailing blanks)
+endif
+
 
 all static : $(TEMPINST:%=%) $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
 
@@ -188,15 +193,11 @@ $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
 else
 # Dynamically linked
 
-#$(bin) $(noinst_bin): LDFLAGS+=-Wl,-rpath=$(if $(INSTALL),$(realpath $(PREFIX)),.) 
-
-LDFLAGS+=-Wl,-rpath=$(realpath $(PREFIX))  #### PROBLEM IS: realpath returns empty if directory not found
-
 $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
-	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$@
+	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$@
 	echo "#!/bin/sh\nLD_LIBRARY_PATH=. $(TEMPINST:%=%)/$@" > $@
 	chmod u+x $@
-	@echo "$(PREFIX)---> $(realpath $(./home)) === $(RPATH)"
 endif
 
 #
@@ -255,7 +256,7 @@ install : $(lib_all) $(bin) $(inst_headers)
 	cp $(lib_all) $(PREFIX)/lib/
 	cp $(inst_headers) $(PREFIX)/include/
 	cp $(bin) $(PREFIX)/bin/
-	for i in $(bin:%=%-static); do if test -f $$i ; then cp $$i $(PREFIX)/bin; fi; done
+	for i in $(TEMPINST)/$(bin); do if test -f $$i ; then cp $$i $(PREFIX)/bin; fi; done
 	@echo ToDo: copy the right file from TEMPINST
 
 uninstall: 
