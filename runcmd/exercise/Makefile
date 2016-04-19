@@ -150,13 +150,13 @@ TEMPINST = aux# Temporary files (do *NOT* allow trailing blanks)
 
 # Build everything
 
-all static: $(TEMPINST:%=%) $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
-
-.SECONDEXPANSION:
-
 ifeq (,$(TEMPINST))
 $(error TEMPINST not defined)
 endif 
+
+all static : $(TEMPINST:%=%) $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
+
+.SECONDEXPANSION:
 
 $(TEMPINST:%=%) :
 	mkdir $@
@@ -182,19 +182,27 @@ ifneq (,$(filter static, $(MAKECMDGOALS)))
 # Statically linked
 
 $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a) 
-	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$(@:%=%-static)
-	echo "#!/bin/sh\n$(TEMPINST:%=%)/$(@:%=%-static)" > $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$@
+	echo "#!/bin/sh\n$(TEMPINST:%=%)/$@" > $@
 	chmod u+x $@
 else
 # Dynamically linked
 
-$(bin) $(noinst_bin): LDFLAGS+=-Wl,-rpath=$(if $(INSTALL),$(realpath $(PREFIX)),.) 
+#$(bin) $(noinst_bin): LDFLAGS+=-Wl,-rpath=$(if $(INSTALL),$(realpath $(PREFIX)),.) 
+
+LDFLAGS+=-Wl,-rpath=$(realpath $(PREFIX))  #### PROBLEM IS: realpath returns empty if directory not found
 
 $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
 	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$@
 	echo "#!/bin/sh\nLD_LIBRARY_PATH=. $(TEMPINST:%=%)/$@" > $@
 	chmod u+x $@
+	@echo "$(PREFIX)---> $(realpath $(./home)) === $(RPATH)"
 endif
+
+#
+# New scheme
+#
+
 
 # Pattern rules sufix-rules fror object-to-source dependency
 
