@@ -182,6 +182,7 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 # This does not prevent the building and installation of the shared 
 # libraries, anyway.
 
+$(bin) $(noinst_bin): % : $(TEMPDIST)/$$*
 
 ifneq (,$(filter static, $(MAKECMDGOALS))) 
 # Statically linked
@@ -193,6 +194,7 @@ $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
 else
 # Dynamically linked
 
+#$(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
 $(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
 	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(TEMPINST:%=%)/$@
