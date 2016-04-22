@@ -83,7 +83,7 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
   else				/* Subprocess (child) */
     {
       aux = execvp (args[0], args);
-      sysfail (aux<0, -1);
+      exit (127);
     }
   return pid;			/* Only parent reaches this point. */
 }
