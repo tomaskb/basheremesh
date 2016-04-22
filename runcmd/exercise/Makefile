@@ -71,15 +71,18 @@ libruncmd_h = runcmd.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # noinst_bin = example
-noinst_bin = delay io
+noinst_bin = delay io segfault
 
 # For each item in $(noinst_bin), name the objects needed to build it, e.g.
 # example_obj = example.o 
 delay_obj = delay.o
 io_obj = io.o
+segfault_obj = segfault.o
+
 
 # For each item in $(noinst_bin), name the libraries to which it's to be linked, e.g.
 # example_lib = libfoobar
+
 
 # Extra files to go in the distribution (add as needed)
 
@@ -169,20 +172,36 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 # libraries, anyway.
 
 ifneq (,$(filter static, $(MAKECMDGOALS))) 
+#
 # Statically linked
+#
 
-$(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a) 
+$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
 	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo "#!/bin/sh\n./$(@:%=.%)" > $@
 	chmod u+x $@
-else
-# Dynamically linked
 
-$(bin) $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so) 
+$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
+	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	chmod u+x $@
+
+else
+#
+# Dynamically linked
+#
+
+$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
+
+$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
+	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	chmod u+x $@
+
+
 endif
 
 #
