@@ -83,7 +83,7 @@ io_obj = io.o
 
 # Extra files to go in the distribution (add as needed)
 
-EXTRA_DIST = Makefile 
+EXTRA_DIST =
 
 # Generated, distributed headers (list the 
 # (Note: rf gcc -MM -MG treated missing local headers as it does for 
@@ -139,6 +139,7 @@ proj_dep = $(proj_src:%.c=%.d)  # For building
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT " " $(proj_src)) )
 proj_headers += $(inst_headers) # For distribution
 
+EXTRA_DIST += Makefile tests.mk
 
 #
 # Rules
