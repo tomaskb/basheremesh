@@ -221,7 +221,9 @@ clean:
 
 # Distribution
 
-dist: $(proj_src) $(proj_headers) $(EXTRA_DIST) $(gendist_files)
+dist: $(PROJECT).tgz
+
+$(PROJECT).tgz : $(proj_src) $(proj_headers) $(EXTRA_DIST) $(gendist_files)
 	rm -rf $(PROJECT)
 	mkdir $(PROJECT)
 	cp $^ $(PROJECT)
