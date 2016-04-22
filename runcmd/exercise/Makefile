@@ -250,19 +250,13 @@ uninstall:
 	for i in $(bin) ; do rm -f $(PREFIX)/bin/$${i#.}; done
 
 
-# Generated, distributed source files (see gendist.mk)
+# Submakefiles
 
--include gendist.mk
+-include gendist.mk # Distributed produced files (see gendist.mk)
 
-gendist.mk :
+-include tests.mk  # Run tests, if any
+
+-include local.mk  # Project-specific rules, if any.
+
+gendist.mk tests.mk local.mk : 
 	touch $@
-
-
-# Run tests, if any
-
--include tests.mk
-
-
-
-
-
