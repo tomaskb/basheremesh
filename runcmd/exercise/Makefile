@@ -88,15 +88,11 @@ segfault_obj = segfault.o
 
 EXTRA_DIST =
 
-# Generated, distributed headers (list the 
-# (Note: rf gcc -MM -MG treated missing local headers as it does for 
-# gcc -M -MG, we might go without this artifice)
-
 # List the automatically generated, distributed source files of any kind.
 # These files are generated in the development environment but should
 # be already available in the building enviroment. E.g. config scripts.
 
-gendist_files = debug.h # -MG in gcc -MM -MG does not work as for gcc -M -MG
+gendist_files =
 
 # Installation prefix
 
