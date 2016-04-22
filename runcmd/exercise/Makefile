@@ -213,9 +213,10 @@ endif
 .PHONY: clean dist distcheck install uninstall
 
 clean: 
-	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(noinst_bin) $(bin:%=%-static) $(noinst_bin:%=%-static)
+	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(noinst_bin) $(bin:%=.%) $(noinst_bin:%=.%)
 	rm -f $(EXTRA_GARBAGE) 
 	rm -rf $(PROJECT) $(PROJECT).tgz
+
 
 # Distribution
 
