@@ -12,7 +12,7 @@
 # scripts. We, however, do want to to add  these files in the distrubtion 
 # since the tools and resources needed to regenerate them in the building 
 # enviroment may not be available. This makefile contains the rules to build 
-# those generated distributed files and is included by the main project's 
+# those generated & distributed files and is included by the main project's
 # Makefile. So far soo good. The problem is that the main project's Makefile is
 # packed into the distribution and we do not want the rules in this makefile to
 # be triggered in the  building enviroment.  To thad end, what we do here is not
