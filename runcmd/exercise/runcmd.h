@@ -73,6 +73,10 @@
 #define EXITSTATUS(result)  ( *result & RETSTATUS)
 #define IS_EXECOK(result)   ((*result & EXECOK) && 1)
 
+/* Subprocess' exit status upon exec failure.*/
+
+#define EXECFAILSTATUS 127
+
 /* Run a command in a subprocess. */
 
 int runcmd (char *command, int *result, int *io);
