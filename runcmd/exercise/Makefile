@@ -139,7 +139,7 @@ proj_dep = $(proj_src:%.c=%.d)  # For building
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT " " $(proj_src)) )
 proj_headers += $(inst_headers) # For distribution
 
-EXTRA_DIST += Makefile tests.mk
+EXTRA_DIST += Makefile tests.mk local.mk
 
 #
 # Rules
