@@ -126,8 +126,8 @@ read the whole instructions before you start (there are some useful tips ahead).
 
    You may create your own Makefile. Alternatively, you may reuse the file
    Makefile provided by POSIXeg's runcmd project. Better yet, you may use 
-   POSIXeg's Makefile bootstrap script to create a brand new Makefile for your
-   project.
+   POSIXeg's Makefile bootstrap script (Makefine) to create a brand new Makefile
+   for your project.
 
    Please, make sure your 'make install' rule installs the software in the 
    proper place, as indicated by the makefile variable PREFIX:

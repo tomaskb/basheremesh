@@ -39,20 +39,25 @@
    shall be redirected; if NULL, no redirection is performed. On
    success, returns subprocess' pid; on error, returns 0. */
 
-int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
+int runcmd (const char *command, int *result, int *io) /* ToDO: const char* */
 {
   int pid, status; 
   int aux, i;
-  char *args[RCMD_MAXARGS]; 	
+  char *args[RCMD_MAXARGS], *p, *cmd; 	
 
   *result = 0;
 
   /* Parse arguments to obtain an argv vector. */
 
+  cmd = malloc ((strlen (command)+1) * sizeof(char));
+  sysfail (!cmd, -1);
+  p = cmd;
+
   i=0;
-  args[i++] = strtok (command, RCMD_DELIM);
+  args[i++] = strtok (cmd, RCMD_DELIM);
   while ((i<RCMD_MAXARGS) && (args[i++] = strtok (NULL, RCMD_DELIM)));
   i--;
+  free (p);
 
   /* Create a subprocess. */
 

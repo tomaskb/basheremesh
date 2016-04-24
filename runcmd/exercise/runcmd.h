@@ -19,8 +19,8 @@
     
 */
 
-#ifndef FOO_H
-#define FOO_H
+#ifndef RUNCMD_H
+#define RUNCMD_H
 
 /* Definitions for the command line parser. */
 
@@ -75,10 +75,10 @@
 
 /* Run a command in a subprocess. */
 
-int runcmd (char *command, int *result, int *io);
+int runcmd (const char *command, int *result, int *io);
 
 /* Hanlder for SIGCHLD in nonblock mode. */
 
 extern void (*runcmd_onexit)(void);
 
-#endif	/* FOO_H */
+#endif	/* RUNCMD_H */
