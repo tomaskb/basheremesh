@@ -33,6 +33,9 @@
 
 SRCDIR = ../..
 
-debug.h : $(SRCDIR)/utils/debug.h 
+UTILSFILES = debug.h COPYING AUTHORS
+
+$(UTILSFILES) : % : $(SRCDIR:%=%)/utils/% 
 	@echo "copying $@ from $<"
 	cp $< .
+

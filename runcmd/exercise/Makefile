@@ -40,17 +40,14 @@ PROJECT = runcmd
 
 # Name your project's binaires, eg.
 # bin = foo bar
-bin = test-runcmd
 
 # For each item in $(bin), name the objects needed to build it, e.g.
 # foo_obj = main_foo.o 
 # bar_obj = main_bar.o 
-test-runcmd_obj = test-runcmd.o
 
 # For each item in $(bin), name the project's libraries to which it shall be linked, e.g.
 # foo_lib = libfoobar
 # bar_lib = libfoobar libm
-test-runcmd_lib = libruncmd
 
 # For each item in $(bin), name the other libraries to which it shall be linked, e.g.
 # foo_lib_other = libfoobar
@@ -71,22 +68,23 @@ libruncmd_h = runcmd.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # noinst_bin = example
-noinst_bin = delay io segfault
+noinst_bin = test-runcmd delay io segfault
 
 # For each item in $(noinst_bin), name the objects needed to build it, e.g.
 # example_obj = example.o 
 delay_obj = delay.o
 io_obj = io.o
 segfault_obj = segfault.o
+test-runcmd_obj = test-runcmd.o
 
 
 # For each item in $(noinst_bin), name the libraries to which it's to be linked, e.g.
 # example_lib = libfoobar
-
+test-runcmd_lib = libruncmd
 
 # Extra files to go in the distribution (add as needed)
 
-EXTRA_DIST =
+EXTRA_DIST = runcmd.txt
 
 # List the automatically generated, distributed source files of any kind.
 # These files are generated in the development environment but should
@@ -138,7 +136,7 @@ proj_dep = $(proj_src:%.c=%.d)  # For building
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT " " $(proj_src)) )
 proj_headers += $(inst_headers) # For distribution
 
-EXTRA_DIST += Makefile tests.mk local.mk
+EXTRA_DIST += Makefile tests.mk local.mk README COPYING AUTHORS 
 
 #
 # Rules

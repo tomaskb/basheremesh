@@ -1,4 +1,4 @@
-/* foo.h - Header of libfoo.
+/* runcmd.h - Header of libruncmd.
 
    Copyright (c) 2014, Francisco José Monaco <moanco@icmc.usp.br>
 
