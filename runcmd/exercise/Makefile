@@ -62,7 +62,7 @@ proj_dep = $(proj_src:%.c=%.d)  # For building
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT " " $(proj_src)) )
 proj_headers += $(inst_headers) # For distribution
 
-EXTRA_DIST += Makefile config.mk tests.mk local.mk README COPYING AUTHORS 
+EXTRA_DIST += Makefile config.mk local.mk README COPYING AUTHORS 
 
 #
 # Rules
@@ -189,13 +189,25 @@ uninstall:
 	for i in $(bin) ; do rm -f $(PREFIX)/bin/$${i#.}; done
 
 
+# Run tests,  if any
+
+test:	all tests_setup
+	@echo "\nRunning tests...\n" 
+	@total=0;\
+	for i in $(tests-bin); do echo;\
+	./$$i; nerrors=$$?; total=$$(( $$total + $$nerrors)); done; \
+	echo; \
+	if test $$total -eq 0 ; then echo -n "Good! All tests ok!"; else echo -n "Found $$total error(s). Some tests failed."; fi;
+	@echo; echo
+
+.PONY : tests_setup
+
+
 # Submakefiles
 
 -include gendist.mk # Distributed produced files (see gendist.mk)
 
--include tests.mk  # Run tests, if any
-
 -include local.mk  # Project-specific rules, if any.
 
-gendist.mk tests.mk local.mk : 
+gendist.mk local.mk : 
 	touch $@

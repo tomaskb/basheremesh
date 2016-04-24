@@ -79,3 +79,12 @@ AR = ar
 # Housekeeping (name temporary files to clean)
 # EXTRA_GARBAGE = *~
 EXTRA_GARBAGE = *~ \#*
+
+# Name your tests
+
+tests-bin = test-runcmd
+
+# How to prepare to run the tests
+
+tests_setup:
+	@rm -f nosuchfile *.log
