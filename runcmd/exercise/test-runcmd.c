@@ -72,7 +72,7 @@ int tryrun (const char *command,  int *io, int correct_termination, int correct_
       return test;
     }
   
-  if (IS_NONBLOCK(&result))
+  if (IS_NONBLOCK(result))
     {
       printf ("%s (pid %d) execution started asynchronously %n", 
 	      command, pid, &nbytes);
@@ -89,12 +89,12 @@ int tryrun (const char *command,  int *io, int correct_termination, int correct_
   
     printf ("%s (pid %d) terminated %s  %s (status %d) %n", 
 	    command, pid, 
-	    IS_NORMTERM(&result) ? "normally" : "abnormally", 
-	    IS_NORMTERM(&result) ? (EXITSTATUS(&result) == EXIT_SUCCESS ? "and sucessfully" : "and unsucessfully") :  "",
-	    EXITSTATUS(&result), &nbytes);
+	    IS_NORMTERM(result) ? "normally" : "abnormally", 
+	    IS_NORMTERM(result) ? (EXITSTATUS(result) == EXIT_SUCCESS ? "and sucessfully" : "and unsucessfully") :  "",
+	    EXITSTATUS(result), &nbytes);
     
-    test =  (EXITSTATUS(&result) == correct_exit_status) 
-      && (IS_NORMTERM(&result) == correct_termination);
+    test =  (EXITSTATUS(result) == correct_exit_status) 
+      && (IS_NORMTERM(result) == correct_termination);
     test = ! test;
     
 

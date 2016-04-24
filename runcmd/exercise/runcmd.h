@@ -46,32 +46,18 @@
                        normally; false otherwise.
    IS_NONBLOCK(result) returns true if the subprocess has been executed
                        in nonblocking mode; false otherwise.
-   IS_EXECOK(result)   returns true if 'exec' has been successful in
+   IS_EXECOK(result)   returns true if 'command' has been effectively 
+		       executed; false otherwise.
                        the subprocess; false otherwise.
    EXITSTATUS(result)  returns the exit status returned by the
                        subproccess.
 
-   
-   Notice the following. 
-
-   In nonblocking mode, the subprocess's termination mode and exit status 
-   are not known. In this case IS_NORMTERM and EXITSTATUS both return zero
-   and have no meaning. IS_NONBLOCK may be used for disambiguation.
-
-   In blocking mode if 'exec' has failed, the exit status must be that of 
-   the (unmodified) subprocess itself. In this case, the subprocess terminates
-   successfully with exit status 127; IS_EXECOK may be used for disambiguation.
-
-   In blocking mode with successful 'exec' execution, if termination is
-   abnormal the process' exit status is unknown. In this case, EXIT_STATUS
-   returns zero and has no meaning. IS_NORMTERM may be used for disambiguation.
-   
 */
 
-#define IS_NORMTERM(result) ((*result & NORMTERM) && 1) 
-#define IS_NONBLOCK(result) ((*result & NONBLOCK) && 1) 
-#define EXITSTATUS(result)  ( *result & RETSTATUS)
-#define IS_EXECOK(result)   ((*result & EXECOK) && 1)
+#define IS_NORMTERM(result) ((result & NORMTERM) && 1) 
+#define IS_NONBLOCK(result) ((result & NONBLOCK) && 1) 
+#define EXITSTATUS(result)  ( result & RETSTATUS)
+#define IS_EXECOK(result)   ((result & EXECOK) && 1)
 
 /* Run a command in a subprocess. */
 

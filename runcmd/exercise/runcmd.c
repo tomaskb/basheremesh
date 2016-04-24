@@ -51,13 +51,12 @@ int runcmd (const char *command, int *result, int *io) /* ToDO: const char* */
 
   cmd = malloc ((strlen (command)+1) * sizeof(char));
   sysfail (!cmd, -1);
-  p = cmd;
+  p = strcpy (cmd, command);
 
   i=0;
   args[i++] = strtok (cmd, RCMD_DELIM);
   while ((i<RCMD_MAXARGS) && (args[i++] = strtok (NULL, RCMD_DELIM)));
   i--;
-  free (p);
 
   /* Create a subprocess. */
 
@@ -78,6 +77,8 @@ int runcmd (const char *command, int *result, int *io) /* ToDO: const char* */
       aux = execvp (args[0], args);
       exit (127);
     }
+
+  free (p);
   return pid;			/* Only parent reaches this point. */
 }
 
