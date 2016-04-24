@@ -1,4 +1,4 @@
-# Makefile - Build runcmd project.
+# Makefile - A Makefile template by Makefine vr. 0.9
 #
 # Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
 #
