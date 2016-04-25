@@ -208,5 +208,7 @@ test:	all tests_setup
 
 -include local.mk  # Project-specific rules, if any.
 
+-include test.mk  # Run tests, if any
+
 gendist.mk local.mk : 
 	touch $@

@@ -66,10 +66,6 @@
 # Name your test programns, if any e.g.
 # tests-bin = testfoo
 
-# Actions to be performed before the test suite, e.g.
-#tests_setup:
-#	@rm -f foo.log
-
 # Housekeeping (name temporary files to clean) e.g.
 # EXTRA_GARBAGE = *~
 # EXTRA_GARBAGE = *~ \#*
