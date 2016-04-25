@@ -89,12 +89,12 @@ read the whole instructions before you start (there are some useful tips ahead).
    runcmd project.  Therefore, make sure that your library can be linked
    against POSIXEeg's test programs and that the tests result successfully.
 
-   You may either create your own files or you may copy some files from
-   POSIXeg's runcmd project. If you do so, remember to update copyright notes
-   accordingly (see note on Copyright below).
+   You should not simple copy files from POSIXeg's libruncmd source code; you 
+   are entitled to create your own inplementation of libruncmd.  You may, 
+   however, to take advange POSIXeg's librucmd examples as reference.
 
-   If you are going to reuse files from POSIXeg's runcmd example, these are
-   the source files you may want to make use of
+   If you are going to resortto POSIXeg's runcmd example, these are he source 
+   files you may be interested:
 
    runcmd.c  	 	the library source code
    runcmd.h		the library header
@@ -124,10 +124,9 @@ read the whole instructions before you start (there are some useful tips ahead).
    make distcheck	verify whether the distributed source can be correctly
    			built (i.e. it has all the needed files)
 
-   You may create your own Makefile. Alternatively, you may reuse the file
-   Makefile provided by POSIXeg's runcmd project. Better yet, you may use 
-   POSIXeg's Makefile bootstrap script (Makefine) to create a brand new Makefile
-   for your project.
+   You may create your own Makefile. Alternatively, you may use  POSIXeg's 
+   Makefile bootstrap script to create a brand new Makefile for your project.
+   Please, see posixeg/utils/Makefile for further information.
 
    Please, make sure your 'make install' rule installs the software in the 
    proper place, as indicated by the makefile variable PREFIX:
