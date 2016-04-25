@@ -61,7 +61,7 @@ EXTRA_DIST = runcmd.txt
 # These files are generated in the development environment but should
 # be already available in the building enviroment. E.g. config scripts.
 
-gendist_files =
+gendist_files = debug.h
 
 # Installation prefix
 
@@ -84,7 +84,3 @@ EXTRA_GARBAGE = *~ \#*
 
 tests-bin = test-runcmd
 
-# How to prepare to run the tests
-
-tests_setup:
-	@rm -f nosuchfile *.log
