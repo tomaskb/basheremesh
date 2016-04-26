@@ -1,0 +1,22 @@
+
+POSIX Exempli Gratia (POSIX by example) - Solved.
+
+Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
+This is Free Open Source Software. For licensing, see COPYING.TXT
+
+----------------------------------------------------------------------
+
+POSIX-eg is small toolbox of simple POSIX programming examples.
+
+The code samples were collected from class notes while teaching system
+programming for students of computer sciences and engineering. Some
+examples have been useful in graduate and undergraduate disciplines
+including Operating Systems, Distributed Systems and Computer Networks.
+
+POSIX-eg repository includes also some programming exercises.
+
+The project can be found at https://gitlab.com/monaco/posixeg
+
+[]'s Monaco
+
+

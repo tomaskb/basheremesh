@@ -31,38 +31,31 @@
 #include <debug.h>
 
 
-/* Execute 'command' in a subprocess. Information on the subprocess execution
+/* Executes 'command' in a subprocess. Information on the subprocess execution
    is stored in 'result' after its completion, and can be inspected with the
    aid of macros made available for this purpose. Argument 'io' is a pointer
    to an integer vector where the first, second and third positions store
    file descriptors to where standard input, output and error, respective, 
-   shall be redirected; if NULL, no redirection is performed. Command line
-   must be a string of blank separated arguments as if issued in a command
-   line shell. For instance if 'command' is "program arg1 arg2 ... argN",  
-   Arguments are parsed and associated to an argv vector such that argv[0]
-   points to "program" and argv[N-1] points to "argN".  A member of the
-   'exec' family of function is called to execute the program with the
-   given arguments in a subprocess created by 'fork'.  Function 'runcmd'
-   blocks until the subprocess terminates, unless the last argument in
-   'command' starts with '&' (ampersand) character, in which case the 
-   supbrocess is executed in parallel with the calling process.  In this 
-   case, the function addressed by the global function pointer 
-   'runcmd_onexig' is asynchronously called upon the subprocess termination
-   (in response to SIGCHLD). If 'runcmd_onexig' points to NULL (default), 
-   no action is performed.*/
+   shall be redirected; if NULL, no redirection is performed. On
+   success, returns subprocess' pid; on error, returns 0. */
 
-int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
+int runcmd (const char *command, int *result, int *io) /* ToDO: const char* */
 {
   int pid, status; 
-  int aux, i;
-  char *args[RCMD_MAXARGS]; 	
+  int aux, i, tmp_result;
+  char *args[RCMD_MAXARGS], *p, *cmd; 	
 
-  *result = 0;
+
+  tmp_result = 0;
 
   /* Parse arguments to obtain an argv vector. */
 
+  cmd = malloc ((strlen (command)+1) * sizeof(char));
+  sysfail (!cmd, -1);
+  p = strcpy (cmd, command);
+
   i=0;
-  args[i++] = strtok (command, RCMD_DELIM);
+  args[i++] = strtok (cmd, RCMD_DELIM);
   while ((i<RCMD_MAXARGS) && (args[i++] = strtok (NULL, RCMD_DELIM)));
   i--;
 
@@ -78,13 +71,18 @@ int runcmd (char *command, int *result, int *io) /* ToDO: const char* */
       
       /* Collect termination mode. */
       if (WIFEXITED(status)) 
-	*result |= NORMTERM;
+	tmp_result |= NORMTERM;
     }
   else				/* Subprocess (child) */
     {
       aux = execvp (args[0], args);
       exit (EXECFAILSTATUS);
     }
+
+  if (result)
+    *result = tmp_result;
+
+  free (p);
   return pid;			/* Only parent reaches this point. */
 }
 

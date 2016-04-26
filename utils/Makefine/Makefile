@@ -189,7 +189,7 @@ uninstall:
 	for i in $(bin) ; do rm -f $(PREFIX)/bin/$${i#.}; done
 
 
-# Run tests,  if any
+# Run tests, if any
 
 test:	all tests_setup
 	@echo "\nRunning tests...\n" 
@@ -202,14 +202,13 @@ test:	all tests_setup
 
 .PONY : tests_setup
 
-
 # Submakefiles
 
 -include gendist.mk # Distributed produced files (see gendist.mk)
 
 -include local.mk  # Project-specific rules, if any.
 
--include test.mk  # Set up for tests, if any.
+-include test.mk  # Run tests, if any
 
 gendist.mk local.mk : 
 	touch $@
