@@ -26,6 +26,10 @@
 #include <string.h>
 #include <errno.h>
 
+#ifndef __func__      /* __func__ not avaible prior to c99 */
+#define __func__ ""
+#endif
+
 #define DEFAULT_ERR "Something wrong"
 
 /* 
@@ -36,7 +40,7 @@
 
 #define fatal(expression, message)					\
   do { if ((expression)) {fprintf (stderr, "%s: %d: %s: %s\n",\
-    __FILE__, __LINE__, __PRETTY_FUNCTION__, message); \
+    __FILE__, __LINE__, __func__, message); \
       exit (EXIT_FAILURE);}} while (0)
 
 
@@ -47,7 +51,7 @@
 /* Verbose mode. */
 #define fail(expression, return_status, message)	\
   do { if (expression) {fprintf (stderr, "%s: %d: %s: %s\n",\
-    __FILE__, __LINE__, __PRETTY_FUNCTION__, message); \
+    __FILE__, __LINE__, __func__, message); \
       return (return_status);}} while (0)
 
 #else
@@ -62,7 +66,7 @@
 
 #define debug(expression, message) 	\
   do { if (expression) {fprintf (stderr, "%s: %d: %s: %s\n",	\
-    __FILE__, __LINE__, __PRETTY_FUNCTION__, message); \
+    __FILE__, __LINE__, __func__, message); \
     }} while (0)
 
 
@@ -90,7 +94,7 @@
 
 /* #define sysfatal(expression) \ */
 /*   do { if ((expression)) {fprintf (stderr, "%s: %d: %s: %s\n",\ */
-/*     __FILE__, __LINE__, __PRETTY_FUNCTION__, strerror (errno)); \ */
+/*     __FILE__, __LINE__, __func__, strerror (errno)); \ */
 /*       exit (EXIT_FAILURE);}} while (0) */
 
 
@@ -100,7 +104,7 @@
 
 /* #define sysfail(expression, return_status)\ */
 /*   do { if (expression) {fprintf (stderr, "%s: %d: %s: %s\n",\ */
-/*     __FILE__, __LINE__, __PRETTY_FUNCTION__, strerror (errno)); \ */
+/*     __FILE__, __LINE__, __func__, strerror (errno)); \ */
 /*       return (return_status);}} while (0) */
 
 /* #else */
@@ -114,7 +118,7 @@
 
 /* #define sysdebug(expression)						\ */
 /*   do { if (expression) {fprintf (stderr, "%s: %d: %s: %s\n",	\ */
-/*     __FILE__, __LINE__, __PRETTY_FUNCTION__, strerror (errno)); \ */
+/*     __FILE__, __LINE__, __func__, strerror (errno)); \ */
 /*     }} while (0) */
 
 
