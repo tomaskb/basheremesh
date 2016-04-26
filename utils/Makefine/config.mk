@@ -16,12 +16,12 @@
 
 # For each item in $(bin), name the project's libraries to which it shall be linked, e.g.
 # foo_lib = libfoobar
-# bar_lib = libfoobar libm
+# bar_lib = libfoobar 
 
 # For each item in $(bin), name the other libraries to which it shall be 
 # linked, e.g.
-# foo_lib_other = libfoobar
-# bar_lib_other = libfoobar libm
+# foo_lib_other = 
+# bar_lib_other = libm
 
 
 # Name your project's libraries (to be installed), e.g.
@@ -31,7 +31,7 @@
 # libfoobar_obj = foo.o bar.o
 
 # For each item in $(lib), name the headers your project installs, e.g.
-#libfoobar_h = foos.h
+#libfoobar_h = foo.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # noinst_bin = example
