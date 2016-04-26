@@ -192,7 +192,8 @@ uninstall:
 # Run tests,  if any
 
 test:	all tests_setup
-	@echo "\nRunning tests...\n" 
+	@echo "\n----------------------------------------------------------------------"
+	@echo "\nRunning tests\n"
 	@total=0;\
 	for i in $(tests-bin); do echo;\
 	./$$i; nerrors=$$?; total=$$(( $$total + $$nerrors)); done; \

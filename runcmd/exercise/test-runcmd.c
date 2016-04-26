@@ -80,12 +80,12 @@ int try_runcmd (const char* command, int *result, int *io)
       close (tio[0]); close(tio[1]); close (tio[2]);
     }
 
-  printf ("(%5d, %8s, %3d, %3sblocking, %8s)\n\n",
+  printf ("(%5d, %8s, %3d, %3sblocking, exec %s)\n\n",
   	  pid,
   	  IS_NORMTERM(tmp_result) ? "normal" : "abnormal",
   	  EXITSTATUS(tmp_result),
   	  IS_NONBLOCK(tmp_result) ? "non" : "",
-  	  IS_EXECOK(tmp_result) ? "executed" : "failed");
+  	  IS_EXECOK(tmp_result) ? "success" : "failed");
 
   if (result)
     *result = tmp_result;
@@ -120,9 +120,11 @@ int main (int argc, char **argv)
   /* char cmd6[] = "./delay &";        /\* Test nonblock. *\/ */
 
 
-  char cmd1[] = "./t1" ;     /* File does exist. */
-  char cmd2[] = "/.t1 11";
-    
+  char cmd1[] = "./t1" ;          /* Exits 10. */
+  char cmd2[] = "./t1 11";        /* Exits 11. */
+  char cmd3[] = "./t1 15";        /* Segaful. */
+  char cmd4[] = "./nosuchfile";   /* Not found. */
+  char cmd5[] = "./t1 127";       /* Exits EXECFAILSTATUS */
 
   /* int io[3], io2[3], pid, rpid, nerrors; */
   int result, i, pid, io[3], rpid, nerrors;
@@ -130,35 +132,76 @@ int main (int argc, char **argv)
 
   nerrors = 0;
 
+
   /* Disable standard streams if not redirecting. */
 
   sysfatal ((noio[0] = open ("/dev/null", O_WRONLY)) <0);
   sysfatal ((noio[1] = open ("/dev/null", O_WRONLY)) <0);
   sysfatal ((noio[2] = open ("/dev/null", O_WRONLY)) <0);
 
-  /* Check 1 */
+  /* io[0]=1; io[1]=1; io[2]=2; */
+
+  /* Check  */
+
+  pid = try_runcmd (cmd3, &result, NULL);   /* Normal, success. */
+  printf ("  Checking...\n");
+
+  nerrors += check ("abnormal termination is correctly reported", 
+		    (!IS_NORMTERM(result)) && 
+		    (EXITSTATUS(result) == 0));
+  /* Check */
+
 
   pid = try_runcmd (cmd1, &result, NULL);   /* Normal, success. */
-  printf ("Checking...\n");
+  printf ("  Checking...\n");
 
   fp = fopen ("t1.log", "r");
   sysfatal (!fp);
   fscanf (fp, "%d", &rpid);
 
-  nerrors += check ("pid is correctly returned on success", pid == rpid);
-  nerrors += check ("normal termination is correctly reported", IS_NORMTERM(result));
-  nerrors += check ("exit status is correctly reported", EXITSTATUS(result) == 10);
+  nerrors += check ("normal termination is correctly reported", 
+		    IS_NORMTERM(result));
+
+  nerrors += check ("pid is correctly returned on success", 
+		    (IS_NORMTERM(result)) && 
+		    (pid == rpid));
+
+  nerrors += check ("exit status is correctly reported on sucess", 
+		    (IS_NORMTERM(result)) &&
+		    (EXITSTATUS(result) == 10));
+
+  nerrors += check ("exec success if correctly reported", 
+		    (IS_NORMTERM(result)) &&
+		    (IS_EXECOK(result)));
+
 
   fclose (fp);
   unlink ("t1.log");
 
-  /* Check 2 */
+  /* Check  */
 
   pid = try_runcmd (cmd2, &result, NULL);   /* Normal, success. */
-  printf ("Checking...\n");
+  printf ("  Checking...\n");
 
   nerrors += check ("command line arguments are correctly read", EXITSTATUS(result) == 11);
 
+  /* Check */
+  
+  pid = try_runcmd (cmd4, &result, NULL);   /* Normal, success. */
+  printf ("  Checking...\n");
+
+  nerrors += check ("exec failure is correctly reported (a)", 
+		    (!IS_EXECOK(result)) &&
+		    (EXITSTATUS(result) == EXECFAILSTATUS));
+  
+  /* Check */
+  
+  pid = try_runcmd (cmd5, &result, NULL);   /* Normal, success. */
+  printf ("  Checking...\n");
+
+  nerrors += check ("exec failure is not reported on sucess (b)", 
+		    (!IS_EXECOK(result)) &&
+		    (EXITSTATUS(result) == EXECFAILSTATUS));
 
   /* Politeness. */
 
@@ -172,14 +215,7 @@ int main (int argc, char **argv)
   return nerrors;
 
 
-  /* tryrun (testcase, io, termination, exitstatus, execresult) */
-
-  /* result +=tryrun (&tc[0], NULL, 1, 0, EXECYES);   /\* Normal, success. *\/ */
-  /* result +=tryrun (&tc[1], NULL, 0, 0, EXECYES);   /\* Abnormal, any.   *\/ */
-  /* result +=tryrun (&tc[2], NULL, 1, 2, EXECYES);   /\* Normal, failure. *\/ */
-
-  return result;		/* REMOVE THIS LINE TO COMPLETE THE TESTS. */
-
+  
   /* Test redirection. */
 
   /* sysfatal ((fd = open ("in.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0); */
@@ -202,7 +238,6 @@ int main (int argc, char **argv)
   /* result +=tryrun (&tc[5], io, 1, 0, EXECYES);   /\* Normal, success. *\/ */
 
   /* /\* Polite clean-up before leaving. *\/ */
-
 
   /* return result; */
 }
