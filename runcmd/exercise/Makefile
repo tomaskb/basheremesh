@@ -62,7 +62,7 @@ proj_dep = $(proj_src:%.c=%.d)  # For building
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT " " $(proj_src)) )
 proj_headers += $(inst_headers) # For distribution
 
-EXTRA_DIST += Makefile config.mk local.mk README COPYING AUTHORS 
+EXTRA_DIST += Makefile config.mk local.mk test.mk README COPYING AUTHORS 
 
 #
 # Rules
