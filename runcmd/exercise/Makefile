@@ -59,7 +59,7 @@ proj_src += $(foreach i, $(noinst_bin:%=%_obj), $($i:%.o=%.c))
 
 proj_dep = $(proj_src:%.c=%.d)  # For building
 
-proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT " " $(proj_src)) )
+proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT " " $(proj_src)) )
 proj_headers += $(inst_headers) # For distribution
 
 EXTRA_DIST += Makefile config.mk local.mk test.mk README COPYING AUTHORS 
@@ -81,7 +81,7 @@ $(lib_static) : %.a : $$($$*_obj)
 	$(AR) rcs $@ $^
 
 $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
-	$(CC) -shared $(LD_FLAGS) $(LDFLAGS) $^ -o $@
+	$(CC) -shared $(LD_FLAGS) $(LDFLAGS) -L. $^ -o $@
 
 
 # Pattern rules for building binaires (uses secondary expansion).
@@ -97,12 +97,12 @@ ifneq (,$(filter static, $(MAKECMDGOALS)))
 #
 
 $(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
-	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo "#!/bin/sh\n./$(@:%=.%)" > $@
 	chmod u+x $@
 
 $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
-	$(CC) $(LD_FLAGS) $(LDFLAGS)  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 	chmod u+x $@
 
 else
@@ -112,14 +112,14 @@ else
 
 $(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 #	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
-#	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+#	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
 
 $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 #	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 	chmod u+x $@
 
 
@@ -133,18 +133,18 @@ endif
 # Pattern rules sufix-rules fror object-to-source dependency
 
 %.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $< -o $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  $< -o $@
 
 %-pic.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  -fPIC $< -o $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  -fPIC $< -o $@
 
 # Atuomatically calculate header dependences
 
 %.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT '$(<:.c=.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=.o) $@' $< > $@
 
 %-pic.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
 
 ifeq (,$(filter clean uninstall, $(MAKECMDGOALS))) # Don't do it if not needed
 -include $(proj_dep)
