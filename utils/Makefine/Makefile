@@ -153,7 +153,7 @@ endif
 
 .PHONY: clean dist distcheck install uninstall
 
-clean: 
+clean: tests_cleanup
 	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(noinst_bin) $(bin:%=.%) $(noinst_bin:%=.%)
 	rm -f $(EXTRA_GARBAGE) 
 	rm -rf $(PROJECT) $(PROJECT).tgz
