@@ -111,13 +111,14 @@ else
 #
 
 $(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+#	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
+#	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
 
 $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
+#	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 	chmod u+x $@
 
@@ -181,7 +182,7 @@ install : $(lib_all) $(bin) $(inst_headers)
 	install -d $(PREFIX)/bin
 	cp $(lib_all) $(PREFIX)/lib/
 	cp $(inst_headers) $(PREFIX)/include/
-	for i in $(bin:%=.%); do if test -f $$i ; then cp $${i#.} $(PREFIX)/bin; fi; done
+	for i in $(bin:%=.%); do if test -f $$i ; then cp $$i $(PREFIX)/bin/$${i#.}; fi; done
 
 uninstall: 
 	for i in $(lib_all) ; do rm -f $(PREFIX)/lib/$$i; done
