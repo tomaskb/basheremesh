@@ -39,3 +39,6 @@ $(UTILSFILES) : % : $(SRCDIR:%=%)/utils/%
 	@echo "copying $@ from $<"
 	cp $< .
 
+Makefile : $(SRCDIR:%=%)/utils/Makefine/Makefile
+	@echo "copying $@ from $<"
+	cp $< .

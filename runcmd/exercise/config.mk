@@ -62,7 +62,7 @@ EXTRA_DIST = runcmd.txt
 # These files are generated in the development environment but should
 # be already available in the building enviroment. E.g. config scripts.
 
-gendist_files = debug.h
+gendist_files = debug.h Makefile
 
 # Installation prefix
 
