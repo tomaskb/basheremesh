@@ -113,6 +113,13 @@ read the whole instructions before you start (there are some useful tips ahead).
    Bear in mind that your libruncmd implementation are to be test against POSIXeg
    runcmd's check programs, not yours.
 
+   The implementation must be adherent to standards ISO/ANSI/Standard C (c89/90)
+   and POSIX (IEEE 1003.1-2008). The evaluation of the exercise will be performed
+   by compiling your library with
+
+   gcc -Wall -Werror --ansi --pedantic-errors -D_POSIX_C_SOURCE=200809L
+
+
 3) Provide a Makefile to build libruncmd. Your makefile should have at least the
    the rules to perform the following tasks
 
@@ -127,6 +134,9 @@ read the whole instructions before you start (there are some useful tips ahead).
    You may create your own Makefile. Alternatively, you may use  POSIXeg's 
    Makefile bootstrap script to create a brand new Makefile for your project.
    Please, see posixeg/utils/Makefile for further information.
+
+   Your implementation must be successfully built withot either errors or
+   warnings during compilation.
 
    Please, make sure your 'make install' rule installs the software in the 
    proper place, as indicated by the makefile variable PREFIX:
