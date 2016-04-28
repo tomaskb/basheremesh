@@ -119,12 +119,14 @@ int main (int argc, char **argv)
   /* char cmd5[] = "./nosuchfile";     /\* Exec failed. *\/ */
   /* char cmd6[] = "./delay &";        /\* Test nonblock. *\/ */
 
+#define _strfy(val) # val
+#define  strfy(val) _strfy(val)
 
   char cmd1[] = "./t1" ;          /* Exits 10. */
   char cmd2[] = "./t1 11";        /* Exits 11. */
   char cmd3[] = "./t1 15";        /* Segaful. */
   char cmd4[] = "./nosuchfile";   /* Not found. */
-  char cmd5[] = "./t1 127";       /* Exits EXECFAILSTATUS */
+  char cmd5[] = "./t1 " strfy(EXECFAILSTATUS);       /* Exits EXECFAILSTATUS */
 
   /* int io[3], io2[3], pid, rpid, nerrors; */
   int result, i, pid, io[3], rpid, nerrors;
