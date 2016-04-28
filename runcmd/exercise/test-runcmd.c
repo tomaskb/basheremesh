@@ -200,7 +200,7 @@ int main (int argc, char **argv)
   printf ("  Checking...\n");
 
   nerrors += check ("exec failure is not reported on sucess (b)", 
-		    (!IS_EXECOK(result)) &&
+		    (IS_EXECOK(result)) &&
 		    (EXITSTATUS(result) == EXECFAILSTATUS));
 
   /* Politeness. */
