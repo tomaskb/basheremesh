@@ -1,4 +1,4 @@
-/* toogle-output.c - Redirects the output to a file and then bach to terminal. 
+/* toogle-io.c - Redirects the output to a file and then bach to terminal. 
 
    Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
 

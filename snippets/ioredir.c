@@ -1,4 +1,4 @@
-/* io-redirect.c - Example of I/O redirection. 
+/* io-redir.c - Example of I/O redirection. 
 
    Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
 

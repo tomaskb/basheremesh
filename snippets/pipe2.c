@@ -65,13 +65,17 @@ int main (int argc, char **argv)
 	 through the file descriptors.*/
       
       /*  The trick is the same used to redirect output to a rular file.
-	  We close the standar output's descriptor (1) and duplicate the pipe's
+	  We close the standard output's descriptor (1) and duplicate the pipe's
 	  writting end (4).  We end up with file descriptors 1 and 4 pointing
-	  to the pipe writting end (output end).*/
+	  to the pipe writing end (output end).*/
+
+      /* We should avoid having multiple file descriptors referring to the
+         same file.  */
 
       close (1);
       dup (pipefd[1]);
       close (pipefd[1]);	/* We close file descriptor 4 (unused). */
+      close (pipefd[0]);        /* We close also unused descriptor 3. */
 
       /* Now we exec the command. The new process will have the standard ouput
 	 (descriptor 1) poiting to the pipe's writting end. The father process
