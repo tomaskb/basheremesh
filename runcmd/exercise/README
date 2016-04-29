@@ -195,7 +195,8 @@ Then, within POSIXeg's runcmd directory
 
    $ cd <otherpath>/posixeg/runcmd/exercises
    $ make clean
-   $ make LDFLAGS="-L/home/foo/local/lib -Wl,-rpath=/home/foo/local/lib"
+   $ make LDFLAGS="-L/home/foo/local/lib -Wl,-rpath=/home/foo/local/lib" \
+          CPPFLAGS="-I/home/foo/local/include"
 
 This will link test-runcmd against your library and set the runtime
 limker path (rpath) to look the libraries in the correct location
