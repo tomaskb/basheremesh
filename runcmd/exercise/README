@@ -113,13 +113,6 @@ read the whole instructions before you start (there are some useful tips ahead).
    Bear in mind that your libruncmd implementation are to be test against POSIXeg
    runcmd's check programs, not yours.
 
-   The implementation must be adherent to standards ISO/ANSI/Standard C (c89/90)
-   and POSIX (IEEE 1003.1-2008). The evaluation of the exercise will be performed
-   by compiling your library with
-
-   gcc -Wall -Werror --ansi --pedantic-errors -D_POSIX_C_SOURCE=200809L
-
-
 3) Provide a Makefile to build libruncmd. Your makefile should have at least the
    the rules to perform the following tasks
 
@@ -131,12 +124,9 @@ read the whole instructions before you start (there are some useful tips ahead).
    make distcheck	verify whether the distributed source can be correctly
    			built (i.e. it has all the needed files)
 
-   You may create your own Makefile. Alternatively, you may use  POSIXeg's 
+   You may create your own Makefile. Alternatively, you may use  POSIXeg's   
    Makefile bootstrap script to create a brand new Makefile for your project.
    Please, see posixeg/utils/Makefile for further information.
-
-   Your implementation must be successfully built withot either errors or
-   warnings during compilation.
 
    Please, make sure your 'make install' rule installs the software in the 
    proper place, as indicated by the makefile variable PREFIX:
@@ -182,6 +172,42 @@ read the whole instructions before you start (there are some useful tips ahead).
 
   Make sure that the release complies with the requirements of every partial
   evaluation.  
+
+HOW TO TEST YOUR IPLEMENTATION
+--------------------------------------------------
+
+POSIXeg repository has a test program: test-runcmd. Normally, the default
+Makefile rule will build the test-runcm by linking it with the enclosed
+libruncmd implementation offered as example. In order to run the test cases
+agains your own libruncmd implementation, you may perform the following 
+procedure.
+
+Within your project's runcmd directory, build and install the library. 
+For instance, if you want to install the library at /home/foo/local
+
+   $ cd <somepath>/myproject/runcmd
+   $ make 
+   $ make PREFIX=/home/foo/local install
+
+This shall install libruncmd in /home/foo/local/lib
+
+Then, within POSIXeg's runcmd directory
+
+   $ cd <otherpath>/posixeg/runcmd/exercises
+   $ make clean
+   $ make LDFLAGS="-L/home/foo/local/lib -Wl,-rpath=/home/foo/local/lib"
+
+This will link test-runcmd against your library and set the runtime
+limker path (rpath) to look the libraries in the correct location
+when the binary is executed. 
+
+Now if you run the test
+
+  $ make test
+
+the test program will test your library, not the library that
+comes with POSIXeg.
+   
 
 REPOSITORY MANAGEMENT
 --------------------------------------------------
