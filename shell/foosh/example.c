@@ -22,7 +22,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <foosh.h>		/* List API is here. */
+#include <list.h>		/* List API is here. */
+#include <tparse.h>
 
 /* Function used to free a node's value. */
 

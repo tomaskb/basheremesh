@@ -21,7 +21,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <foosh.h>
+#include <tparse.h>
 #include <debug.h>
 
 #define PROMPT "@:"
@@ -37,26 +37,29 @@ int main (int argc, char **argv)
 
   pipeline_t *pipeline;
 
-  command_line = new_command_line ();
-  /* test(); */
+  command_line = new_command_line (); 
   
   pipeline = new_pipeline ();
 
+  /* This is the main loop. */
+
   while (go_on)
     {
+      /* Prompt. */
+
       printf ("%s ", PROMPT);
       fflush (stdout);
       aux = read_command_line (command_line);
-      fatal (aux<0, NULL);
+      sysfatal (aux<0);
 
-      /* Parse command line. */
+      /* Parse command line (see tparse.*) */
 
-      if (!parse_command_line (command_line, pipeline) || 1)
+      if (!parse_command_line (command_line, pipeline))
 	{
 
 	  
 	  /* This is an example, of how to use pipeline_t. 
-	     See foosh.h for detailed information. */
+	     See tparse.h for detailed information. */
 
 	  printf ("  Pipeline has %d command(s)\n", pipeline->ncommands);
 
@@ -81,6 +84,7 @@ int main (int argc, char **argv)
 	  if ( REDIRECT_STDOUT(pipeline))
 	    printf ("  Redirect output to  %s\n", pipeline->file_out);
 
+	  /* This is where we would fork and exec. */
 
 	}
     }

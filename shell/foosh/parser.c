@@ -19,10 +19,11 @@
 */
 
 #include <stdlib.h>
-#include <foosh.h>
 #include <unistd.h>
 #include <string.h>
 #include <debug.h>
+
+#include <tparse.h>
 
 
 #define BUFFER_STEP 512
@@ -33,13 +34,13 @@ buffer_t *new_command_line (void)
 {
   buffer_t *command_line;
   command_line = malloc (sizeof(buffer_t));
-  sysfault (!command_line, NULL);
+  sysfail (!command_line, NULL);
   command_line->size = BUFFER_STEP;
   command_line->buffer = malloc (BUFFER_STEP *sizeof(char));
   if (command_line->buffer == NULL)
     {
       free (command_line);
-      sysfault (1, NULL);
+      sysfail (1, NULL);
     }
   return command_line;
 }
@@ -99,7 +100,7 @@ int read_command_line (buffer_t *command_line)
 
 	    temp = command_line->size;
 	    p = realloc (command_line->buffer, (temp + BUFFER_STEP)*sizeof(char));
-	    sysfault (!p, -1);
+	    sysfail (!p, -1);
 
 	    /* Offest is the end of the buffer. */
 	    offset = command_line->buffer + count;
@@ -124,7 +125,7 @@ pipeline_t *new_pipeline (void)
   int i,j;
 
   pipeline = malloc (1*sizeof(pipeline_t));
-  sysfault (!pipeline, NULL);
+  sysfail (!pipeline, NULL);
   
 
   /* Allocate a pipeline structure. */
@@ -251,6 +252,20 @@ int find_modifiers (buffer_t *command_line, pipeline_t *pipeline)
   
   return truncated;
 
+}
+
+/* Like strdup(), which is not ISO C. */
+
+char * stringdup (const char *str)
+{
+  char *p;
+  int n;
+
+  n = strlen (str)+1;
+  p = malloc (n*sizeof(char));
+  sysfail (!p, NULL);
+  strcpy (p, str);
+  return p;
 }
 
 
