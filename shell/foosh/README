@@ -23,4 +23,36 @@ Foosh implements the trivial command line grammar defined by libtparser.
 
 Implementation of pipeline execution is left as an exercise.
 
+INSTRUCTIONS
+--------------------------------------------------
 
+THIS IS A PROVISIONAL PIECE OF INFORMATION.
+PLEASE, BE AWARE OF UPDATES.
+
+Follow the same rules of exercise runcmd!
+
+   Your implementation must use **exclusively** the standard C library (aka libc)
+   and no other external library. This is part of the execise.
+
+   The implementation must be adherent to standards ISO/ANSI/Standard C (c89/90)
+   and POSIX (IEEE 1003.1-2008). The evaluation of the exercise will be performed
+   by compiling your library with
+
+   gcc -Wall -Werror --ansi --pedantic-errors -D_POSIX_C_SOURCE=200809L
+
+Please, keep an eye on the FAQ (to be extended)
+
+   Q: Should my shell be named foosh?
+   A: For God, no! 
+
+   Q: May my shell be more complex than foosh specs?
+   A: Sure.
+
+   Q: Must I use libtparse?
+   A: No.
+
+   Q: May I use libtparse?
+   A: Yes. In this case, consider it installed in the users system.
+ 
+   Q: May I use bison/yacc for the parser?
+   A: Yes.

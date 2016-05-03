@@ -6,14 +6,25 @@ NAME
 
 SYNOPSIS
 
-      Foosh is a very simple example of a POSIX shell. 
+      foosh [options] [arguments]
 
 DESCRIPTION
 
       Foosh is a sh-like shell implementing basic command line execution with 
       input/oputput redirection, pipeline and job control. 
 
-GRAMMAR
+
+OPTIONS
+
+      (To be updated)
+
+INVOCATION
+
+      Arguments, if present, are interpreted as names of files containing
+      scripts to be executed (see section SCRIPTS).
+
+      
+SHELL GRAMMAR
 
       In Foosh's command line grammar
 
@@ -152,6 +163,9 @@ JOB CONTROL
     job is terminated. If the signal is SIGTSTP, the job is suspended. If no
     process is runing in foreground, foosh simply discard the signal.
 
+    The return status of a job is the restur status of the last command
+    in the pipeline.
+
 BUILT-IN COMMANDS
 
     A built in command is reserved word is interpreted by foosh as an action
@@ -169,6 +183,13 @@ BUILT-IN COMMANDS
 
     A built-in command may appear as command in multiple-command pipeline.
 
+SCRIPTS
+
+    Fosh reads an script file line by line. Every line is interpreted as a 
+    command line to be executed (see section SHELL GRAMMAR).
+
+    Every command line is run as new job.
+
 RETURN VALUE
 
        On success, foosh returns 0; on failire, it returns nonzero.
@@ -178,6 +199,7 @@ CONFORMING TO
 	POSIXeg v1.
 
 NOTES
+
 
 EXAMPLE
 
