@@ -98,7 +98,7 @@ ifneq (,$(filter static, $(MAKECMDGOALS)))
 
 $(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\n./$(@:%=.%)" > $@
+	echo -e "#!/bin/sh\n./$(@:%=.%)" > $@
 	chmod u+x $@
 
 $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
@@ -114,7 +114,7 @@ $(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 #	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
 #	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
+	echo -e "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
 
 $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
