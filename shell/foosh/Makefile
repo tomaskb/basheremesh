@@ -1,4 +1,4 @@
-# Makefile - Foosh
+# Makefile - A Makefile template by Makefine vr. 0.9
 #
 # Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
 #
@@ -24,167 +24,146 @@
 # make clean	    clean up the mess
 # make dist	    pack files to distribute
 # make distcheck    make dist and check package
-# make distclean    restore to original state
 # make install      install the libraries
 # make uninstall    uninstall the libraries
 # make test         perform all runtime tests
 
 
-#
-# COSTOMIZE FOR YOUR PROJECT
-#
+# This is generic Makefile template to build multiple binaries and libraries 
+# out from a C source code projet. You won't probably need to modify bellow 
+# this line, unless you want to modify this template. If you only want to add
+# new rules or to modify existing ones, you may edit local.mk, instead.
 
-# Give your project a name
-
-PROJECT = FooSH
-
-# Name your project's binaires
-
-bin = foosh
-
-# For each item in $(bin), name the objects needed to build it
-
-foosh_obj = main.o 
-
-# For each item in $(bin), name the libraries to which it shall be linked
-
-foosh_lib = libfoosh 
-
-# Name your project's libraries
-
-lib = libfoosh
-
-# For each item in $(lib), name the objects needed to build it
-
-libfoosh_obj = parser.o utils.o
-
-# For each item in $(lib), name the headers
-
-libfoosh_h = foosh.h
-
-# Name your project's auxuliary binaries (not to be installed)
-
-aux_bin = example
-
-# For each item in $(aux_bin), name the objects needed to build it
-
-example_obj = example.o 
-
-# For each item in $(aux_bin), name the libraries to which it shall be linked
-
-example_lib = libfoosh
-
-# Extra files to go in the distribution
-
-EXTRA_DIST = Makefile 
-
-# Installation prefix
-
-PREFIX=./local
 
 #
-# PLEASE, DO NOT MODIFY BELLOW THIS LINE
+# Project customization
 #
-# Automatic from here on
 
-# Customize the building environemnt
+include config.mk
 
-CC = gcc
-CPP_FLAGS = -I. -Wall -Werror -std=c89 --pedantic-errors -D_POSIX_C_SOURCE=200112L 
-C_FLAGS = 
-LD_FLAGS = -L.
-MAKE = make
-AR = ar
-
-
+#
 # Handy variables
+#
 
-lib_static = $(lib:%=%.a)
-lib_shared = $(lib:%=%.so)
-lib_all = $(lib_static) $(lib_shared)
+lib_static = $(lib:%=%.a)              # For building
+lib_shared = $(lib:%=%.so)             # For building
 
-all_lib_obj = $(foreach i, $(lib:%=%_obj), $($i))
-all_lib_h = $(foreach i, $(lib:%=%_h), $($i))
-all_bin_obj = $(foreach i, $(bin:%=%_obj), $($i))
-all_aux_bin_obj = $(foreach i, $(aux_bin:%=%_obj), $($i))
+# Used for installation
+lib_all = $(lib_static) $(lib_shared)  # For installing
+
+inst_headers = $(foreach i, $(lib:%=%_h), $($i))  # For installing
+
+proj_src += $(foreach i, $(lib:%=%_obj), $($i:%.o=%.c))  # For distribution
+proj_src += $(foreach i, $(bin:%=%_obj), $($i:%.o=%.c))
+proj_src += $(foreach i, $(noinst_bin:%=%_obj), $($i:%.o=%.c))
+
+proj_dep = $(proj_src:%.c=%.d)  # For building
+
+proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT " " $(proj_src)) )
+proj_headers += $(inst_headers) # For distribution
+
+EXTRA_DIST += Makefile config.mk local.mk test.mk README COPYING AUTHORS 
+
+#
+# Rules
+#
 
 # Build everything
 
-all: $(lib_static) $(lib_shared) $(bin) $(aux_bin) 
 
-static: $(lib_static) $(bin:%=%-static) $(aux_bin:%=%-static) 
+all static : $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
 
 .SECONDEXPANSION:
 
-# Automaic rules for building libraries
+# Pattern rules for building libraries
 
 $(lib_static) : %.a : $$($$*_obj)
 	$(AR) rcs $@ $^
 
 $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
-	$(CC) -shared $(LD_FLAGS) $(LDFLAGS) $^ -o $@
+	$(CC) -shared $(LD_FLAGS) $(LDFLAGS) -L. $^ -o $@
 
 
+# Pattern rules for building binaires (uses secondary expansion).
+# By default, both static and shared libraries are built and installed. 
+# The binary is dynalically linked. If the executables are to be linked 
+# against the static libraries, the target'static' produces this result. 
+# This does not prevent the building and installation of the shared 
+# libraries, anyway.
 
-# Automatic rules for building binaires
+ifneq (,$(filter static, $(MAKECMDGOALS))) 
+#
+# Statically linked
+#
 
-$(bin) $(aux_bin): % : $$($$*_obj)  $(lib_all)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^)  $(patsubst lib%, -l%, $($*_lib)) -o $@
+$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	echo "#!/bin/sh\n./$(@:%=.%)" > $@
+	chmod u+x $@
+
+$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	chmod u+x $@
+
+else
+#
+# Dynamically linked
+#
+
+$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
+#	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
+#	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
+	chmod u+x $@
+
+$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
+#	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	chmod u+x $@
 
 
-$(bin:%=%-static) $(aux_bin:%=%-static): %-static : $$($$*_obj)  $(lib_static)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) $(filter %.o, $^) -Wl,-Bstatic $(patsubst lib%, -l%, $($*_lib)) -Wl,-Bdynamic -o $@ 
-
-
-# Automatic sufix-rules
-
-%.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  $< -o $@
-
-%-pic.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS) -c  -fPIC $< -o $@
-
-# Atuomatic header dependences
-
-all_bin_d = $(all_bin_obj:%.o=%.d)
-all_aux_bin_d = $(all_aux_bin_obj:%.o=%.d)
-all_lib_static_d = $(all_lib_obj:%.o=%.d)
-all_lib_shared_d = $(all_lib_obj:%.o=%-pic.d)
-
-
-%.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:.c=.o) $@' $< > $@
-
-%-pic.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT '$(<:.c=-pic.o) $@' $< > $@
-
-NO_D := 
-NO_D := $(or $(NO_D), $(findstring clean,$(MAKECMDGOALS)))
-NO_D := $(or $(NO_D), $(findstring uninstall,$(MAKECMDGOALS)))
-ifeq (,$(NO_D))
-include $(all_bin_d) $(all_aux_bin_d) $(all_static_lib_d) $(all_lib_shared_d)
 endif
 
-# Housekeeping
+#
+# New scheme
+#
 
-EXTRA_GARBAGE = *~ \#*
 
-.PHONY: clean
+# Pattern rules sufix-rules fror object-to-source dependency
 
-clean: 
-	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(aux_bin) $(bin:%=%-static) $(aux_bin:%=%-static)
+%.o : %.c
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  $< -o $@
+
+%-pic.o : %.c
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  -fPIC $< -o $@
+
+# Atuomatically calculate header dependences
+
+%.d : %.c
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=.o) $@' $< > $@
+
+%-pic.d : %.c
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
+
+ifeq (,$(filter clean uninstall, $(MAKECMDGOALS))) # Don't do it if not needed
+-include $(proj_dep)
+endif
+
+
+.PHONY: clean dist distcheck install uninstall
+
+clean: tests_cleanup
+	rm -f *.o *.d $(lib_static) $(lib_shared) $(bin) $(noinst_bin) $(bin:%=.%) $(noinst_bin:%=.%)
 	rm -f $(EXTRA_GARBAGE) 
 	rm -rf $(PROJECT) $(PROJECT).tgz
 
+
 # Distribution
 
-all_sources = $(all_bin_obj:%.o=%.c) $(all_aux_bin_obj:%.o=%.c) $(all_lib_obj:%.o=%.c) 
+dist: $(PROJECT).tgz
 
-all_headers := $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -MM -MT " " $(all_sources)) 
-all_headers := $(filter %.h, $(all_headers))
-all_headers := $(sort $(all_headers)) 
-
-dist: $(all_sources) $(all_headers) $(EXTRA_DIST)
+$(PROJECT).tgz : $(proj_src) $(proj_headers) $(EXTRA_DIST) $(gendist_files)
 	rm -rf $(PROJECT)
 	mkdir $(PROJECT)
 	cp $^ $(PROJECT)
@@ -196,27 +175,43 @@ distcheck: dist
 
 # Install, uninstall
 
-install : $(lib_all) $(bin) $(all_lib_h)
+install: INSTALL=yes
+install : $(lib_all) $(bin) $(inst_headers) 
 	install -d $(PREFIX)/lib
 	install -d $(PREFIX)/include
 	install -d $(PREFIX)/bin
 	cp $(lib_all) $(PREFIX)/lib/
-	cp $(all_lib_h) $(PREFIX)/include/
-	cp $(bin) $(PREFIX)/bin/
-	for i in $(bin:%=%-static); do if test -f $$i ; then cp $$i $(PREFIX)/bin; fi; done
+	cp $(inst_headers) $(PREFIX)/include/
+	for i in $(bin:%=.%); do if test -f $$i ; then cp $$i $(PREFIX)/bin/$${i#.}; fi; done
 
 uninstall: 
 	for i in $(lib_all) ; do rm -f $(PREFIX)/lib/$$i; done
-	for i in $(all_lib_h) ; do rm  -f $(PREFIX)/include/$$i; done
-	for i in $(bin) ; do rm -f $(PREFIX)/bin/$$i; done
-	for i in $(bin) ; do rm -f $(PREFIX)/bin/$$i-static; done
-
-# Tests(if any)
-
-test: all
-	@if test -f Makefile.tests ; then \
-	$(MAKE) -f Makefile.tests $(filter-out test, $(MAKECMDGOALS));\
-	else echo "No test to be performed"; fi
+	for i in $(inst_headers) ; do rm  -f $(PREFIX)/include/$$i; done
+	for i in $(bin) ; do rm -f $(PREFIX)/bin/$${i#.}; done
 
 
+# Run tests,  if any
 
+test:	all tests_setup
+	@echo "\n----------------------------------------------------------------------"
+	@echo "\nRunning tests\n"
+	@total=0;\
+	for i in $(tests-bin); do echo;\
+	./$$i; nerrors=$$?; total=$$(( $$total + $$nerrors)); done; \
+	echo; \
+	if test $$total -eq 0 ; then echo -n "Good! All tests ok!"; else echo -n "Found $$total error(s). Some tests failed."; fi;
+	@echo; echo
+
+.PONY : tests_setup
+
+
+# Submakefiles
+
+-include gendist.mk # Distributed produced files (see gendist.mk)
+
+-include local.mk  # Project-specific rules, if any.
+
+-include test.mk  # Set up for tests, if any.
+
+gendist.mk local.mk : 
+	touch $@
