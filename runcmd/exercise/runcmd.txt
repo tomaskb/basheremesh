@@ -4,6 +4,9 @@ NAME
 	runcmd - execute a program in a subprocess
 
 SYNOPSIS
+
+	#include <runcmd.h>
+
 	int runcmd(const char *command, int *result, const int[3] io);
 
 	void (*runcmd_onexit)(void) = NULL;
