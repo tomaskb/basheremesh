@@ -1,0 +1,26 @@
+
+    Foosh is part of POSIX Exempli Gratia (POSIX by example)
+
+    Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
+
+    This is Free Open Source Software. For licensing, see COPYING
+
+    POSIX-eg repository can be found at https://gitlab.com/monaco/posixeg
+
+
+OVERVIEW
+--------------------------------------------------
+
+Foosh - The Foo Shell
+
+Foosh is a minimal bolierplate for a shell command line interpreter.
+
+The example reads strings from the standard input and parse it.
+
+No command execution is actually performand.
+
+Foosh implements the trivial command line grammar defined by libtparser.
+
+Implementation of pipeline execution is left as an exercise.
+
+
