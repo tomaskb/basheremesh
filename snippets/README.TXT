@@ -15,6 +15,7 @@ pipeline                A two-command pipeline
 rpipeline		Recursive pipeline execution.
 signal.c		Asynchronous signal handling old way
 signal2.c		Asynchronous signal handling new way
+siginfo.c		Example of sigaction's siginfo usage
 toggle-io.c		Toggle output between two files
 token.c			Extract tokens from a string	
 
