@@ -76,6 +76,7 @@ int runcmd (const char *command, int *result, int *io) /* ToDO: const char* */
   else				/* Subprocess (child) */
     {
       aux = execvp (args[0], args);
+      free (cmd);
       exit (EXECFAILSTATUS);
     }
 
