@@ -59,7 +59,10 @@ proj_src += $(foreach i, $(noinst_bin:%=%_obj), $($i:%.o=%.c))
 
 proj_dep = $(proj_src:%.c=%.d)  # For building
 
+ifneq ("", $(strip $(proj_src)))
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT " " $(proj_src)) )
+endif
+
 proj_headers += $(inst_headers) # For distribution
 
 EXTRA_DIST += Makefile config.mk local.mk test.mk README COPYING AUTHORS 
