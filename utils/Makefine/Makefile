@@ -59,8 +59,8 @@ proj_src += $(foreach i, $(noinst_bin:%=%_obj), $($i:%.o=%.c))
 
 proj_dep = $(proj_src:%.c=%.d)  # For building
 
-ifneq (,$(strip $(proj_src)))
-proj_headers += $(filter %.h, $(shell $(DA) && $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT "" $(proj_src)) )
+ifneq (,$(strip $(proj_src)))   # For projects with no C sources
+proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT "" $(proj_src)) )
 endif
 proj_headers += $(inst_headers) # For distribution
 
