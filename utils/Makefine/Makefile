@@ -59,8 +59,8 @@ proj_src += $(foreach i, $(noinst_bin:%=%_obj), $($i:%.o=%.c))
 
 proj_dep = $(proj_src:%.c=%.d)  # For building
 
-ifneq ("", $(strip $(proj_src)))
-proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT " " $(proj_src)) )
+ifneq (,$(strip $(proj_src)))   # For projects with no C sources
+proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT "" $(proj_src)) )
 endif
 
 proj_headers += $(inst_headers) # For distribution
@@ -75,7 +75,20 @@ EXTRA_DIST += Makefile config.mk local.mk test.mk README COPYING AUTHORS
 # Build everything
 
 
-all static : $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
+all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
+
+#
+# Safety assertions
+#
+
+CRITICALNAMES = $(PROJECT)
+
+safety:                                                                                                                                                            
+	@for i in $(CRITICALNAMES); do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "$$i has slashes"; fi; done
+	@for i in $(CRITICALNAMES); do if test -z $${i#.}    || test -z $${i#..} ; then echo "$$i is not valid name "; fi; done
+
+
+# Using GNU make secondary expansion
 
 .SECONDEXPANSION:
 
@@ -173,6 +186,7 @@ $(PROJECT).tgz : $(proj_src) $(proj_headers) $(EXTRA_DIST) $(gendist_files)
 	cp $^ $(PROJECT)
 	tar zcvf $(PROJECT).tgz $(PROJECT)
 
+
 distcheck: dist
 	if $(MAKE) -C $(PROJECT) ; then echo "\n$(PROJECT).tgz ready for distribution"; \
 	else echo "\nSomething wrong with $(PROJECT).tgz"; fi; echo 
@@ -192,7 +206,6 @@ uninstall:
 	for i in $(lib_all) ; do rm -f $(PREFIX)/lib/$$i; done
 	for i in $(inst_headers) ; do rm  -f $(PREFIX)/include/$$i; done
 	for i in $(bin) ; do rm -f $(PREFIX)/bin/$${i#.}; done
-
 
 # Run tests,  if any
 
@@ -219,3 +232,4 @@ test:	all tests_setup
 
 gendist.mk local.mk : 
 	touch $@
+
