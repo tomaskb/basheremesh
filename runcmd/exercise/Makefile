@@ -64,8 +64,9 @@ proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG
 endif
 proj_headers += $(inst_headers) # For distribution
 
-EXTRA_DIST += Makefile config.mk local.mk test.mk README COPYING AUTHORS 
+RECOMMENDED = README COPYING AUTHORS INSTALL 
 
+EXTRA_DIST += Makefile config.mk local.mk test.mk $(foreach f, $(RECOMMENDED), $(wildcard $f))
 
 #
 # Rules
@@ -218,3 +219,32 @@ test:	all tests_setup
 
 gendist.mk local.mk : 
 	touch $@
+
+help:
+	@echo "To be written"
+
+
+## Recommended stuff
+
+stuff:
+	@for f in $(RECOMMENDED); do \
+            if test ! -f $$f; then $(MAKE)  -s $$f.stuff 2>/dev/null; fi;\
+        done
+
+
+$(RECOMMENDED:%=%.stuff):
+	@echo -n "Trying project rule for building $(@:%.stuff=%)... "
+	@if ! $(MAKE)  -s $(@:%.stuff=%) 2>/dev/null; then \
+	    echo -n "none found.\nTrying default rule for building $(@:%.stuff=%)... ";\
+            if ! $(MAKE) -s $(@:%.stuff=%.default) 2>/dev/null; then \
+               echo "none found.\nFailling back to last resort for $(@:%.stuff=%)... created empty file"; \
+                    echo "$(PROJECT)" > $(@:%.stuff=%); \
+	    else\
+              echo "ok.";\
+            fi;\
+        fi
+
+xINSTALL.default : 
+	@echo "Default install rules" > $(@:%.default=%)
+
+
