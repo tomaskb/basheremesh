@@ -86,11 +86,11 @@ all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin)
 
 # For safety, critical names can't have slashes nor be .  or ..
 
-CRITICALNAMES = PROJECT bin noinst_bin lib $(proj_src) $(proj_h) EXTRA_GARBAGE
+CRITICALNAMES = PROJECT bin noinst_bin lib $(proj_src) $(proj_h) 
 
 $(CRITICALNAMES:%=%_check) : %_check : 
 	@for i in $($*) ; do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
-	@for i in $($*) ; do if test -z $${i#.}    || test -z $${i#..} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; don
+	@for i in $($*) ; do if test -z $${i#.}    || test -z $${i#..} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
 
 # PROJECT can't be missing
 
@@ -107,8 +107,8 @@ safety: $(CRITICALNAMES:%=%_check) other_checks
 
 #Ensure no tralling blanks
 
-PREFIX = $(word 1,$(PREFIX%=%))# Do not allow blaks before comment mark
-PROJECT= $(word 1,$(PROJECT:%=%)# Do not allow blaks before comment mark
+PREFIX:=$(word 1,$(PREFIX%=%))# Do not allow blaks before comment mark
+PROJECT:=$(word 1,$(PROJECT:%=%))# Do not allow blaks before comment mark
 
 # Use GNU make secondary expansion
 

@@ -48,7 +48,6 @@ include config.mk
 lib_static = $(lib:%=%.a)              # For building
 lib_shared = $(lib:%=%.so)             # For building
 
-# Used for installation
 lib_all = $(lib_static) $(lib_shared)  # For installing
 
 inst_headers = $(foreach i, $(lib:%=%_h), $($i))  # For installing
@@ -59,7 +58,7 @@ proj_src += $(foreach i, $(noinst_bin:%=%_obj), $($i:%.o=%.c))
 
 proj_dep = $(proj_src:%.c=%.d)  # For building
 
-ifneq (,$(strip $(proj_src)))   # For projects with no C sources
+ifneq (,$(strip $(proj_src)))   # For distribution (oly of if project has C sources)
 proj_headers += $(filter %.h, $(shell $(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT "" $(proj_src)) )
 endif
 proj_headers += $(inst_headers) # For distribution
@@ -74,24 +73,44 @@ EXTRA_DIST += Makefile config.mk local.mk test.mk $(foreach f, $(RECOMMENDED), $
 
 # Build everything
 
-
 all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
 
-#
 # Safety
-#
 
-CRITICALNAMES = PROJECT bin noinst_bin lib
+# Some rules suck as clean and uninstall remove files and directories whose
+# names are computed from the user-provided configuration variables. Those names
+# are consideraded critical, seen that accidental misnamings can cause 
+# irreparable harms. Prevention is better than cure, and a stich in time saves 
+# nine. Some checks may be reduntant or exagerated but better some paranoia now
+# than sorrowful regrets later on.
 
-safety: $(CRITICALNAMES:%=%_check)
+# For safety, critical names can't have slashes nor be .  or ..
+
+CRITICALNAMES = PROJECT bin noinst_bin lib $(proj_src) $(proj_h) 
 
 $(CRITICALNAMES:%=%_check) : %_check : 
 	@for i in $($*) ; do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
-	@for i in $($*) ; do if test -z $${i#.}    || test -z $${i#..} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done	
+	@for i in $($*) ; do if test -z $${i#.}    || test -z $${i#..} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
 
+# PROJECT can't be missing
+
+other_checks:
+	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi; done
+
+# PROJECT must be a single word.
+
+ifneq (,$(word 2, $(PROJECT)))
+$(error config variable PROJECT cannot have blanks ($(PROJECT)))
+endif
+
+safety: $(CRITICALNAMES:%=%_check) other_checks
+
+#Ensure no tralling blanks
+
+PREFIX:=$(word 1,$(PREFIX%=%))# Do not allow blaks before comment mark
+PROJECT:=$(word 1,$(PROJECT:%=%))# Do not allow blaks before comment mark
 
 # Use GNU make secondary expansion
-
 
 .SECONDEXPANSION:
 
@@ -131,14 +150,11 @@ else
 #
 
 $(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-#	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
-#	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=$(realpath $(PREFIX))/lib $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo -e "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
 
 $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-#	if ! -d $(PREFIX) ; then install -d $(PREFIX) ; fi 
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 	chmod u+x $@
 
