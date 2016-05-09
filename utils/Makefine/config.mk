@@ -5,7 +5,7 @@
 #
 
 # Give your project a name, e.g.
-# PROJECT = FooBar
+ PROJECT = /
 
 # Name your project's binaires, eg.
 # bin = foo bar

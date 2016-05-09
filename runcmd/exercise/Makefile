@@ -75,7 +75,23 @@ EXTRA_DIST += Makefile config.mk local.mk test.mk $(foreach f, $(RECOMMENDED), $
 # Build everything
 
 
-all static : $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
+all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin) 
+
+#
+# Safety
+#
+
+CRITICALNAMES = PROJECT bin noinst_bin lib
+
+safety: $(CRITICALNAMES:%=%_check)
+
+$(CRITICALNAMES:%=%_check) : %_check : 
+	@for i in $($*) ; do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
+	@for i in $($*) ; do if test -z $${i#.}    || test -z $${i#..} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done	
+
+
+# Use GNU make secondary expansion
+
 
 .SECONDEXPANSION:
 
@@ -150,7 +166,7 @@ endif
 %-pic.d : %.c
 	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
 
-ifeq (,$(filter clean uninstall, $(MAKECMDGOALS))) # Don't do it if not needed
+ifeq (,$(filter clean uninstall setup help, $(MAKECMDGOALS))) # Don't do it if not needed
 -include $(proj_dep)
 endif
 
@@ -226,25 +242,27 @@ help:
 
 ## Recommended stuff
 
-stuff:
-	@for f in $(RECOMMENDED); do \
-            if test ! -f $$f; then $(MAKE)  -s $$f.stuff 2>/dev/null; fi;\
-        done
+
+setup:
+	@n=0; for f in $(RECOMMENDED); do \
+            if test ! -f $$f; then n=1; $(MAKE) -s $$f.setup 2>/dev/null; fi;\
+        done; if test "$$n" != 0; then echo "Setup completed"; else echo "Everything already all set"; fi
 
 
-$(RECOMMENDED:%=%.stuff):
-	@echo -n "Trying project rule for building $(@:%.stuff=%)... "
-	@if ! $(MAKE)  -s $(@:%.stuff=%) 2>/dev/null; then \
-	    echo -n "none found.\nTrying default rule for building $(@:%.stuff=%)... ";\
-            if ! $(MAKE) -s $(@:%.stuff=%.default) 2>/dev/null; then \
-               echo "none found.\nFailling back to last resort for $(@:%.stuff=%)... created empty file"; \
-                    echo "$(PROJECT)" > $(@:%.stuff=%); \
+
+$(RECOMMENDED:%=%.setup):
+	@echo -n "Trying project rule for building $(@:%.setup=%)... "
+	@if ! $(MAKE)  -s $(@:%.setup=%) 2>/dev/null; then \
+	    echo -n "none found.\nTrying default rule for building $(@:%.setup=%)... ";\
+            if ! $(MAKE) -s $(@:%.setup=%.default) 2>/dev/null; then \
+               echo "none found.\nFailling back to last resort for $(@:%.setup=%)... created empty file"; \
+                    echo "$(PROJECT)" > $(@:%.setup=%); \
 	    else\
-              echo "ok.";\
+              echo "default used.";\
             fi;\
         fi
 
-xINSTALL.default : 
+INSTALL.default : 
 	@echo "Default install rules" > $(@:%.default=%)
 
 
