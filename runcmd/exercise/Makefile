@@ -155,7 +155,7 @@ $(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 	chmod u+x $@
 
 $(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 	chmod u+x $@
 
 
