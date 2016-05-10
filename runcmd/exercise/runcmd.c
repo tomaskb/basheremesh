@@ -39,7 +39,7 @@
    shall be redirected; if NULL, no redirection is performed. On
    success, returns subprocess' pid; on error, returns 0. */
 
-int runcmd (const char *command, int *result, int *io) /* ToDO: const char* */
+int runcmd (const char *command, int *result, const int *io) /* ToDO: const char* */
 {
   int pid, status; 
   int aux, i, tmp_result;

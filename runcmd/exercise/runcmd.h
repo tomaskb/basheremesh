@@ -65,7 +65,7 @@
 
 /* Run a command in a subprocess. */
 
-int runcmd (const char *command, int *result, int *io);
+int runcmd (const char *command, int *result, const int *io);
 
 /* Hanlder for SIGCHLD in nonblock mode. */
 
