@@ -95,7 +95,7 @@ $(CRITICALNAMES:%=%_check) : %_check :
 # PROJECT can't be missing
 
 other_checks:
-	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi; done
+	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi
 
 # PROJECT must be a single word.
 
