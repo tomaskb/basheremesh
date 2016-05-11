@@ -39,15 +39,11 @@ libruncmd_h = runcmd.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # noinst_bin = example
-noinst_bin = test-runcmd delay io segfault t1
+noinst_bin = test-runcmd t1
 
 # For each item in $(noinst_bin), name the objects needed to build it, e.g.
 # example_obj = example.o 
-delay_obj = delay.o
-io_obj = io.o
-segfault_obj = segfault.o
 test-runcmd_obj = test-runcmd.o
-
 t1_obj = t1.o
 
 # For each item in $(noinst_bin), name the libraries to which it's to be linked, e.g.
