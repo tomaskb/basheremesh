@@ -24,16 +24,21 @@
 #include <unistd.h>
 
 #include <debug.h>
+#include "t1.h"
 
 int main (int argc, char **argv)
 {
   FILE *fp;
-  int pid, val, *p;
+  int pid, val;
+
+  /* Unless otherwise specified by further rules this programs returns
+     the value it receives as its first argument converted to an integer. If no
+     arguments are given, the program returns the default value T1_NOARG.*/
 
   if (argc > 1)
     val = atoi (argv[1]);
   else
-    val = 10;
+    val = T1_NOARG;
 
   /* Save pid into a file. */
 
@@ -43,16 +48,12 @@ int main (int argc, char **argv)
   fprintf (fp, "%d\n", pid);
   fclose(fp);
 
-  /* Cause a segmentation fault if val==15 */
-  p = 0;
-  if (val == 15)
-    *p = 0;
-  
-  /* Return argv[1] if given. */
+  /* Cause a segmentation fault.*/
 
-  if (argc == 1)
-    return 10;
-  else
-    return atoi (argv[1]);
+  if (val == T1_SEGFAULT)
+    * ((int *) 0x0)  = 0;
+  
+  
+  return val;
 
 }

@@ -30,26 +30,19 @@
 
 #include <runcmd.h>
 #include <debug.h>
-
-#define LOGFILE "runcmd.log"
-#define EXECYES 0
-#define EXECFAIL 1
-
-typedef struct test_case_t
-{
-  char *info;
-  char *cmd;
-} test_case_t;
+#include "t1.h"
 
 
-int go_on = 1;
+int noio[3]; /* Index 0,1,2 will be file descriptors to /dev/null. */
 
-void finish (void)
-{
-  go_on = 0;
-}
+/* This wrapper function calls 
 
-int noio[3];
+   pid = run runcmd(command, result, io) ;
+
+   and returns pid. If io is NULL, standard streams are redirected to
+   /dev/null before calling runcmd(), in order not to polute the console
+   output; streams are restored before returning. This function also 
+   outputs some basic information about the subprocess completion. */
 
 int try_runcmd (const char* command, int *result, int *io)
 {
@@ -68,8 +61,6 @@ int try_runcmd (const char* command, int *result, int *io)
 
   /* Run the command.*/
 
-  runcmd_onexit = finish;
-
   pid = runcmd (command,  &tmp_result, io);
 
   /* Restore output if not redirecting. */
@@ -79,6 +70,8 @@ int try_runcmd (const char* command, int *result, int *io)
       dup(tio[0]); dup(tio[1]); dup(tio[2]);
       close (tio[0]); close(tio[1]); close (tio[2]);
     }
+
+  /* Output basic information on subprocess completion. */
 
   printf ("(%5d, %8s, %3d, %3sblocking, exec %s)\n\n",
   	  pid,
@@ -94,42 +87,37 @@ int try_runcmd (const char* command, int *result, int *io)
 
 }
 
-int check (const char* message, int expression)
+/* Returns 0 if check condition is met; returns 1 otherwise. 
+   The function outputs OK or NO, respectively. */
+
+int check (const char* message, int condition)
 {
   int nbytes;
   printf ("   whether %s%n", message, &nbytes);
-  printf ("%*s\n", 60-nbytes, expression ? "OK":"NO");
-  return expression ? 0 : 1;
+  printf ("%*s\n", 60-nbytes, condition ? "OK":"NO");
+  return condition ? 0 : 1;
 }
 
-
-/* Main function: returns successfully if all tests are ok;
-   returns unsucessfully otherwise. */
+/* This program perform a series of tests and return the number of errors.*/
 
 int main (int argc, char **argv)
 {
-  /* int result, i; */
 
-  /* Test cases. */
-
-  /* char cmd1[] = "ls runcmd.c" ;     /\* File does exist. *\/ */
-  /* char cmd2[] = "./segfault";       /\* Abnormal termination. *\/ */
-  /* char cmd3[] = "ls nosuchfile";    /\* File does not exist. *\/ */
-  /* char cmd4[] = "./io";  	    /\* Test IO redirection. *\/ */
-  /* char cmd5[] = "./nosuchfile";     /\* Exec failed. *\/ */
-  /* char cmd6[] = "./delay &";        /\* Test nonblock. *\/ */
+  /* Macros to stringify a macro's integer value. */
 
 #define _strfy(val) # val
 #define  strfy(val) _strfy(val)
 
-  char cmd1[] = "./t1" ;          /* Exits 10. */
-  char cmd2[] = "./t1 11";        /* Exits 11. */
-  char cmd3[] = "./t1 15";        /* Segaful. */
-  char cmd4[] = "./nosuchfile";   /* Not found. */
-  char cmd5[] = "./t1 " strfy(EXECFAILSTATUS);       /* Exits EXECFAILSTATUS */
+  /* Test cases. */
 
-  /* int io[3], io2[3], pid, rpid, nerrors; */
-  int result, i, pid, io[3], rpid, nerrors;
+  char cmd1[] = "./t1" ;                        /* Exits T1_NOARG_EXIT. */
+  char cmd2[] = "./t1 " strfy(T1_SOMEVALUE) ;   /* Exits T1_SOMEVALUE. */
+  char cmd3[] = "./t1 " strfy(T1_SEGFAULT) ;    /* Causes segfault.   */
+  char cmd4[] = "./nosuchfile";                 /* Causes exec failure. */
+  char cmd5[] = "./t1 " strfy(EXECFAILSTATUS);  /* Exits EXECFAILSTATUS */
+  char cmd6[] = "./t1"  strfy(T1_MAKEIO);	/* Make some IO. */
+
+  int result, i, pid, io[3], rpid, nerrors, rs;
   FILE *fp;
 
   nerrors = 0;
@@ -141,8 +129,6 @@ int main (int argc, char **argv)
   sysfatal ((noio[1] = open ("/dev/null", O_WRONLY)) <0);
   sysfatal ((noio[2] = open ("/dev/null", O_WRONLY)) <0);
 
-  /* io[0]=1; io[1]=1; io[2]=2; */
-
   /* Check  */
 
   pid = try_runcmd (cmd3, &result, NULL);   /* Normal, success. */
@@ -151,6 +137,7 @@ int main (int argc, char **argv)
   nerrors += check ("abnormal termination is correctly reported", 
 		    (!IS_NORMTERM(result)) && 
 		    (EXITSTATUS(result) == 0));
+
   /* Check */
 
 
@@ -205,41 +192,7 @@ int main (int argc, char **argv)
 		    (IS_EXECOK(result)) &&
 		    (EXITSTATUS(result) == EXECFAILSTATUS));
 
-  /* Politeness. */
-
-  for (i=0; i<3; i++)
-    {
-      close (noio[i]);
-      close (io[i]);
-    }
-
 
   return nerrors;
 
-
-  
-  /* Test redirection. */
-
-  /* sysfatal ((fd = open ("in.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0); */
-  /* write (fd, "a", 1); */
-  /* sysfatal(close(fd)<0); */
-
-  /* sysfatal ((io2[0] = open ("in.txt", O_RDONLY)) <0); */
-  /* sysfatal ((io2[1] = open ("out.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0); */
-  /* sysfatal ((io2[2] = open ("err.txt", O_CREAT | O_TRUNC | O_RDWR,  S_IRUSR | S_IWUSR)) <0); */
-
-
-  /* result +=tryrun (&tc[3], io2, 1, 0, EXECYES);   /\* Normal, success. *\/ */
-
-  /* /\* Test nonblock. *\/ */
-
-  /* result +=tryrun (&tc[5], io2, 1, 0, EXECFAIL);   /\* Normal, success. *\/ */
-
-  /* /\* Test whether exec failed. *\/ */
-
-  /* result +=tryrun (&tc[5], io, 1, 0, EXECYES);   /\* Normal, success. *\/ */
-
-  /* /\* Polite clean-up before leaving. *\/ */
-
-  /* return result; */
 }
