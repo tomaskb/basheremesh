@@ -1,4 +1,4 @@
-/* test-runcmd - Program to test runcmd function
+/* test-001.c - Program to test runcmd function
 
    Copyright (c) 2014, Francisco José Monaco <moanco@icmc.usp.br>
 
