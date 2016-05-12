@@ -77,38 +77,16 @@ all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin)
 
 # Safety
 
-# Some rules suck as clean and uninstall remove files and directories whose
-# names are computed from the user-provided configuration variables. Those names
-# are consideraded critical, seen that accidental misnamings can cause 
-# irreparable harms. Prevention is better than cure, and a stich in time saves 
-# nine. Some checks may be reduntant or exagerated but better some paranoia now
-# than sorrowful regrets later on.
+CRITICALNAMES = PROJECT bin noinst_bin lib $(proj_src) $(proj_h)
 
-# For safety, critical names can't have slashes nor be .  or ..
-
-CRITICALNAMES = PROJECT bin noinst_bin lib $(proj_src) $(proj_h) 
+safety: $(CRITICALNAMES:%=%_check) other_checks
 
 $(CRITICALNAMES:%=%_check) : %_check : 
 	@for i in $($*) ; do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
 	@for i in $($*) ; do if test -z $${i#.}    || test -z $${i#..} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
 
-# PROJECT can't be missing
-
 other_checks:
-	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi; done
-
-# PROJECT must be a single word.
-
-ifneq (,$(word 2, $(PROJECT)))
-$(error config variable PROJECT cannot have blanks ($(PROJECT)))
-endif
-
-safety: $(CRITICALNAMES:%=%_check) other_checks
-
-#Ensure no tralling blanks
-
-PREFIX:=$(word 1,$(PREFIX%=%))# Do not allow blaks before comment mark
-PROJECT:=$(word 1,$(PROJECT:%=%))# Do not allow blaks before comment mark
+	@if test -z "$(PROJECT)"; then echo "Missing project name (PROJECT)"; exit 1; fi; done
 
 # Use GNU make secondary expansion
 
@@ -131,24 +109,39 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 # libraries, anyway.
 
 ifneq (,$(filter static, $(MAKECMDGOALS))) 
-
+#
 # Statically linked
+#
 
-$(bin) $(noinst_bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
+$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\n./$(@:%=.%)" > $@
+	echo -e "#!/bin/sh\n./$(@:%=.%)" > $@
+	chmod u+x $@
+
+$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $@
 	chmod u+x $@
 
 else
-
+#
 # Dynamically linked
+#
 
-$(bin) $(noinst_bin) : % :  $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
+$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
+	echo -e "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
 
+$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath=. $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+	chmod u+x $@
+
+
 endif
+
+#
+# New scheme
+#
 
 
 # Pattern rules sufix-rules fror object-to-source dependency

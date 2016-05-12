@@ -1,0 +1,1022 @@
+Makefile:42: config.mk: Too many open files
+make: *** No rule to make target `safety_src_check'.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
+foo.o:1: warning: NUL character seen; rest of line ignored
+foo.o:1: *** missing separator.  Stop.
