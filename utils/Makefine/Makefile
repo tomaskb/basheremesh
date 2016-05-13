@@ -135,7 +135,7 @@ ifneq (,$(filter static, $(MAKECMDGOALS)))
 # Statically linked
 
 $(bin) $(noinst_bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo "#!/bin/sh\n./$(@:%=.%)" > $@
 	chmod u+x $@
 
@@ -144,7 +144,7 @@ else
 # Dynamically linked
 
 $(bin) $(noinst_bin) : % :  $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
 	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
 	chmod u+x $@
 
@@ -154,18 +154,18 @@ endif
 # Pattern rules sufix-rules fror object-to-source dependency
 
 %.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  $< -o $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. $(C_FLAGS) $($(@:%=%_cflags)) $(CFLAGS) -c  $< -o $@
 
 %-pic.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  -fPIC $< -o $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. $(C_FLAGS) $($(@:%=%_cflags)) $(CFLAGS) -c  -fPIC $< -o $@
 
 # Atuomatically calculate header dependences
 
 %.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=.o) $@' $< > $@
 
 %-pic.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
 
 ifeq (,$(filter clean uninstall setup help, $(MAKECMDGOALS))) # Don't do it if not needed
 -include $(proj_dep)
