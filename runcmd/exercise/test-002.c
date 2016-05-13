@@ -70,7 +70,7 @@ int main (int argc, char **argv)
   sysfatal ((noio[1] = open ("/dev/null", O_WRONLY)) <0);
   sysfatal ((noio[2] = open ("/dev/null", O_WRONLY)) <0);
 
-  /* Check  */
+  /* Check  redirection*/
 
   rs = pipe (pipefd);
   sysfatal (rs<0);
@@ -93,10 +93,10 @@ int main (int argc, char **argv)
   else
     redirok=0;
 
-  nerrors += check ("whether io is redirected correctly", redirok);
+  nerrors += check ("whether stdin/stdout are redirected correctly", redirok);
 
-  
-  pid = pid;
+
+  pid = pid;			/* Avoid gcc complaint. */
 
   return nerrors;
 
