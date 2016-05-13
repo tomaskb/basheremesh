@@ -69,15 +69,17 @@ int main (int argc, char **argv)
   if (val == T1_MAKEIO)
     {
 
+      /* In order not to block tests, give up if nothing is
+	 read from standard input. */
+
       rp = memset(&act, 0, sizeof(struct sigaction));
       sysfatal (!rp);
       act.sa_handler = giveup;		   
       rs = sigaction(SIGALRM, &act, NULL); 
       sysfatal (rs<0);
 
+      alarm (1);
 
-
-      alarm (3);
       fgets (buffer, T1_TOKENSIZE+1, stdin);
       if (!strcmp(buffer,T1_WRITETHIS))
 	{
