@@ -136,7 +136,7 @@ ifneq (,$(filter static, $(MAKECMDGOALS)))
 
 $(bin) $(noinst_bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\n./$(@:%=.%)" '$$@' > $@
+	ln -s $(@:%=.%) $@
 	chmod u+x $@
 
 else
@@ -145,7 +145,7 @@ else
 
 $(bin) $(noinst_bin) : % :  $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" '$$@' > $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L. -Wl,-rpath='$$ORIGIN' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@)
 	chmod u+x $@
 
 endif
