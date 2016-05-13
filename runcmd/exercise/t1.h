@@ -30,6 +30,13 @@
 
 /* Exit status. */
 
-# define T1_NOARG     10	/* If no argument is given, return this value. */
+# define T1_NOARG     10    /* If no argument is given, return this value. */
+# define T1_IO         9    /* If can read from stdin, write this to stdout. */
+
+/* Tokens. */
+
+# define T1_TOKENSIZE 3
+# define T1_WRITETHIS "abc"	/* Write this token to stdout. */
+# define T1_READTHIS  "edf"	/* Read this token from stdin.*/
 
 #endif	/* T1_H */

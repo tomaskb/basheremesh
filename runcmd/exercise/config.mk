@@ -39,16 +39,26 @@ libruncmd_h = runcmd.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # noinst_bin = example
-noinst_bin = test-001 t1
+noinst_bin = test-001 test-002 t1 
 
 # For each item in $(noinst_bin), name the objects needed to build it, e.g.
 # example_obj = example.o 
 test-001_obj = test-001.o testutils.o
+test-002_obj = test-002.o testutils.o
 t1_obj = t1.o
 
 # For each item in $(noinst_bin), name the libraries to which it's to be linked, e.g.
 # example_lib = libfoobar
 test-001_lib = libruncmd
+test-002_lib = libruncmd
+
+# If any targets (either binary or object) needs specific compiler flags to be
+# built, list them here, e.g.
+# foo_cflags = -pthread
+# bar.o_cppflags = -D_POSIX_C_SOURCE
+test-002_cppflags = -pthread
+test-002_ldflags = -pthread
+
 
 # Extra files to go in the distribution (add as needed)
 
@@ -79,5 +89,5 @@ EXTRA_GARBAGE = *~ \#*
 
 # Name your tests
 
-tests-bin = test-001
+tests-bin = test-001 test-002
 

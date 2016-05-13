@@ -22,14 +22,25 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include <debug.h>
 #include "t1.h"
 
+char buffer[T1_TOKENSIZE];
+
+
+void giveup(int signun)
+{
+  fputs (buffer,stdout);
+}
+
 int main (int argc, char **argv)
 {
   FILE *fp;
-  int pid, val;
+  int pid, val, rs;
+  struct sigaction act;
+  void *rp;
 
   /* Unless otherwise specified by further rules this programs returns
      the value it receives as its first argument converted to an integer. If no
@@ -53,7 +64,31 @@ int main (int argc, char **argv)
   if (val == T1_SEGFAULT)
     * ((int *) 0x0)  = 0;
   
-  
+  /* Read from stdin, write to stdout. */
+
+  if (val == T1_MAKEIO)
+    {
+
+      rp = memset(&act, 0, sizeof(struct sigaction));
+      sysfatal (!rp);
+      act.sa_handler = giveup;		   
+      rs = sigaction(SIGALRM, &act, NULL); 
+      sysfatal (rs<0);
+
+
+
+      alarm (3);
+      fgets (buffer, T1_TOKENSIZE+1, stdin);
+      if (!strcmp(buffer,T1_WRITETHIS))
+	{
+	  fputs (T1_READTHIS,stdout);
+	  val = T1_IO;
+	}
+      else
+	  fputs (buffer,stdout);
+	
+    }
+
   return val;
 
 }
