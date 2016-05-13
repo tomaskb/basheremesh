@@ -86,7 +86,7 @@ all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin)
 
 # For safety, critical names can't have slashes nor be .  or ..
 
-CRITICALNAMES = PROJECT bin noinst_bin lib $(proj_src) $(proj_h) 
+CRITICALNAMES = PROJECT bin noinst_bin lib #$(proj_src) $(proj_h) 
 
 $(CRITICALNAMES:%=%_check) : %_check : 
 	@for i in $($*) ; do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
@@ -95,7 +95,7 @@ $(CRITICALNAMES:%=%_check) : %_check :
 # PROJECT can't be missing
 
 other_checks:
-	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi
+	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi; done
 
 # PROJECT must be a single word.
 
@@ -131,56 +131,41 @@ $(lib_shared) : %.so : $$($$*_obj:.o=-pic.o)
 # libraries, anyway.
 
 ifneq (,$(filter static, $(MAKECMDGOALS))) 
-#
+
 # Statically linked
-#
 
-$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo -e "#!/bin/sh\n./$(@:%=.%)" > $@
-	chmod u+x $@
-
-$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $@
+$(bin) $(noinst_bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	echo "#!/bin/sh\n./$(@:%=.%)" '$$@' > $@
 	chmod u+x $@
 
 else
-#
+
 # Dynamically linked
-#
 
-$(bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo -e "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
+$(bin) $(noinst_bin) : % :  $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
+	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" '$$@' > $@
 	chmod u+x $@
-
-$(noinst_bin): % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
-	$(CC) $(LD_FLAGS) $(LDFLAGS) -L. -Wl,-rpath='$$ORIGIN' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $@
-	chmod u+x $@
-
 
 endif
-
-#
-# New scheme
-#
 
 
 # Pattern rules sufix-rules fror object-to-source dependency
 
 %.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  $< -o $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. $(C_FLAGS) $($(@:%=%_cflags)) $(CFLAGS) -c  $< -o $@
 
 %-pic.o : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. $(C_FLAGS) $(CFLAGS) -c  -fPIC $< -o $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. $(C_FLAGS) $($(@:%=%_cflags)) $(CFLAGS) -c  -fPIC $< -o $@
 
 # Atuomatically calculate header dependences
 
 %.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=.o) $@' $< > $@
 
 %-pic.d : %.c
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
+	$(CC) $(CPP_FLAGS) $($(@:%=%_cppflags)) $(CPPFLAGS) -I. -MM -MG -MT '$(<:.c=-pic.o) $@' $< > $@
 
 ifeq (,$(filter clean uninstall setup help, $(MAKECMDGOALS))) # Don't do it if not needed
 -include $(proj_dep)
