@@ -50,15 +50,17 @@ int main (int argc, char **argv)
   if (argc > 1)
     val = atoi (argv[1]);
   else
-    val = T1_NOARG;
-
-  /* Save pid into a file. */
-
-  pid = getpid();
-  fp = fopen ("t1.log", "w");
-  sysfatal (!fp);
-  fprintf (fp, "%d\n", pid);
-  fclose(fp);
+    {
+      val = T1_NOARG;
+      
+      /* Save pid into a file. */
+  
+      pid = getpid();
+      fp = fopen ("t1.log", "w");
+      sysfatal (!fp);
+      fprintf (fp, "%d\n", pid);
+      fclose(fp);
+    }      
 
   /* Cause a segmentation fault.*/
 
