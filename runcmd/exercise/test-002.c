@@ -149,6 +149,8 @@ int main (int argc, char **argv)
   runcmd_onexit = onexit;
   pid = try_runcmd (cmd2, &result, NULL);   
 
+  printf ("Checking...\n");
+
   nerrors += check ("whether nonblock is correctly reported", 
 		    IS_NONBLOCK(result));
 
@@ -213,6 +215,8 @@ int main (int argc, char **argv)
     wasnonblock=1;
   
   /* Result is ok if countersigh is correct and caller has not timedout. */
+
+  printf ("Checking...\n");
 
   nerrors += check ("nonblock mode execs in parallel",
   		    (!expired) && (wasnonblock));
