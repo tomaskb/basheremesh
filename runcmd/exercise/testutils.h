@@ -19,6 +19,9 @@
     
 */
 
+#ifndef TESTUTILS_H
+#define TESTUTILS_H
+
 extern int noio[3]; /* Index 0,1,2 will be file descriptors to /dev/null. */
 
 /* This wrapper function calls 
@@ -43,3 +46,5 @@ int check (const char* message, int condition);
 #define  strfy(val) _strfy(val)
 
 # define TIMEOUT 1
+
+#endif	/* TESTUTILS_H */

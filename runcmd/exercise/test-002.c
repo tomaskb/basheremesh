@@ -34,7 +34,7 @@
 #include <runcmd.h>
 #include <debug.h>
 
-#include "t1.h"
+#include "t.h"
 #include "testutils.h"
 
 int pipefd[2];
@@ -47,8 +47,8 @@ void * writepipe (void *arg)
 {
   int rs=0;
   do 
-    rs += write (pipefd[1], "abc", T1_TOKENSIZE);
-  while ( (rs>0) && (rs<T1_TOKENSIZE) );
+    rs += write (pipefd[1], "abc", T_TOKENSIZE);
+  while ( (rs>0) && (rs<T_TOKENSIZE) );
 
   sysfatal (rs<0);
   return NULL;
@@ -69,7 +69,7 @@ void giveup (int signum)
   expired = 1;
 }
 
-/* This program perform a series of tests and return the number of errors.*/
+/* This program performs a series of tests and return the number of errors.*/
 
 int main (int argc, char **argv)
 {
@@ -77,9 +77,9 @@ int main (int argc, char **argv)
   
   /* Test cases. */
 
-  char cmd1[] = "./t1 " strfy(T1_MAKEIO);  /* Exits EXECFAILSTATUS */
+  char cmd1[] = "./t1 " strfy(T_MAKEIO);  /* Exits EXECFAILSTATUS */
   char cmd2[] = "./t1 &";
-  char cmd3[] = "./t1 " strfy(T1_WRITEFIFO) " &"; /* Write to fifo. */
+  char cmd3[] = "./t1 " strfy(T_WRITEFIFO) " &"; /* Write to fifo. */
 
   int result, pid, nerrors, rs, redirok, io[3], i, fd, wasnonblock;
   pthread_t thread;
@@ -127,13 +127,13 @@ int main (int argc, char **argv)
      countersign is sent, otherwise. */
 
   buffer[0]='\0';		
-  nbytes = read (pipefd[0], buffer, T1_TOKENSIZE);
+  nbytes = read (pipefd[0], buffer, T_TOKENSIZE);
   sysfatal (nbytes<0);
   buffer[3]=0;
 
   /* Check countersign.*/
 
-  if (!strcmp(buffer,T1_READTHIS)) /* Subprocess answered correctly. */
+  if (!strcmp(buffer,T_READTHIS)) /* Subprocess answered correctly. */
     redirok=1;
   else				   /* Subprocess must have timed-out. */
     redirok=0;
@@ -168,8 +168,8 @@ int main (int argc, char **argv)
 
   /* Create a fifo. */
 
-  unlink (T1_FIFONAME);
-  rs = mkfifo (T1_FIFONAME, 0600);
+  unlink (T_FIFONAME);
+  rs = mkfifo (T_FIFONAME, 0600);
   sysfatal (rs<0);
 
   buffer[0]='\0';		
@@ -197,19 +197,19 @@ int main (int argc, char **argv)
   /* Now caller opens the fifo and reads from it. Had a faulty (nonparallel)
      subprocess been stuck, it would not proceed and write into the fifo. */
 
-  fd = open (T1_FIFONAME, O_RDONLY);
+  fd = open (T_FIFONAME, O_RDONLY);
   sysfatal (fd<0);
 
   /* Caller may read from fifo now. */
 
-  nbytes = read (fd, buffer, T1_TOKENSIZE);
+  nbytes = read (fd, buffer, T_TOKENSIZE);
   sysfatal (nbytes<0);
   buffer[nbytes]='\0';
 
   /* Check the countersigh. */
 
   wasnonblock = 0;
-  if (!strcmp(buffer, T1_READTHIS))
+  if (!strcmp(buffer, T_READTHIS))
     wasnonblock=1;
   
   /* Result is ok if countersigh is correct and caller has not timedout. */
@@ -218,7 +218,7 @@ int main (int argc, char **argv)
   		    (!expired) && (wasnonblock));
   /* Cleanup. */
 
-  unlink (T1_FIFONAME);
+  unlink (T_FIFONAME);
 
   pid = pid;			/* Avoid gcc complaints. */
 

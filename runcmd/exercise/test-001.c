@@ -31,20 +31,20 @@
 #include <runcmd.h>
 #include <debug.h>
 
-#include "t1.h"
+#include "t.h"
 #include "testutils.h"
 
 
-/* This program perform a series of tests and return the number of errors.*/
+/* This program performs a series of tests and return the number of errors.*/
 
 int main (int argc, char **argv)
 {
 
   /* Test cases. */
 
-  char cmd1[] = "./t1" ;                        /* Exits T1_NOARG_EXIT. */
-  char cmd2[] = "./t1 " strfy(T1_SOMEVALUE) ;   /* Exits T1_SOMEVALUE. */
-  char cmd3[] = "./t1 " strfy(T1_SEGFAULT) ;    /* Causes segfault.   */
+  char cmd1[] = "./t1" ;                        /* Exits T_NOARG_EXIT. */
+  char cmd2[] = "./t1 " strfy(T_SOMEVALUE) ;   /* Exits T_SOMEVALUE. */
+  char cmd3[] = "./t1 " strfy(T_SEGFAULT) ;    /* Causes segfault.   */
   char cmd4[] = "./nosuchfile";                 /* Causes exec failure. */
   char cmd5[] = "./t1 " strfy(EXECFAILSTATUS);  /* Exits EXECFAILSTATUS */
 

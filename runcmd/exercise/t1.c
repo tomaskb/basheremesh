@@ -26,9 +26,9 @@
 #include <fcntl.h>
 
 #include <debug.h>
-#include "t1.h"
+#include "t.h"
 
-char buffer[T1_TOKENSIZE];
+char buffer[T_TOKENSIZE];
 
 
 void giveup(int signun)
@@ -45,13 +45,13 @@ int main (int argc, char **argv)
 
   /* Unless otherwise specified by further rules this programs returns
      the value it receives as its first argument converted to an integer. If no
-     arguments are given, the program returns the default value T1_NOARG.*/
+     arguments are given, the program returns the default value T_NOARG.*/
 
   if (argc > 1)
     val = atoi (argv[1]);
   else
     {
-      val = T1_NOARG;
+      val = T_NOARG;
       
       /* Save pid into a file. */
   
@@ -64,12 +64,12 @@ int main (int argc, char **argv)
 
   /* Cause a segmentation fault.*/
 
-  if (val == T1_SEGFAULT)
+  if (val == T_SEGFAULT)
     * ((int *) 0x0)  = 0;
   
   /* Read from stdin, write to stdout. */
 
-  if (val == T1_MAKEIO)
+  if (val == T_MAKEIO)
     {
 
       /* In order not to block the caller, give up if nothing is
@@ -82,16 +82,16 @@ int main (int argc, char **argv)
       sysfatal (rs<0);
 
       alarm (TIMEOUT);
-      fgets (buffer, T1_TOKENSIZE+1, stdin);
+      fgets (buffer, T_TOKENSIZE+1, stdin);
       alarm (0);
 
       /* If a coorect watchword was received, send the countersing. If
 	 this point has been reach due to a timeout, tough, send a bad ack.*/
 
-      if (!strcmp(buffer,T1_WRITETHIS))
+      if (!strcmp(buffer,T_WRITETHIS))
 	{
-	  fputs (T1_READTHIS,stdout);
-	  val = T1_IO;
+	  fputs (T_READTHIS,stdout);
+	  val = T_IO;
 	}
       else
 	  fputs (buffer,stdout);
@@ -100,14 +100,13 @@ int main (int argc, char **argv)
 
   /* Read from and write to a fifo. */
 
-  if (val == T1_WRITEFIFO)
+  if (val == T_WRITEFIFO)
     {
-      fd = open(T1_FIFONAME, O_WRONLY);
+      fd = open(T_FIFONAME, O_WRONLY);
       sysfatal (fd<0);
-      write (fd, T1_READTHIS, T1_TOKENSIZE);
+      write (fd, T_READTHIS, T_TOKENSIZE);
       close(fd);
     }
-
 
   return val;
 

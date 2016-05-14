@@ -19,29 +19,30 @@
     
 */
 
-#ifndef T1_H
-#define T1_H
+#ifndef T_H
+#define T_H
 
 #include "testutils.h"
 
 /* Arguments. */
 
-# define T1_SOMEVALUE 11	  /* Reserved to test return atoi(argv[1]). */
-# define T1_MAKEIO    12	  /* Reads from stdin and writes to stdout. */
-# define T1_WRITEFIFO 13	  /* Write to a named pipe (FIFO). */
-# define T1_SEGFAULT  15	  /* Cause program to segfault. */
+# define T_SOMEVALUE 11	  /* Reserved to test return atoi(argv[1]). */
+# define T_MAKEIO    12	  /* Reads from stdin and writes to stdout. */
+# define T_WRITEFIFO 13	  /* Write to a named pipe (FIFO). */
+# define T_SEGFAULT  15	  /* Cause program to segfault. */
+
 
 /* Exit status. */
 
-# define T1_NOARG     10    /* If no argument is given, return this value. */
-# define T1_IO         9    /* If can read from stdin, write this to stdout. */
+# define T_NOARG     10    /* If no argument is given, return this value. */
+# define T_IO         9    /* If can read from stdin, write this to stdout. */
 
 /* Tokens. */
 
-# define T1_TOKENSIZE 3
-# define T1_WRITETHIS "abc"	/* Write this token to stdout. */
-# define T1_READTHIS  "edf"	/* Read this token from stdin.*/
+# define T_TOKENSIZE 3
+# define T_WRITETHIS "abc"	/* Write this token to stdout. */
+# define T_READTHIS  "edf"	/* Read this token from stdin.*/
 
-#define T1_FIFONAME   "t1fifo"
+#define T_FIFONAME   "t1fifo"
 
-#endif	/* T1_H */
+#endif	/* T_H */
