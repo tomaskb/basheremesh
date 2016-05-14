@@ -28,6 +28,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <pthread.h>
+#include <sys/stat.h>
+#include <signal.h>
 
 #include <runcmd.h>
 #include <debug.h>
@@ -36,6 +38,10 @@
 #include "testutils.h"
 
 int pipefd[2];
+int onexit_called = 0;
+
+/* This function is executed in a new thread in order to write to
+   subprocess standard input. */
 
 void * writepipe (void *arg)
 {
@@ -48,6 +54,21 @@ void * writepipe (void *arg)
   return NULL;
 }
 
+/* Used as SIGCHLD handler. */
+
+void onexit (void)
+{
+  onexit_called = 1;
+}
+
+/* Used as SIGALRM handler. */
+
+int expired = 0;
+void giveup (int signum)
+{
+  expired = 1;
+}
+
 /* This program perform a series of tests and return the number of errors.*/
 
 int main (int argc, char **argv)
@@ -57,10 +78,13 @@ int main (int argc, char **argv)
   /* Test cases. */
 
   char cmd1[] = "./t1 " strfy(T1_MAKEIO);  /* Exits EXECFAILSTATUS */
+  char cmd2[] = "./t1 &";
+  char cmd3[] = "./t1 " strfy(T1_WRITEFIFO) " &"; /* Write to fifo. */
 
-  int result, pid, nerrors, rs, redirok, io[3];
+  int result, pid, nerrors, rs, redirok, io[3], i, fd, wasnonblock;
   pthread_t thread;
   char buffer[4];
+  struct sigaction act;
 
   nerrors = 0;
 
@@ -70,33 +94,134 @@ int main (int argc, char **argv)
   sysfatal ((noio[1] = open ("/dev/null", O_WRONLY)) <0);
   sysfatal ((noio[2] = open ("/dev/null", O_WRONLY)) <0);
 
-  /* Check  redirection*/
+  /* Check  redirection
+
+     Redirect subprocess' stdandard input and output to a pipe.
+     Write a predefined watchword and wait for a specific countersign.
+     If subprocess does not read from the pipe or does not write back,
+     assume test failure. */
+
+  /* Create the pipe. */
 
   rs = pipe (pipefd);
   sysfatal (rs<0);
 
+  /* Use a new thread to write to the pipe so that caller never blocks.
+     This is probably unecessary but we do it anyway. */
+
   pthread_create (&thread, NULL, writepipe, NULL);
 
-  io[0] = pipefd[0];
-  io[1] = pipefd[1];
-  io[2] = fileno(stderr);
+  io[0] = pipefd[0];		/* Redirect standard input.  */
+  io[1] = pipefd[1];		/* Redirect standard output. */
+  io[2] = 2;	                /* Dont touch standard error.*/
 
-  pid = try_runcmd (cmd1, &result, io);   /* Normal, success. */
+  /* Call runcmd. */
+
+  pid = try_runcmd (cmd1, &result, io);   
+
   printf ("  Checking...\n");
 
-  nbytes = read (pipefd[0], buffer, 3);
-  sysfatal (nbytes<0);
+  /* Read subprocess reply. If subprocess is not reading from the pipe
+     (redirected standard input) it will block and timeout without having
+     received the watchword, thereby sending an incorrect ack. A correct
+     countersign is sent, otherwise. */
 
+  buffer[0]='\0';		
+  nbytes = read (pipefd[0], buffer, T1_TOKENSIZE);
+  sysfatal (nbytes<0);
   buffer[3]=0;
-  if (!strcmp(buffer,T1_READTHIS))
+
+  /* Check countersign.*/
+
+  if (!strcmp(buffer,T1_READTHIS)) /* Subprocess answered correctly. */
     redirok=1;
-  else
+  else				   /* Subprocess must have timed-out. */
     redirok=0;
 
   nerrors += check ("whether stdin/stdout are redirected correctly", redirok);
 
+  /* Check IS_NONBLOCK and runcmd_onexit.
 
-  pid = pid;			/* Avoid gcc complaint. */
+     Set up a SIGCHLD handler andm ake a nonblocking call. Check IS_NONBLOCK.
+     Check if the handler has been called. 
+ */
+
+  runcmd_onexit = onexit;
+  pid = try_runcmd (cmd2, &result, NULL);   
+
+  nerrors += check ("whether nonblock is correctly reported", 
+		    IS_NONBLOCK(result));
+
+  for (i=-0; (i<3) && (!onexit_called); i++) /* Wait a resonable time. */
+    sleep(1);
+
+  nerrors += check ("whether runcmd_onexit is called when requested", 
+		    onexit_called);
+ 
+
+
+  /* Check parallel execution. 
+     
+     Try to communicate with subprocess through a named pipe (FIFO).
+     Send a watchword and checks the countersign. If client is not running in
+     parallel, caller will block. Use timeouts to detect this case. */
+
+  /* Create a fifo. */
+
+  unlink (T1_FIFONAME);
+  rs = mkfifo (T1_FIFONAME, 0600);
+  sysfatal (rs<0);
+
+  buffer[0]='\0';		
+  /* io[0]=0; io[1]=1; io[2]=2; */
+
+  /* Set a time out alarm. */
+
+  rs = sigaction (SIGALRM, NULL, &act);
+  sysfatal (rs<0);
+  act.sa_handler = giveup;
+  rs = sigaction (SIGALRM, &act, NULL);
+  sysfatal (rs<0);
+
+  /* Make a nonblocking call. Probe probram will try to open the
+     fifo to read from it. If subprocess is not running in parallel,
+     it will block since caller itself has not opened the fifo as yet,
+     caise the caller to block in a deadlock. Only time out releases
+     caller. */
+
+  expired = 0;
+  alarm (TIMEOUT);
+  pid = try_runcmd (cmd3, &result, io);
+  alarm (0);
+
+  /* Now caller opens the fifo and reads from it. Had a faulty (nonparallel)
+     subprocess been stuck, it would not proceed and write into the fifo. */
+
+  fd = open (T1_FIFONAME, O_RDONLY);
+  sysfatal (fd<0);
+
+  /* Caller may read from fifo now. */
+
+  nbytes = read (fd, buffer, T1_TOKENSIZE);
+  sysfatal (nbytes<0);
+  buffer[nbytes]='\0';
+
+  /* Check the countersigh. */
+
+  wasnonblock = 0;
+  if (!strcmp(buffer, T1_READTHIS))
+    wasnonblock=1;
+  
+  /* Result is ok if countersigh is correct and caller has not timedout. */
+
+  nerrors += check ("nonblock mode execs in parallel",
+  		    (!expired) && (wasnonblock));
+  /* Cleanup. */
+
+  unlink (T1_FIFONAME);
+
+  pid = pid;			/* Avoid gcc complaints. */
+
 
   return nerrors;
 

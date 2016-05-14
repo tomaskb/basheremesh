@@ -41,3 +41,5 @@ int check (const char* message, int condition);
 
 #define _strfy(val) # val
 #define  strfy(val) _strfy(val)
+
+# define TIMEOUT 1

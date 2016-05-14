@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <signal.h>
+#include <fcntl.h>
 
 #include <debug.h>
 #include "t1.h"
@@ -38,7 +39,7 @@ void giveup(int signun)
 int main (int argc, char **argv)
 {
   FILE *fp;
-  int pid, val, rs;
+  int pid, val, rs, fd;
   struct sigaction act;
   void *rp;
 
@@ -69,7 +70,7 @@ int main (int argc, char **argv)
   if (val == T1_MAKEIO)
     {
 
-      /* In order not to block tests, give up if nothing is
+      /* In order not to block the caller, give up if nothing is
 	 read from standard input. */
 
       rp = memset(&act, 0, sizeof(struct sigaction));
@@ -78,9 +79,13 @@ int main (int argc, char **argv)
       rs = sigaction(SIGALRM, &act, NULL); 
       sysfatal (rs<0);
 
-      alarm (1);
-
+      alarm (TIMEOUT);
       fgets (buffer, T1_TOKENSIZE+1, stdin);
+      alarm (0);
+
+      /* If a coorect watchword was received, send the countersing. If
+	 this point has been reach due to a timeout, tough, send a bad ack.*/
+
       if (!strcmp(buffer,T1_WRITETHIS))
 	{
 	  fputs (T1_READTHIS,stdout);
@@ -90,6 +95,17 @@ int main (int argc, char **argv)
 	  fputs (buffer,stdout);
 	
     }
+
+  /* Read from and write to a fifo. */
+
+  if (val == T1_WRITEFIFO)
+    {
+      fd = open(T1_FIFONAME, O_WRONLY);
+      sysfatal (fd<0);
+      write (fd, T1_READTHIS, T1_TOKENSIZE);
+      close(fd);
+    }
+
 
   return val;
 

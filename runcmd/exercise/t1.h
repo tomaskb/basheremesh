@@ -22,11 +22,14 @@
 #ifndef T1_H
 #define T1_H
 
+#include "testutils.h"
+
 /* Arguments. */
 
-# define T1_SEGFAULT  15	  /* Cause program to segfault. */
 # define T1_SOMEVALUE 11	  /* Reserved to test return atoi(argv[1]). */
 # define T1_MAKEIO    12	  /* Reads from stdin and writes to stdout. */
+# define T1_WRITEFIFO 13	  /* Write to a named pipe (FIFO). */
+# define T1_SEGFAULT  15	  /* Cause program to segfault. */
 
 /* Exit status. */
 
@@ -38,5 +41,7 @@
 # define T1_TOKENSIZE 3
 # define T1_WRITETHIS "abc"	/* Write this token to stdout. */
 # define T1_READTHIS  "edf"	/* Read this token from stdin.*/
+
+#define T1_FIFONAME   "t1fifo"
 
 #endif	/* T1_H */
