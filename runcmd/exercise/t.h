@@ -29,13 +29,16 @@
 # define T_SOMEVALUE 11	  /* Reserved to test return atoi(argv[1]). */
 # define T_MAKEIO    12	  /* Reads from stdin and writes to stdout. */
 # define T_WRITEFIFO 13	  /* Write to a named pipe (FIFO). */
-# define T_SEGFAULT  15	  /* Cause program to segfault. */
+# define T_CHECKFDS  14	  /* Check for extra descriptors.  */
+# define T_SEGFAULT  15	  /* Cause program to segfault.    */
 
 
 /* Exit status. */
 
-# define T_NOARG     10    /* If no argument is given, return this value. */
-# define T_IO         9    /* If can read from stdin, write this to stdout. */
+# define T_NOARG      10    /* If no argument is given, return this value. */
+# define T_IO          9    /* If can read from stdin, write this to stdout. */
+# define T_NEVER       8    /* Never return this value. */
+# define T_EXTRAFDS    7    /* Process has extra file descriptors. */
 
 /* Tokens. */
 
@@ -44,5 +47,6 @@
 # define T_READTHIS  "edf"	/* Read this token from stdin.*/
 
 #define T_FIFONAME   "t1fifo"
+#define T_TEMPFILE   "temp"	/* Generic file name. */
 
 #endif	/* T_H */
