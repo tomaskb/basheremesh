@@ -51,6 +51,8 @@ int main (int argc, char **argv)
   int result, pid, rpid, nerrors;
   FILE *fp;
 
+  test_set = "T1";
+
   nerrors = 0;
 
   /* Disable standard streams if not redirecting. */
@@ -62,7 +64,7 @@ int main (int argc, char **argv)
   /* Check  */
 
   pid = try_runcmd (cmd3, &result, NULL);   /* Normal, success. */
-  printf ("  Checking...\n");
+  /* printf ("  Checking...\n"); */
 
   nerrors += check ("abnormal termination is correctly reported", 
 		    (!IS_NORMTERM(result)) && 
@@ -72,7 +74,7 @@ int main (int argc, char **argv)
 
 
   pid = try_runcmd (cmd1, &result, NULL);   /* Normal, success. */
-  printf ("  Checking...\n");
+  /* printf ("  Checking...\n"); */
 
   fp = fopen ("t1.log", "r");
   sysfatal (!fp);
@@ -100,14 +102,14 @@ int main (int argc, char **argv)
   /* Check  */
 
   pid = try_runcmd (cmd2, &result, NULL);   /* Normal, success. */
-  printf ("  Checking...\n");
+  /* printf ("  Checking...\n"); */
 
   nerrors += check ("command line arguments are correctly read", EXITSTATUS(result) == 11);
 
   /* Check */
   
   pid = try_runcmd (cmd4, &result, NULL);   /* Normal, success. */
-  printf ("  Checking...\n");
+  /* printf ("  Checking...\n"); */
 
   nerrors += check ("exec failure is correctly reported (a)", 
 		    (!IS_EXECOK(result)) &&
@@ -116,7 +118,7 @@ int main (int argc, char **argv)
   /* Check */
   
   pid = try_runcmd (cmd5, &result, NULL);   /* Normal, success. */
-  printf ("  Checking...\n");
+  /* printf ("  Checking...\n"); */
 
   nerrors += check ("exec failure is not reported on sucess (b)", 
 		    (IS_EXECOK(result)) &&

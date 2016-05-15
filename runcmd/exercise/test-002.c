@@ -86,6 +86,7 @@ int main (int argc, char **argv)
   char buffer[4];
   struct sigaction act;
 
+  test_set = "T2";
   nerrors = 0;
 
   /* Disable standard streams if not redirecting. */
@@ -119,7 +120,7 @@ int main (int argc, char **argv)
 
   pid = try_runcmd (cmd1, &result, io);   
 
-  printf ("  Checking...\n");
+  /* printf ("  Checking...\n"); */
 
   /* Read subprocess reply. If subprocess is not reading from the pipe
      (redirected standard input) it will block and timeout without having
@@ -149,7 +150,7 @@ int main (int argc, char **argv)
   runcmd_onexit = onexit;
   pid = try_runcmd (cmd2, &result, NULL);   
 
-  printf ("Checking...\n");
+  /* printf ("Checking...\n"); */
 
   nerrors += check ("whether nonblock is correctly reported", 
 		    IS_NONBLOCK(result));
@@ -216,7 +217,7 @@ int main (int argc, char **argv)
   
   /* Result is ok if countersigh is correct and caller has not timedout. */
 
-  printf ("Checking...\n");
+  /* printf ("Checking...\n"); */
 
   nerrors += check ("nonblock mode execs in parallel",
   		    (!expired) && (wasnonblock));

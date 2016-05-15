@@ -38,17 +38,12 @@
 #include "t.h"
 #include "testutils.h"
 
-/* int freetogo = 0; */
-/* void go_on (void) */
-/* { */
-/*   freetogo = 1; */
-/* } */
 
 /* This program performs a series of tests and return the number of errors.*/
 
 int main (int argc, char **argv)
 {
-  int nerrors, result, i; 
+  int nerrors, result, result2, i; 
   /* char buffer[T_TOKENSIZE]; */
   /* sigset_t sigset; */
   struct sigaction act;
@@ -56,36 +51,41 @@ int main (int argc, char **argv)
 
   char cmd1[] = "./t2 " strfy (T_CHECKFDS);  
   char cmd2[] = "./nosuchfile";
+  /* char cmd3[] = "./t1 &"; */
   
 
   io[0]=0; io[1]=1; io[2]=2;
 
+  test_set = "T3";
   nerrors = 0;
 
   /* Check for messy descriptors. */
 
   try_runcmd (cmd1, &result, io);
 
-  printf ("Checking...\n");
+  /* printf ("Checking...\n"); */
 
   nerrors += check ("lib didn't mess with child's descriptors",
 		    EXITSTATUS(result) == T_CHECKFDS);
   
-  /* Check if everything works if caller ignores signals. */
+
+  /* Check if everything works if all signals are default. */
 
   sysfatal (!memset (&act, 0, sizeof (struct sigaction)));
-  act.sa_handler = SIG_IGN;
+  act.sa_handler = SIG_DFL;
   for (i=1; i<32; i++)
     {
       sigaction (i, &act, NULL);
     }  
-  try_runcmd (cmd1, &result, NULL);
 
-  printf ("Checking...\n");
+  try_runcmd (cmd2, &result2, NULL);
 
-  nerrors += check ("lib didn't mess with child's signals",
-		    !IS_EXECOK(result));
+  /* printf ("Checking...\n"); */
+
+  nerrors += check ("lib does not depend on caller's signal handlers",
+		    !IS_EXECOK(result2));
   
+
 
   return nerrors;
 
