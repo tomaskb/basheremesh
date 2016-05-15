@@ -25,6 +25,9 @@
 
 int noio[3]; 
 
+char *test_set = "Test";
+int test_count = 1;
+
 /* This a runcmd() wrapper. */ 
 
 int try_runcmd (const char* command, int *result, int *io)
@@ -56,12 +59,12 @@ int try_runcmd (const char* command, int *result, int *io)
 
   /* Output basic information on subprocess completion. */
 
-  printf ("(%5d, %8s, %3d, %3sblocking, exec %s)\n\n",
+  printf ("(%5d, %8s, %3d, %s, exec %s)\n",
   	  pid,
   	  IS_NORMTERM(tmp_result) ? "normal" : "abnormal",
   	  EXITSTATUS(tmp_result),
-  	  IS_NONBLOCK(tmp_result) ? "non" : "",
-  	  IS_EXECOK(tmp_result) ? "success" : "failed");
+  	  IS_NONBLOCK(tmp_result) ? "nonblock" : "block",
+  	  IS_EXECOK(tmp_result) ? "yes" : "no ");
 
   if (result)
     *result = tmp_result;
@@ -76,7 +79,7 @@ int try_runcmd (const char* command, int *result, int *io)
 int check (const char* message, int condition)
 {
   int nbytes;
-  printf ("   whether %s%n", message, &nbytes);
-  printf ("%*s\n", 60-nbytes, condition ? "OK":"NO");
+  printf ("   %s %03d whether %s%n", test_set, test_count++, message, &nbytes);
+  printf ("%*s\n", 70-nbytes, condition ? "OK":"NO");
   return condition ? 0 : 1;
 }

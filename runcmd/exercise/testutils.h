@@ -47,4 +47,9 @@ int check (const char* message, int condition);
 
 # define TIMEOUT 1
 
+/* Test case names. */
+
+extern char *test_set;
+extern int test_count;
+
 #endif	/* TESTUTILS_H */
