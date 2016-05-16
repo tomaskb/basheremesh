@@ -39,13 +39,14 @@ libruncmd_h = runcmd.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 # noinst_bin = example
-noinst_bin = test-001 test-002 test-003 t1 t2 
+noinst_bin = test-001 test-002 test-003 test-004 t1 t2  
 
 # For each item in $(noinst_bin), name the objects needed to build it, e.g.
 # example_obj = example.o 
 test-001_obj = test-001.o testutils.o
 test-002_obj = test-002.o testutils.o
 test-003_obj = test-003.o testutils.o
+test-004_obj = test-004.o testutils.o
 t1_obj = t1.o
 t2_obj = t2.o
 
@@ -54,6 +55,7 @@ t2_obj = t2.o
 test-001_lib = libruncmd
 test-002_lib = libruncmd
 test-003_lib = libruncmd
+test-004_lib = libruncmd
 
 # If any targets (either binary or object) needs specific compiler flags to be
 # built, list them here, e.g.
@@ -92,5 +94,5 @@ EXTRA_GARBAGE = *~ \#*
 
 # Name your tests
 
-tests-bin = test-001 test-002 
+tests-bin = test-001 test-002 test-003 test-004
 

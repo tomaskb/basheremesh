@@ -37,7 +37,6 @@ void chld_handler (int signum)
 int main (int argc, char **argv)
 {
   int i, val, open_max;
-  FILE *fp;
 
   /* Unless otherwise specified by further rules this programs returns
      the value it receives as its first argument converted to an integer. If no
@@ -69,8 +68,6 @@ int main (int argc, char **argv)
 	}
       
     }
-  
-  
 
   return val;
 
