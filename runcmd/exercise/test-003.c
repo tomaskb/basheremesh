@@ -78,7 +78,7 @@ int main (int argc, char **argv)
       sigaction (i, &act, NULL);
     }  
 
-  try_runcmd (cmd2, &result2, NULL);
+  try_runcmd (cmd2, &result2, io);
 
   /* printf ("Checking...\n"); */
 

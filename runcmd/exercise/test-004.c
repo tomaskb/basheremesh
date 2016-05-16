@@ -54,8 +54,6 @@ int main (int argc, char **argv)
 
   char cmd1[] = "./t1 &";
 
-  
-
   test_set = "T4";
   nerrors = 0;
 
