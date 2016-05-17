@@ -33,20 +33,19 @@ AC_PROG_CC 		        dnl Defines CC
 
 AC_SYS_LONG_FILE_NAMES		dnl Check for long file name support
 
+dnl Replace missing functions (see also GNUlib)
+
 AC_CONFIG_LIBOBJ_DIR([replace])
 AC_SEARCH_LIBS([qux], [xpto], [], AC_MSG_WARN([*** Symbol xpto not found in libxpto]),[])
 AC_SEARCH_LIBS([baz], [xpto], [], [AC_LIBOBJ(mybaz)],[])
+
+dnl Define variables to be used by Automake
 
 AC_SUBST([CPP_FLAGS],"-ansi -D_POSIX_C_SOURCE=200809L -Wall") dnl Define flags
 AC_SUBST([C_FLAGS])
 AC_SUBST([LD_FLAGS])
 
-
-dnl AX_PTHREAD([
-dnl PHOO_LIBS="$PTHREAD_LIBS"
-dnl PHOO_CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
-dnl PHOO_CC="$PTHREAD_CC"],
-dnl AC_MSG_ERROR([POSIX threads support is required]))
+dnl Canocial check for POSIX threads.
 
 AX_PTHREAD([
 AC_DEFINE(HAVE_PTHREAD,1,[Define to 1 if POSIX threads libraries and headers are found.]) ], 
