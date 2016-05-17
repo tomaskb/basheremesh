@@ -86,7 +86,7 @@ all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin)
 
 # For safety, critical names can't have slashes nor be .  or ..
 
-CRITICALNAMES = PROJECT bin noinst_bin lib # $(proj_src) $(proj_h) 
+CRITICALNAMES = PROJECT bin noinst_bin lib #$(proj_src) $(proj_h) 
 
 $(CRITICALNAMES:%=%_check) : %_check : 
 	@for i in $($*) ; do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
@@ -95,7 +95,7 @@ $(CRITICALNAMES:%=%_check) : %_check :
 # PROJECT can't be missing
 
 other_checks:
-	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi; 
+	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi 
 
 # PROJECT must be a single word.
 
@@ -136,7 +136,7 @@ ifneq (,$(filter static, $(MAKECMDGOALS)))
 
 $(bin) $(noinst_bin) : % : $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.a)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L.  $^ -Wl,-Bstatic $(|:lib%.a=-l%) -Wl,-Bdynamic $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\n./$(@:%=.%)" > $@
+	ln -s $(@:%=.%) $@
 	chmod u+x $@
 
 else
@@ -145,7 +145,7 @@ else
 
 $(bin) $(noinst_bin) : % :  $$($$*_obj)  | $$(foreach i, $$($$*_lib), $$i.so)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L. -Wl,-rpath='$$ORIGIN/../lib' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@:%=.%)
-	echo "#!/bin/sh\nLD_LIBRARY_PATH=. ./$(@:%=.%)" > $@
+	$(CC) $(LD_FLAGS) $(LDFLAGS) $($(*:%=%_ldflags)) -L. -Wl,-rpath='$$ORIGIN' $^ $(|:lib%.so=-l%) $(patsubst lib%, -l%, $($*_lib_other))  -o $(@)
 	chmod u+x $@
 
 endif
