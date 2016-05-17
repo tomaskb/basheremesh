@@ -1,4 +1,5 @@
-/* main.c - A simple hello-world program.
+/*
+   bar.c - A simple hello-world library.
 
    Copyright (c) 2014, Francisco Jose Monaco  <moanco@icmc.usp.br>
 
@@ -18,17 +19,9 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
 #include <stdio.h>
 
-#include <foobar.h>
-
-int main (int argc, char **argv)
+void bar (void)
 {
-  printf ("This is " PACKAGE_STRING "\n");
-
-  foo();
-  bar();
-
-  return EXIT_SUCCESS;
+  printf ("Bar standing by, over.\n");
 }
