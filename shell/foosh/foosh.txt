@@ -13,15 +13,20 @@ DESCRIPTION
       Foosh is a sh-like shell implementing basic command line execution with 
       input/oputput redirection, pipeline and job control. 
 
-
 OPTIONS
 
-      (To be updated)
+      --command      interpret the first non-option arguments as a string
+                     containing a command to be executed.
+      --version      outputs version information.
+      
+      Short options
+
+      -c            Same as --command
 
 INVOCATION
 
-      Arguments, if present, are interpreted as names of files containing
-      scripts to be executed (see section SCRIPTS).
+      If option -c is not present and an argument is given, this is interpreted
+      as the name of file containing a script to be executed (see section SCRIPTS).
 
       
 SHELL GRAMMAR
@@ -111,11 +116,12 @@ IO REDIRECTION
      In these two examples, progm's output is redirected to out.txt and progm's
      input is redirected to in.txt.  
 
-     A background pipeline can have its input and output redirected.
+     A pipeline whose IO has been redirected can also be run in background.
 
        Example:
 
-       prog arg1 arg2 & > out.txt
+       prog arg1 arg2 > out.txt &
+
 
     If the standard input or output of a multiple-command pipeline is redirected
     this affect, respectively, the standard input of the first command and the
@@ -175,11 +181,21 @@ BUILT-IN COMMANDS
     Foosh recognizes the following built-in commands.
 
     cd <path>     	 makes the directory 'path' the current directory
+
     exit		 terminates foosh
+
     quit		 same as exit
 
-    If a bult-in command conflits with the name of an external program, the
-    built in command prevails, unless the program path is explicitly given.
+    fg [jobid]           sends job identified by jobid to foreground. If jobid
+                         is not specified, defaults to job which sate has been
+			 most recently modified.
+    bg [jobid]           sends job identified by jobid to background. If jobid
+                         is not specified, defaults to job which sate has been
+			 most recently modified.
+    jobs                 output a list of currently active jobs
+
+    If a bult-in command conflicts with the name of an external program, the
+    built in command prevails --- unless the program path is explicitly given.
 
     A built-in command may appear as command in multiple-command pipeline.
 
@@ -192,7 +208,7 @@ SCRIPTS
 
 RETURN VALUE
 
-       On success, foosh returns 0; on failire, it returns nonzero.
+       On success, foosh returns 0; on failure, it returns nonzero.
 
 CONFORMING TO
 

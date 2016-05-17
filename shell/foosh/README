@@ -26,10 +26,38 @@ Implementation of pipeline execution is left as an exercise.
 INSTRUCTIONS
 --------------------------------------------------
 
+BUILD AND INSTALL
+--------------------------------------------------
+
+Your project's development environment shall rely on the GNU Build system
+(Autotools).  Developers may be able to bootstrap the project by issuing
+
+  $ cd yourproject
+  $ ./autogen.sh
+
+The provided autogen.sh script should execute autoconf, automake, libtool
+and related programs in the right order.
+
+Builders should be able to run
+
+ $ ./configure --prefix=<somepath>
+ $ make
+ $ make install
+
+Builders should also be able to create distribution archives
+
+ $ make dist
+
+The distributed files should contain all the files needed for building your
+project at the builder's environment, without the need of Autotools.
+
 THIS IS A PROVISIONAL PIECE OF INFORMATION.
+--------------------------------------------------
+
 PLEASE, BE AWARE OF UPDATES.
 
-Follow the same rules of exercise runcmd!
+Follow the same rules of exercise runcmd where applicable.
+In special:
 
    Your implementation must use **exclusively** the standard C library (aka libc)
    and no other external library. This is part of the execise.
