@@ -1,0 +1,28 @@
+
+    Exempli Gratia (POSIX by example)
+
+    Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
+
+    This is Free Open Source Software. For licensing, see COPYING
+
+    POSIX-eg repository can be found at https://gitlab.com/monaco/posixeg
+
+
+     AUTOHELLO - A "TRIVIAL" (lol) AUTOTOOLS HELLO WORLD
+
+INTRODUCTION
+--------------------------------------------------
+
+This directory contains examples of GNU Autotools usage.
+
+In order to work out the exercises you will need 
+
+  autotools (autoconf, automake, libtool and friends)
+  autotoconf archive (*)
+
+
+(*) This is for AX_PTHREAD() m4 macro. Alternatively, you may donwload it by 
+    following the link in this page: 
+    http://www.gnu.org/software/autoconf-archive/ax_pthread.html
+
+
