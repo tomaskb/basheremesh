@@ -28,6 +28,7 @@ In order to work out the exercises you will need
 CONTENTS
 --------------------------------------------------
 
+  proj-001      A simple project notu using autotools
   proj-001	A minimal autotools example
   proj-002      Using subdirs plus config.h and init flags
   proj-003      Bulding and installing libraries
