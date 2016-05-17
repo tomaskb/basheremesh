@@ -86,7 +86,7 @@ all static : safety $(gendist_files) $(lib_all) $(bin) $(noinst_bin)
 
 # For safety, critical names can't have slashes nor be .  or ..
 
-CRITICALNAMES = PROJECT bin noinst_bin lib $(proj_src) $(proj_h) 
+CRITICALNAMES = PROJECT bin noinst_bin lib # $(proj_src) $(proj_h) 
 
 $(CRITICALNAMES:%=%_check) : %_check : 
 	@for i in $($*) ; do if test -z $${i##*/*} || test -z {i%%*/*} ; then echo "invalid config variable $*: $$i is not a valid name"; exit 1; fi; done
@@ -95,7 +95,7 @@ $(CRITICALNAMES:%=%_check) : %_check :
 # PROJECT can't be missing
 
 other_checks:
-	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi; done
+	@if test -z "$(PROJECT)"; then echo "Missing project name in config file (PROJECT)"; exit 1; fi; 
 
 # PROJECT must be a single word.
 
