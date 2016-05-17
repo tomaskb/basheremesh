@@ -25,4 +25,11 @@ In order to work out the exercises you will need
     following the link in this page: 
     http://www.gnu.org/software/autoconf-archive/ax_pthread.html
 
+CONTENTS
+--------------------------------------------------
+
+  proj-001	A minimal autotools example
+  proj-002      Using subdirs plus config.h and init flags
+  proj-003      Bulding and installing libraries
+  proj-004      Using configurantion tests, replacements
 
