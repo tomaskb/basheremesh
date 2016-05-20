@@ -11,7 +11,7 @@ SYNOPSIS
 DESCRIPTION
 
       Foosh is a sh-like shell implementing basic command line execution with 
-      input/oputput redirection, pipeline and job control. 
+      input/output redirection, pipeline and job control. 
 
 OPTIONS
 
@@ -25,7 +25,7 @@ OPTIONS
 
 INVOCATION
 
-      If option -c is not present and an argument is given, this is interpreted
+      If an option is not present and an argument is given, this is interpreted
       as the name of file containing a script to be executed (see section SCRIPTS).
 
       
@@ -48,10 +48,10 @@ SHELL GRAMMAR
       The first word is interpreted as a program to be executed and the 
       following words interpreted as arguments to be passed to the program. If 
       program is one of the recognized built-in commands, that command is 
-      executed by the shell itself. If the program is not a bult-in command,
+      executed by the shell itself. If the program is not a built-in command,
       foosh interpret it as the name of an external program to be executed in 
-      a subprocess.  In the preceeding example, the prigram prog would be 
-      executed with arguments artg1 and arg2.
+      a subprocess.  In the preceding example, the program prog would be 
+      executed with arguments arg1 and arg2.
 
       A pipeline is a sequence of one or more commands separated by the
       pipeline control character |.
@@ -61,18 +61,18 @@ SHELL GRAMMAR
          progA argA1 argA2 | progB argB1  | progC 
 
      The standard output of the first program is redirected to the standard 
-     input of the second program, and so on, recursively. In the preceeding
+     input of the second program, and so on, recursively. In the preceding
      example, standard output of program progA is redirected to the standard
-     input of the pipelne progB argB1 | prog C. In a pipeline, all the
+     input of the pipeline progB argB1 | prog C. In a pipeline, all the
      commands run in parallel. Foosh supports an unlimited number of commands
      in a pipeline.
 
-ENVIROMENT
+ENVIRONMENT
 
-      All process in a pipeline inherets foosh's enviroment.
+      All process in a pipeline inherits foosh's environment.
 
       For program execution, foosh looks for executables in the directories
-      indicated by the enviroment variable PATH.
+      indicated by the environment variable PATH.
 
 BACKGROUND EXECUTION
 
@@ -94,7 +94,7 @@ BACKGROUND EXECUTION
 
 IO REDIRECTION
 
-     A pipeline may have its standard input and outputs redirected toa file by
+     A pipeline may have its standard input and outputs redirected to a file by
      appending it a control character > or <, followed by a word.
 
          Example
@@ -102,7 +102,7 @@ IO REDIRECTION
 	 prog arg1 arg2 > out.txt
 
      The character > stands for output redirection, while < stands for input 
-     redirection. In the preecding example, the standard output of the program
+     redirection. In the preceding example, the standard output of the program
      prog would be redirected to out.txt. If the file do not exist, it is 
      created with read-write permission for the calling process.
 
@@ -140,10 +140,10 @@ JOB CONTROL
     integer value referred as a job id. Jobs are inserted in a list of active
     when started, and are removed from the list upon completion.
     
-    Foosh's built-in command 'jobs' (see section BUILT-IN COMMANDS) exibits a 
+    Foosh's built-in command 'jobs' (see section BUILT-IN COMMANDS) exhibits a 
     list of active jobs.
 
-    When a job is executed, foosh creates a new process session and assing
+    When a job is executed, foosh creates a new process group and assings
     it all the processes in the job.
 
     Processes in foreground job have control of foosh's terminal during
@@ -152,7 +152,7 @@ JOB CONTROL
     suspended by a signal SIGTTIN. 
 
     A command line with the control character '&' is executed as a background
-    job (see section BACKGROUND EXECTUION). A background job may be sent to
+    job (see section BACKGROUND EXECUTION). A background job may be sent to
     foreground with the built-in foosh command 
 
         fg <job-id>
@@ -163,13 +163,13 @@ JOB CONTROL
 
         bg <job-id> 
 
-    tranfers a suspended job to foreground mode.
+    transfers a suspended job to background mode.
 
     If foosh receives a signal SIGINT while executing a foreground job, this
     job is terminated. If the signal is SIGTSTP, the job is suspended. If no
-    process is runing in foreground, foosh simply discard the signal.
+    process is running in foreground, foosh simply discard the signal.
 
-    The return status of a job is the restur status of the last command
+    The return status of a job is the result status of the last command
     in the pipeline.
 
 BUILT-IN COMMANDS
@@ -186,22 +186,22 @@ BUILT-IN COMMANDS
 
     quit		 same as exit
 
-    fg [jobid]           sends job identified by jobid to foreground. If jobid
+    fg [job-id]          sends job identified by jobid to foreground. If jobid
                          is not specified, defaults to job which sate has been
 			 most recently modified.
-    bg [jobid]           sends job identified by jobid to background. If jobid
+    bg [job-id]          sends job identified by jobid to background. If jobid
                          is not specified, defaults to job which sate has been
 			 most recently modified.
     jobs                 output a list of currently active jobs
 
-    If a bult-in command conflicts with the name of an external program, the
+    If a built-in command conflicts with the name of an external program, the
     built in command prevails --- unless the program path is explicitly given.
 
     A built-in command may appear as command in multiple-command pipeline.
 
 SCRIPTS
 
-    Fosh reads an script file line by line. Every line is interpreted as a 
+    Foosh reads an script file line by line. Every line is interpreted as a 
     command line to be executed (see section SHELL GRAMMAR).
 
     Every command line is run as new job.
@@ -244,9 +244,9 @@ COPYRIGHT
 
 	This file is part of part of POSIX Exempli Gratia - POSIXeg.
     	Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
-    	POSIXeg is Free Open Source Software, distributed under the terms ofthe
+    	POSIXeg is Free Open Source Software, distributed under the terms of the
 	General Public License version 3 any later version. You may obtain a 
-	copy of the licence and the sorce code from POSIXeg repository at 
+	copy of the license and the source code from POSIXeg repository at 
 	https://gitlab.com/monaco/posixeg
 
 
