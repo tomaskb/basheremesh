@@ -29,7 +29,7 @@ $ ./fillpipe | cat | cat | cat | cat | wc -c
 
 The output should be
 
-31087
+131087
 131087
 
 The sequence of cat commands will just cause fillpipe's output to pass through the pipeline, to be counted by wc.
