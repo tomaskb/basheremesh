@@ -31,6 +31,7 @@ libtparse_obj = parser.o list.o
 
 # For each item in $(lib), name the headers your project installs, e.g.
 #libfoosh_h = 
+libtparse_h = tparse.h
 
 # Name your project's auxuliary binaries (not to be installed), e.g.
 noinst_bin = example
