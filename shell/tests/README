@@ -39,7 +39,7 @@ The same considerations of test 1) apply.
 
 Run the command
 
-$ cat Hello > out.txt
+$ echo Hello > out.txt
 $ cat out.txt 
 
 The answer shall be
@@ -52,7 +52,7 @@ It this is not what you get, check your code.
 
 Run the command
 
-$ cat Hello > in.txt
+$ echo Hello > in.txt
 $ cat < in.txt > out.txt
 $ cat out.txt
 
