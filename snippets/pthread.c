@@ -19,6 +19,15 @@
 
 */
 
+  /* Notice that the global variable value is shared by all threads and
+     that the local variable is thread-specific. Also, notice that the 
+     scheduler does not guarantee the order in which threads will execute
+     and alternate (see how value of g evolves across sucessive runs of
+     the program). If consistence is desired, some synchronization mechanism
+     must be used (e.g. semaphores).  Try the program with different values
+     of count to see pthread_join(). in action. */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -73,6 +82,8 @@ int main (int argc, char **argv)
   rs = pthread_create (&mythread, NULL, foo, &count2);
   sysfatal (rs);
 
+  /* This loop is executed in the main thread. */
+
   count=10;
   while (count)
     {
@@ -91,13 +102,6 @@ int main (int argc, char **argv)
   printf ("Main done\n");
   printf ("Mythread returned %d\n", *val);
 
-  /* Notice that the global variable value is shared by all threads and
-     that the local variable is thread-specific. Also, notice that the 
-     scheduler does not guarantee the order in which threads will execute
-     and alternate (see how value of g evolves across sucessive runs of
-     the program). If consistence is desired, some synchronization mechanism
-     must be used (e.g. semaphores).  Try the program with different values
-     of count to see pthread_join(). in action. */
 
   return EXIT_SUCCESS;
 }
