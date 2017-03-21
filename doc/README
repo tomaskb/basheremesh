@@ -11,11 +11,11 @@
 INTRODUCTION
 --------------------------------------------------
 
-If you intend to do the proposed programming and use the automate testing
-tools to assess your solutions, you should follow the specifications of each 
-problem carefully.  Unless, otherwise specified, the following general rules
-apply.  Be aware of projct-specific requirements that, however, may superpose
-these general rules.
+If you intend to do the proposed programming exercuse and use the automate
+testing tools to assess your solutions, you should follow the specifications
+of each  problem carefully.  Unless, otherwise specified, the following general
+rules apply.  Be aware of projct-specific requirements that, however, may
+superpose these general rules.
 
 COPYRIGHT
 --------------------------------------------------
@@ -23,8 +23,8 @@ COPYRIGHT
 If you are going to make your project public, you should abide to applicable
 authors right laws and ethical practice. Although many programmers are either
 unaware or negligent about this matter, there are legal issues that you should
-take care of, as you may unadvertently may be liable copyright infringement or 
-ideological falsehood fault.
+take care of, as you may unadvertently be liable to copyright infringement or 
+ideological falsehood.
 
 The source files you have authored yourself should be attributed to yourself. 
 To that end, every source file should have a copyright claim and licensing 
@@ -81,12 +81,12 @@ derivative work might be
 
 As the program author and copyright holder, you may choose whatever license
 you prefer. Bear in mind, however, that your license may be compatible with
-the licenses of the other software your project makes is of. For instance,
+the licenses of the other software your project makes use of. For instance,
 if your project is a derivative work of a software covered by GNU GPL, you
-may not use a proprietary license.  Related issues apply if you link your
-software against GPL-license libraries. Going through the intricacy of licensing
-legal issues is not trivial. If in doubt, you may safely use GNU GPL v3 for
-the software that interacts with POSIXeg.
+may not use a proprietary license for your code.  Related issues apply if
+you link your software against GPL-license libraries. Going through the
+intricacy of licensing legal issues is not trivial. If in doubt, you may
+safely use GNU GPL v3 for the software that interacts with POSIXeg.
 
 
 REPOSITORY MANAGEMENT
@@ -94,7 +94,7 @@ REPOSITORY MANAGEMENT
 
 * Do not upload generated files to the main repository. These include
 object code (*.o) binaries, libraries (*.a, *.so) and temporary files. As a rule
-of thumb, if 'make' has produced the files, do not upload; only source should
+of thumb, if 'make' has produced the files, do not upload it; only sources should
 go to the repository.
 
 * If the exercise's instructions specify what files should go into your project
@@ -113,10 +113,10 @@ You may manage your VCS repository in the usual way. Notice, however the
 following suggestions.
 
 * Try not to commit broken implementation to the master branch of the main 
-repository. This include buggy code or code that does not compile, as it may
+repository. This includes buggy code or code that does not compile, as it may
 cause troubles to your development teammates.  Instead, if you want to share 
-some incomplete code in a separate branch. You may create a new branch by the
-following steps
+some incomplete code, do it in a separate branch. You may create a new branch
+by following these steps
 
 
   $ git branch branch_name                             create a new branch
