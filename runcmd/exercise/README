@@ -12,11 +12,11 @@ OVERVIEW
 --------------------------------------------------
 
 Libruncmd is a small C library providing some simple functionality specified in
-the companion file runcmd.txt.  The file, resented as a man-page like document,
+the companion file runcmd.txt.  The file, presented as a man-page like document,
 describes the library API.
 
 The implementation of libruncmd supplied with POSIXeg is incomplete and is meant
-as an skeleton to further be developed by the student as an exercise. The 
+as an skeleton to be further developed by the student as an exercise. The 
 proposed work consists in completing the implementation to meet the 
 specification.
 
@@ -32,11 +32,11 @@ DETAILED INSTRUCTIONS
 
 First, read posixeg/doc/README.
 
-First, please, go through libruncmd specification in runcmd.txt.
+Then, please, go through libruncmd specification in runcmd.txt.
 
-The file, formatted like a traditional man page, specify libruncmd API comprised
-by a single function runcmd() and a set of macros. The library is implemented in
-the source file runcmd.c and the header file runcmd.h.
+The file, formatted like a traditional man page, specifies the libruncmd API,
+comprised by a single function runcmd() and a set of macros. The library is
+implemented in the source file runcmd.c and the header file runcmd.h.
 
 The library can be built with the aid of the provided makefile script by issuing
 the command line at the shell prompt
@@ -53,11 +53,11 @@ Alternatively, you may execute the tests by issuing
     $ make test
 
 
-The test consists in several checks, all of them should report success. 
+The test consists in several checks, all of them should ideally report success. 
 
-The provided implementation is incomplete and, therefore, some tests will fail.
-Your task consists in finishing the library implementation so that it complies
-with the man page (runcmd.txt)
+The provided implementation is, however, incomplete and, therefore, some tests
+will fail. Your task consists in finishing the library implementation so that
+it complies with the man page (runcmd.txt)
 
 Aside the rule to make the libraries and executable programs, the provide 
 script Makefile offers also some other options, including
@@ -96,10 +96,10 @@ read the whole instructions before you start (there are some useful tips ahead).
 
    You should not simple copy files from POSIXeg's libruncmd source code; you 
    are entitled to create your own implementation of libruncmd.  You may, 
-   however, to take advantage POSIXeg's libruncmd examples as reference.
+   however, take advantage POSIXeg's libruncmd examples as reference.
 
-   If you are going to resort to POSIXeg's runcmd example, these are he source 
-   files you may be interested:
+   If you are going to resort to POSIXeg's runcmd example, these are the
+   source files you are interested in:
 
    runcmd.c  	 	the library source code
    runcmd.h		the library header
@@ -113,10 +113,9 @@ read the whole instructions before you start (there are some useful tips ahead).
 			to make a reference to POSIXeg project.
 			
 
-   You will not need to copy the auxiliary files from POSIXeg's runcmd. You may
-   optionally add your own test programs if you wish so, but this is not needed.
-   Bear in mind that your libruncmd implementation are to be test against POSIXeg
-   runcmd's check programs, not yours.
+   You shall not copy the auxiliary files (test programs) from POSIXeg's runcmd. 
+   Bear in mind that your libruncmd implementation is to be test against POSIXeg's
+   runcmd check programs, not yours.
 
    Your implementation must use **exclusively** the standard C library (aka libc)
    and no other external library. This is part of the exercise.
@@ -145,6 +144,10 @@ read the whole instructions before you start (there are some useful tips ahead).
    Makefile bootstrap script to create a brand new Makefile for your project.
    Please, see posixeg/utils/Makefile for further information.
 
+   You shall create your own Makefile. You are free, nonetheless, to consult
+   the provided examples as references (see, e.g. posixeg/Makefile and
+   posixeg/utils/Makefine).
+
    Your implementation must be successfully built without either errors or
    warnings during compilation.
 
@@ -154,9 +157,9 @@ read the whole instructions before you start (there are some useful tips ahead).
    $(PREFIX)/lib     	       install the library here
    $(PREFIX)/include	       install the headers here
 
-   This is particularly important because the review of your exercise implies
-   in linking POSIXeg's test programs against your libruncmd implementation.
-   The test cases will look for your library in $(PREFIX)/lib and 
+   This is particularly important because the review of your exercise comprises
+   linking POSIXeg's test programs against your libruncmd implementation.
+   The test cases will search for your library in $(PREFIX)/lib and 
    in $(PREFIX)/include.  If they are not there, the test will fail.
 
 4) Upload your changes to the VCS repository.
@@ -166,9 +169,6 @@ read the whole instructions before you start (there are some useful tips ahead).
 
    <myproject>/<runcmd>
 
-   This exercise may be development in parts and it is possible that the
-   evaluation process asks you to upload your changes 
-
    The development of this exercise may follow a schedule of partial evaluation.
    In this case, for every partial evaluation you will be requested to present
    your current implementation as a new 'release'. A release is a annotated in
@@ -176,19 +176,19 @@ read the whole instructions before you start (there are some useful tips ahead).
 
    For the n-th partial evaluation, the release shall be identified by the tag
 
-     part-nnn     
+     runcmd-nnn     
 
   where 'nnn' is a three-digit sequential integer starting from 001. For 
   instance, the partial evaluation 1, 2 and 3 are to be released under the tags
-  part-001, part-002 and part-003, respectively.
+  runcmd-001, runcmd-002 and runcmd-003, respectively.
 
   To make the release 1, you may use the following commands at your local git
   repository:
 
-     $ git tag -a "part-001" -m "Some message"    (create the tag)
-     $ git push origin part-001	      		  (upload the tag)
+     $ git tag -a "runcmd-001" -m "Some message"    (create the tag)
+     $ git push origin runcmd-001	      		  (upload the tag)
 
-  Please consult Git documentation for further instructions on tagging.
+  Please consult the Git documentation for further instructions on tagging.
 
   Make sure that the release complies with the requirements of every partial
   evaluation.  
@@ -235,21 +235,21 @@ PROJECT FILES
 Your project's directory should be like this
 
    your_project_dir
+     |_README             
+     |_AUTHORS            
+     |_COPYING
      |__runcmd
         |_source.c           
         |_runcmd.h 	      
         |_Makefile	      
-        |_README             
-        |_AUTHORS            
-        |_COPYING
-        |_INSTALL
+        |_INSTALL	      
    
 
 File source.c is your library implementation. It does not need to be named
 'runcmd.c'. You may also split the implementation into multiple source files.
 
 File runcmd.h is the library header.  It must be named 'runcmd.h' because it 
-defines libruncmd API (your library's users will include this header).
+declares libruncmd API (your library's users will include this header).
 
 File Makefile is your project's makefile. It should be named 'Makefile' because
 the utility make will look for it. You may have other includable makefiles.
@@ -259,8 +259,8 @@ should not simply copy POSIXeg's README into your project's directory. If you
 don't have specific instructions, at least introduce your project. A reasonable
 introduction should mention the project's name, purposes, authors and licensing
 information. It helps to have basic instructions for installation and execution.
-As an open source project, you are required to inform where the
-project can be obtained from. For instance, a minimal note might be
+As an open source project, you are required to inform where the project can be
+obtained from. For instance, a minimal note might be
 
    "Foo is a library providing (...)
     For copyright and licensing information see files AUTHORS and COPYING.
@@ -271,7 +271,7 @@ You must provide a file AUTHORS, where you must state the name of all authors
 of your project. If the project authors have written all the source code 
 themselves, only the name of the project authors should appear. On the other 
 hand, if your project makes use of code by third party developers, you should
-add a note stating that. For instance, if you have reused code from POSIXeg,
+add a note attributing that. For instance, if you have reused code from POSIXeg,
 an annotation might be like
 
    "This project is based on POSIXeg by Monaco F. J. Reused code was properly
@@ -300,7 +300,7 @@ ON COPYRIGHT
 --------------------------------------------------
 
 If you decide to reuse code from POSIXeg or any other open source project, 
-remember to comply with existing authors write laws and ethical conventions.
+remember to comply with existing authors right laws and ethical conventions.
 
 Please, refer to posixeg/doc/README.
 
@@ -313,7 +313,7 @@ license). For instance, you may use the same license (GPL).
 
 If you enjoy the fact that you can inspect, study and even reuse code from
 POSIXeg, you are strongly encouraged to consider a free software license for
-your projects.
+your other projects as well.
 
 POSIXeg CHANGES AND UPDATES
 --------------------------------------------------
