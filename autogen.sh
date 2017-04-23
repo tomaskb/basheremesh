@@ -36,6 +36,6 @@ for i in $RECOMMENDED_FILES; do
     fi
 done
 
-$AUTORECONF --install
+$AUTORECONF --install || $AUTORECONF --install
 
 echo "Done"
