@@ -7,7 +7,4 @@ CRITICAL
 NON-CRITICAL
 ------------------------------
 
-* Better solution for autogen.sh workaround
-  Autoreconf fails because undefined AC_DEFINE.
-  Current workaround: issue it a second time.
 

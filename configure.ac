@@ -39,8 +39,7 @@ AC_SUBST([LD_FLAGS])
 
 dnl Canocial check for POSIX threads.
 
-AX_PTHREAD([
-AC_DEFINE(HAVE_PTHREAD,1,[Define to 1 if POSIX threads libraries and headers are found.]) ], 
+AX_PTHREAD([AC_DEFINE(HAVE_PTHREAD,1,[Define to 1 if POSIX threads libraries and headers are found.]) ], 
 AC_MSG_WARN([POSIX threads support not detected.]))
 
 
