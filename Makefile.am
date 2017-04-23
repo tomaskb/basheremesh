@@ -20,3 +20,5 @@
 #SUBDIRS = lib src scripts
 ACLOCAL_AMFLAGS = -I m4
 
+clean-local:
+	rm -f *~
