@@ -29,7 +29,7 @@ and then
 $ ./main-shared
 
 The reason to set LD_LIBRARY_PATH=. is because the dynamic loader
-does not search for libraries out in the current directory by default.
+does not search for libraries within the current directory by default.
 
 
 

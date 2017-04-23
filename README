@@ -6,12 +6,13 @@ This is Free Open Source Software. For licensing, see COPYING.TXT
 
 ----------------------------------------------------------------------
 
-POSIX-eg is small toolbox of simple POSIX programming examples.
+POSIX-eg is small collection of simple POSIX programming examples.
 
-The code samples were collected from class notes while teaching system
+Code samples were collected from class notes while teaching system
 programming for students of computer sciences and engineering. Some
 examples have been useful in graduate and undergraduate disciplines
-including Operating Systems, Distributed Systems and Computer Networks.
+including Operating Systems, Computer Architecture, Distributed Systems
+and Computer Networks.
 
 POSIX-eg repository includes also some programming exercises.
 
