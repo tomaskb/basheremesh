@@ -33,16 +33,17 @@ AC_PROG_CC 		        dnl Defines CC
 
 dnl Define variables to be used by Automake
 
-AC_SUBST([CPP_FLAGS],"-ansi -D_POSIX_C_SOURCE=200809L -Wall") dnl Define flags
+AC_SUBST([CPP_FLAGS],"-ansi -D_POSIX_C_SOURCE=200809L -Wall --pedantic") dnl Define flags
 AC_SUBST([C_FLAGS])
 AC_SUBST([LD_FLAGS])
 
 dnl Canocial check for POSIX threads.
 
-AX_PTHREAD([AC_DEFINE(HAVE_PTHREAD,1,[Define to 1 if POSIX threads libraries and headers are found.]) ], 
+AX_PTHREAD([
+AC_DEFINE(HAVE_PTHREAD,1,[Define to 1 if POSIX threads libraries and headers are found.]) ], 
 AC_MSG_WARN([POSIX threads support not detected.]))
 
 
-AC_CONFIG_FILES([Makefile])	dnl Output files
+AC_CONFIG_FILES([Makefile examples/snippets/Makefile])	dnl Output files
 AC_OUTPUT			dnl Do it
 
