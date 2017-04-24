@@ -6,6 +6,9 @@ This is Free Open Source Software. For licensing, see COPYING.TXT
 
 ----------------------------------------------------------------------
 
+OVERVIEW
+--------
+
 POSIX-eg is small collection of simple POSIX programming examples.
 
 Code samples were collected from class notes while teaching system
@@ -18,6 +21,81 @@ POSIX-eg repository includes also some programming exercises.
 
 The project can be found at https://gitlab.com/monaco/posixeg
 
-[]'s Monaco
+QUICK START
+-----------
+
+POSIXeg content is organized in directories:
+
+* posixeg/examples   	 with varying source code examples;
+* posixeg/exercises	 with proposed programming exercises;
+* posixeg/instructions	 with directions for students and instructors;
+* posixeg/tools		 with miscellaneous utilities;
+* posixeg/doc		 with the project documentation;
+* posixeg/extras	 with some non-strict POSIX add-ons.
+
+After either cloning POSIXeg from the Git repository or unpacking a
+distribution tarball, build the project by invoking of the provided
+GNU build system's scripts:
+
+    $ cd <path-to-posixeg>/posixeg
+    $ ./configure
+    $ make
+
+Unlike the usual approach, POSIXeg build scripts are not configured to
+automatically compile all software package at once. Instead, the aforementioned
+steps will solely generate the needed Makefiles.  Each specific piece of
+software shall be individually build, and optionally installed, by entering
+the respective directory and issuing the appropriate building command:
+
+   $ cd <relevant-directory>
+   $ make
+   $ make install
+
+For instance, to build program snippets:
+
+   $ cd <path-to-posixeg>/examples/snippets
+   $ make
+
+In order to uninstall a particular tool
+
+   $ cd <relevant-directory>
+   $ make uninstall
+
+Alternatively, one may also (un)install the whole package by issuing
+the corresponding command from the project's top level directory:
+
+   $ cd <path-to-posixeg>/posixeg
+   $ make
+   $ make install  (or make uninstall)
+
+There is also available a global make clean target.
+
+File posixeg/INSTALL contains detailed building and installation instructions.
+
+NEXT STEPS
+----------
+
+Both instructors and students may refer to directory 'instructions' for
+detailed information on how to use the package contents for teaching/learning
+POSIX concepts, including a guide for available examples, as well as directions
+for practicing and verifying proposed programming exercises.
+
+The package offer several illustration of POSIX programming ranging from minimal
+self-contained code excerpts to more sophisticated stand-alone applications
+and library demonstrations.  These may be found under directory 'examples'.
+
+Included with the software, under directory 'exercises' there are also some
+programming exercises intended for students and instructors interested in
+practicing the concepts and examples.  Specific instructions are offered
+when applicable.
+
+Directory 'tools' contain some miscellaneous utilities which may be of use
+for practicing the programming exercises and in general. Also included, under
+directory 'extras', are a few non-strict POSIX, yet interesting, examples and
+tools which may come in handy for common practical situations.
+
+Finally, please, refer to documents in directory 'doc' for further directions
+on both installing the software and contributing to the project.
+
 
 
