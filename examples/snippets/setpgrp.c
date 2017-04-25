@@ -28,7 +28,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "debug.h"
+#include <posixeg/debug.h>
 
 void childterm (int n, siginfo_t *info, void *u)
 {

@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "debug.h"
+#include <posixeg/debug.h>
 
 #define MAX_SIZE 1024
 

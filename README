@@ -24,6 +24,14 @@ The project can be found at https://gitlab.com/monaco/posixeg
 QUICK START
 -----------
 
+After either cloning POSIXeg from the Git repository or unpacking a
+distribution tarball, build the project by invoking of the provided
+GNU build system's scripts:
+
+    $ cd <somepath>/posixeg
+    $ ./configure
+    $ make
+
 POSIXeg content is organized in directories:
 
 * posixeg/examples   	 with varying source code examples;
@@ -33,42 +41,27 @@ POSIXeg content is organized in directories:
 * posixeg/doc		 with the project documentation;
 * posixeg/extras	 with some non-strict POSIX add-ons.
 
-After either cloning POSIXeg from the Git repository or unpacking a
-distribution tarball, build the project by invoking of the provided
-GNU build system's scripts:
-
-    $ cd <path-to-posixeg>/posixeg
-    $ ./configure
-    $ make
-
-Unlike the usual approach, POSIXeg build scripts are not configured to
-automatically compile all software package at once. Instead, the aforementioned
+Unlike the usual Autotools approach, POSIXeg build scripts are not configured to
+automatically compile all software packages at once. Instead, the aforementioned
 steps will solely generate the needed Makefiles.  Each specific piece of
 software shall be individually build, and optionally installed, by entering
 the respective directory and issuing the appropriate building command:
 
    $ cd <relevant-directory>
    $ make
-   $ make install
 
-For instance, to build program snippets:
+For instance, to build programs under posixeg/examples/snippets:
 
-   $ cd <path-to-posixeg>/examples/snippets
+   $ cd <somepath>/posixeg/examples/snippets
    $ make
 
-In order to uninstall a particular tool
+All other GNU build system's standard targets are available as usual.
 
-   $ cd <relevant-directory>
-   $ make uninstall
+It is possible to build the entire project at once by issuing
 
-Alternatively, one may also (un)install the whole package by issuing
-the corresponding command from the project's top level directory:
+   $ make force-all
 
-   $ cd <path-to-posixeg>/posixeg
-   $ make
-   $ make install  (or make uninstall)
-
-There is also available a global make clean target.
+from the project's top source directory.
 
 File posixeg/INSTALL contains detailed building and installation instructions.
 

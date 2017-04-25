@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
-#include "debug.h"
+#include <posixeg/debug.h>
 
 int g = 20;	     /* Global variables are accessible by all threads. */
 

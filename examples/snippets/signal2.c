@@ -19,7 +19,7 @@
 */
 
 
-#include "debug.h"
+#include <posixeg/debug.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>		

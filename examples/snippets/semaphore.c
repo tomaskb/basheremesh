@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <semaphore.h>
-#include "debug.h"
+#include <posixeg/debug.h>
 
 /* If this macro is 0, no syncrhonization is performed.
    If its 1, a mutex is used to protect critical regions. */

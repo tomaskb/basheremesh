@@ -639,6 +639,7 @@ PTHREAD_CFLAGS
 PTHREAD_LIBS
 PTHREAD_CC
 ax_pthread_config
+TEMPFILES
 LD_FLAGS
 C_FLAGS
 CPP_FLAGS
@@ -12769,6 +12770,8 @@ fi
 CPP_FLAGS="-ansi -D_POSIX_C_SOURCE=200809L -Wall --pedantic"
 
 
+TEMPFILES="*~"
+
 
 
 
@@ -13416,8 +13419,10 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_files="$ac_config_files Makefile examples/snippets/Makefile"
-	cat >confcache <<\_ACEOF
+ac_config_files="$ac_config_files Makefile examples/Makefile examples/snippets/Makefile tools/lib/Makefile"
+
+
+cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
 # scripts and configure runs, see configure's option --config-cache.
@@ -14433,7 +14438,9 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
     "examples/snippets/Makefile") CONFIG_FILES="$CONFIG_FILES examples/snippets/Makefile" ;;
+    "tools/lib/Makefile") CONFIG_FILES="$CONFIG_FILES tools/lib/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

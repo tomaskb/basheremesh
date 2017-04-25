@@ -26,7 +26,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "debug.h"
+#include <posixeg/debug.h>
 
 #define BUFFSIZE 1024
 #define NARGS 1024

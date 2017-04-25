@@ -19,7 +19,7 @@
 
 */
 
-#include "debug.h"
+#include <posixeg/debug.h>
 
 #include <stdio.h>		/* printf etc. */
 #include <stdlib.h>		/* EXIT_SUCCESS */

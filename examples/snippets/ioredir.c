@@ -19,7 +19,7 @@
 
 */
 
-#include "debug.h"
+#include <posixeg/debug.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -28,7 +28,7 @@
 #include <unistd.h>
 
 
-#include "debug.h"
+#include <posixeg/debug.h>
 
 int main (int argc, char **argv)
 {

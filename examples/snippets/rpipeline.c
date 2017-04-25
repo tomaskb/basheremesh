@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "debug.h"
+#include <posixeg/debug.h>
 
 #define NUM_COMMANDS 4			/* Number of commands in the pipeline. */
 
