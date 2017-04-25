@@ -17,6 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+###                ***     *** WARNING ***    ****
+###
+### This is an alpha release software which has not been properly tested
+### and may likely contain defects, including critical bugs which may
+### harm your computer data and programs. If in doubt, do not try it.
+###
+### (Prospective contributors, please refer to TODO bellow)
 
 # Directions: 
 #
@@ -28,6 +35,11 @@
 # make uninstall    uninstall the libraries
 # make test         perform all runtime tests
 
+
+# TODO
+#
+# * Check if empty variables may harm the file systems, specially
+#   the side effects of rm -f $(EMPTYVAR).
 
 #
 # COSTOMIZE FOR YOUR PROJECT
@@ -82,7 +94,7 @@ PREFIX=./local
 # Customize the building environemnt (modify as desired)
 
 CC = gcc
-CPP_FLAGS = -I. -Wall --ansi --pedantic-errors -D_POSIX_C_SOURCE=200112L 
+CPP_FLAGS = -I. -Wall --ansi -D_POSIX_C_SOURCE=200112L 
 C_FLAGS = 
 LD_FLAGS = -L.
 MAKE = make
@@ -105,9 +117,28 @@ all_lib_h = $(foreach i, $(lib:%=%_h), $($i))
 all_bin_obj = $(foreach i, $(bin:%=%_obj), $($i))
 all_aux_bin_obj = $(foreach i, $(aux_bin:%=%_obj), $($i))
 
+# Alpha Safeguard
+
+ALPHANOTE="\n\n WARNING: This is an alpha release software which has not been properly tested \n and may likely contain defects, including critical bugs which may \n harm your computer data and programs. If in doubt, do not try it.\n\n In order to bypass this safeguard, create a file named\n\n    I_AM_AWARE_OF_POTENTIAL_RISKS\n\n under the same thirectory than this file.\n\n\n"
+
+ifeq (,$(wildcard ALPHA_WARNING))
+$(shell echo -n $(ALPHANOTE) > ALPHA_WARNING)
+endif
+
+ifeq (,$(wildcard I_AM_AWARE_OF_POTENTIAL_RISKS))
+$(info ***   Warning    ***)
+$(info This is an alpha release software which has not been properly tested)
+$(info and may likely contain defects, including critical bugs which may)
+$(info harm your computer data and programs. If in doubt, do not try it.)
+$(info In order to bypass this safeguard, please refer to file ALPHA_WARNING)
+$(error Aborted)
+endif
+
+
 # Build everything
 
-all: $(lib_static) $(lib_shared) $(bin) $(aux_bin) 
+all: $(lib_static) $(lib_shared) $(bin) $(aux_bin)
+
 
 static: $(lib_static) $(bin:%=%-static) $(aux_bin:%=%-static) 
 
