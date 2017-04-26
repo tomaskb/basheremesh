@@ -33,7 +33,7 @@ AC_PROG_CC 		        dnl Defines CC
 
 dnl Define variables to be used by Automake
 
-AC_SUBST([CPP_FLAGS],"-ansi -D_POSIX_C_SOURCE=200809L -Wall --pedantic") dnl Define flags
+AC_SUBST([CPP_FLAGS],"-ansi -D_POSIX_C_SOURCE=200809L -Wall -Werror --pedantic") dnl Define flags
 AC_SUBST([C_FLAGS])
 AC_SUBST([LD_FLAGS])
 AC_SUBST([TEMPFILES],"*~")

@@ -12767,7 +12767,7 @@ fi
 
 
 
-CPP_FLAGS="-ansi -D_POSIX_C_SOURCE=200809L -Wall --pedantic"
+CPP_FLAGS="-ansi -D_POSIX_C_SOURCE=200809L -Wall -Werror --pedantic"
 
 
 TEMPFILES="*~"

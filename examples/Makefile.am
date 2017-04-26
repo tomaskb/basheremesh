@@ -17,11 +17,10 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = 
-ACLOCAL_AMFLAGS = -I m4
-
-directories = snippets
+SUBDIRS = snippets
+EXTRA_DIST = library
 
 clean-local:
-	for i in $(directories) ; do $(MAKE) -C $$i clean; done
-	rm -f $(TEMPFILES)
+	$(MAKE) -C library clean
+
+

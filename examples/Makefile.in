@@ -306,9 +306,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = 
-ACLOCAL_AMFLAGS = -I m4
-directories = snippets
+SUBDIRS = snippets
+EXTRA_DIST = library
 all: all-recursive
 
 .SUFFIXES:
@@ -623,8 +622,7 @@ uninstall-am:
 
 
 clean-local:
-	for i in $(directories) ; do $(MAKE) -C $$i clean; done
-	rm -f $(TEMPFILES)
+	$(MAKE) -C library clean
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
