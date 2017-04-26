@@ -30,7 +30,7 @@
 ## augmented the interface (new functions)       CURRENT+1 : 0 : AGE+1
 ## broken old interface (e.g. removed functions) CURRENT+1 : 0 : 0
 
-AM_CPPFLAGS = @CPP_FLAGS@
+AM_CPPFLAGS = @CPP_FLAGS@ -I.
 AM_CFLAGS =   @C_FLAGS@
 AM_LDFLAGS =  @LD_FLAGS@
 
@@ -38,8 +38,8 @@ libposixeg_version = 0:0:0
 
 lib_LTLIBRARIES = libposixeg.la
 
-libposixeg_la_SOURCES = 
+libposixeg_la_SOURCES = list.c parser.c
 libposixeg_la_LDFLAGS = -version-info $(libposixeg_version)
 
-nobase_include_HEADERS = posixeg/debug.h
+nobase_include_HEADERS = posixeg/debug.h posixeg/list.h posixeg/tparse.h
 

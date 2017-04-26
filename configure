@@ -13419,7 +13419,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_files="$ac_config_files Makefile examples/Makefile examples/snippets/Makefile tools/Makefile lib/Makefile extras/Makefile"
+ac_config_files="$ac_config_files Makefile examples/Makefile examples/snippets/Makefile examples/shell/foosh/Makefile tools/Makefile lib/Makefile extras/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -14440,6 +14440,7 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
     "examples/snippets/Makefile") CONFIG_FILES="$CONFIG_FILES examples/snippets/Makefile" ;;
+    "examples/shell/foosh/Makefile") CONFIG_FILES="$CONFIG_FILES examples/shell/foosh/Makefile" ;;
     "tools/Makefile") CONFIG_FILES="$CONFIG_FILES tools/Makefile" ;;
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
     "extras/Makefile") CONFIG_FILES="$CONFIG_FILES extras/Makefile" ;;

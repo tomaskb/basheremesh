@@ -1,4 +1,4 @@
-##   Makefile.am - Main Automake script.
+##   Makefile.am - Automake script for example/shell/foosh.
 ##
 ##   Copyright (c) 2014, Francisco Jose Monaco  <moanco@icmc.usp.br>
 ##
@@ -17,28 +17,20 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-directories = examples examples/snippets tools lib extras 
-
-SUBDIRS = lib
-DIST_SUBDIRS = $(directories)
+AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_srcdir)/lib -Werror
+AM_CFLAGS =   @C_FLAGS@ 
+AM_LDFLAGS =  @LD_FLAGS@ 
 ACLOCAL_AMFLAGS = -I m4
 
+EXTRA_PROGRAMS = foosh
 
+foosh_SOURCES = main.c
 
-force-all:
-	for i in $(directories) ; do $(MAKE) -C $$i; done
+foosh_LDADD = $(top_srcdir)/lib/libposixeg.la
+
+all-local: $(EXTRA_PROGRAMS)
 
 clean-local:
-	for i in $(directories) ; do \
-	   if test -f $$i/Makefile ; then $(MAKE) -C $$i clean; fi\
-        done
+	rm -f $(EXTRA_PROGRAMS)
 	rm -f $(TEMPFILES)
-
-install-exec-local:
-	for i in $(directories) ; do $(MAKE) -C $$i install; done
-
-uninstall-local:
-	for i in $(directories) ; do $(MAKE) -C $$i uninstall; done
-
-
 

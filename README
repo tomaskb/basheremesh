@@ -43,10 +43,11 @@ POSIXeg content is organized in directories:
 * posixeg/extras	 with some non-strict POSIX add-ons.
 
 Unlike the usual Autotools approach, POSIXeg build scripts are not configured to
-automatically compile all software packages at once. Instead, the aforementioned
-steps will solely generate the needed Makefiles.  Each specific piece of
-software shall be individually build, and optionally installed, by entering
-the respective directory and issuing the appropriate building command:
+automatically compile all the software at once. Instead, for most project's
+directories,  the aforementioned steps will solely generate the needed
+Makefiles.  Each specific piece of software that is not automatically buit
+shall be individually compiled, and optionally installed, by entering the
+respective directory and issuing the appropriate building command:
 
    $ cd <relevant-directory>
    $ make
@@ -58,11 +59,16 @@ For instance, to build programs under posixeg/examples/snippets:
 
 All other GNU build system's standard targets are available as usual.
 
+Note: Before building a specific project module in this way, however, remember
+to issue 'make' command from the top source directory, as explained, as modules
+may need some automatically built resources as prerequisite.
+
 It is possible to build the entire project at once by issuing
 
    $ make force-all
 
 from the project's top source directory.
+
 
 File posixeg/INSTALL contains detailed building and installation instructions.
 

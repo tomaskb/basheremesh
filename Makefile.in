@@ -336,7 +336,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 directories = examples examples/snippets tools lib extras 
-SUBDIRS = 
+SUBDIRS = lib
 DIST_SUBDIRS = $(directories)
 ACLOCAL_AMFLAGS = -I m4
 all: config.h

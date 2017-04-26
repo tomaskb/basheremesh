@@ -50,6 +50,7 @@ AC_CONFIG_FILES([
 Makefile
 examples/Makefile
 examples/snippets/Makefile
+examples/shell/foosh/Makefile
 tools/Makefile
 lib/Makefile
 extras/Makefile])	

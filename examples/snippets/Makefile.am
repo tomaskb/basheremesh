@@ -17,7 +17,7 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_srcdir)/tools/lib -Wno-unused-result -Werror
+AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_srcdir)/lib -Wno-unused-result -Werror
 AM_CFLAGS =   @C_FLAGS@ 
 AM_LDFLAGS =  @LD_FLAGS@
 ACLOCAL_AMFLAGS = -I m4
