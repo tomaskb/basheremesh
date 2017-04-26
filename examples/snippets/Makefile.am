@@ -20,7 +20,7 @@
 AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_srcdir)/lib -Wno-unused-result 
 AM_CFLAGS =   @C_FLAGS@ 
 AM_LDFLAGS =  @LD_FLAGS@
-ACLOCAL_AMFLAGS = -I m4
+## ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_PROGRAMS = crash exec fork ioredir pipe2 pipe pipeline rpipeline signal2 signal loop toggle-io token siginfo setpgrp pthread semaphore crash
 

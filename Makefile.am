@@ -25,19 +25,19 @@ ACLOCAL_AMFLAGS = -I m4
 
 
 force-all:
-	for i in $(directories) ; do $(MAKE) -C $$i; done
+	for i in $(directories) ; do $(MAKE) $(AM_MAKEFLAGS) -C $$i; done
 
 clean-local:
 	for i in $(directories) ; do \
-	   if test -f $$i/Makefile ; then $(MAKE) -C $$i clean; fi\
+	   if test -f $$i/Makefile ; then $(MAKE) $(AM_MAKEFLAGS) -C $$i clean; fi\
         done
 	rm -f $(@TEMPFILES@)
 
 install-exec-local:
-	for i in $(directories) ; do $(MAKE) -C $$i install; done
+	for i in $(directories) ; do $(MAKE) $(AM_MAKEFLAGS) -C $$i install; done
 
 uninstall-local:
-	for i in $(directories) ; do $(MAKE) -C $$i uninstall; done
+	for i in $(directories) ; do $(MAKE) $(AM_MAKEFLAGS) -C $$i uninstall; done
 
 
 

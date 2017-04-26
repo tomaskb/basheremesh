@@ -246,7 +246,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = copyrigh-header.txt  gpl.txt  lgpl.txt
 all: all-am
 
@@ -441,7 +440,7 @@ uninstall-am:
 
 
 clean-local:
-	rm -f $(TEMPFILES)
+	rm -f @TEMPFILES@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

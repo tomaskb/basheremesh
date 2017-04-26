@@ -17,15 +17,14 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = 
-ACLOCAL_AMFLAGS = -I m4
 
-clean-local:
-	for i in $(directories) ; do $(MAKE) -C $$i clean; done
-	rm -f $(TEMPFILES)
 
 
 EXTRA_DIST = Makefiles/Makefile.bin+lib
 
 EXTRA_DIST += Makestyle/Makefile Makestyle/config.mk  Makestyle/foo.c  Makestyle/gendist.mk  Makestyle/local.mk  Makestyle/README  Makestyle/test.mk
 
+directories = Makefiles Makestyle
+
+clean-local:
+	for i in $(directories) ; do (cd $(srcdir)/$$i && rm -f @TEMPFILES@) ; done

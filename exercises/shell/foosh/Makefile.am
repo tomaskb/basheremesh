@@ -20,7 +20,7 @@
 AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_builddir)/lib -I$(top_srcdir)/lib -Werror
 AM_CFLAGS =   @C_FLAGS@ 
 AM_LDFLAGS =  @LD_FLAGS@ 
-ACLOCAL_AMFLAGS = -I m4
+## ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_PROGRAMS = foosh
 
@@ -32,5 +32,5 @@ all-local: $(EXTRA_PROGRAMS)
 
 clean-local:
 	rm -f $(EXTRA_PROGRAMS)
-	rm -f $(TEMPFILES)
+	rm -f @TEMPFILES@
 

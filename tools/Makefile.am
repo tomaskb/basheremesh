@@ -18,12 +18,12 @@
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-ACLOCAL_AMFLAGS = -I m4
+EXTRA_DIST = copyrigh-header.txt  gpl.txt  lgpl.txt
 
 clean-local:
-	rm -f $(TEMPFILES)
+	rm -f @TEMPFILES@
 
 
-EXTRA_DIST = copyrigh-header.txt  gpl.txt  lgpl.txt
+
 
 

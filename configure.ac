@@ -54,8 +54,8 @@ examples/snippets/Makefile
 exercises/Makefile
 exercises/shell/Makefile
 exercises/shell/foosh/Makefile
-tools/Makefile
-extras/Makefile])	
+extras/Makefile
+tools/Makefile])	
 
 AC_OUTPUT			dnl Do it
 
