@@ -54,6 +54,7 @@ examples/snippets/Makefile
 exercises/Makefile
 exercises/shell/Makefile
 exercises/shell/foosh/Makefile
+exercises/shell/tests/Makefile
 extras/Makefile
 tools/Makefile])	
 
