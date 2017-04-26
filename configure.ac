@@ -50,7 +50,9 @@ AC_CONFIG_FILES([
 Makefile
 examples/Makefile
 examples/snippets/Makefile
-tools/lib/Makefile])	
+tools/Makefile
+tools/lib/Makefile
+extras/Makefile])	
 
 AC_OUTPUT			dnl Do it
 

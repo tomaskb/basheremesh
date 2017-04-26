@@ -1,4 +1,4 @@
-##   Makefile.am - Main Automake script.
+##   Makefile.am - Automake script for extras.
 ##
 ##   Copyright (c) 2014, Francisco Jose Monaco  <moanco@icmc.usp.br>
 ##
@@ -17,28 +17,15 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-directories = examples examples/snippets tools tools/lib extras 
-
 SUBDIRS = 
-DIST_SUBDIRS = $(directories)
 ACLOCAL_AMFLAGS = -I m4
 
-
-
-force-all:
-	for i in $(directories) ; do $(MAKE) -C $$i; done
-
 clean-local:
-	for i in $(directories) ; do \
-	   if test -f $$i/Makefile ; then $(MAKE) -C $$i clean; fi\
-        done
+	for i in $(directories) ; do $(MAKE) -C $$i clean; done
 	rm -f $(TEMPFILES)
 
-install-exec-local:
-	for i in $(directories) ; do $(MAKE) -C $$i install; done
 
-uninstall-local:
-	for i in $(directories) ; do $(MAKE) -C $$i uninstall; done
+EXTRA_DIST = Makefiles/Makefile.bin+lib
 
-
+EXTRA_DIST += Makestyle/Makefile Makestyle/*.mk
 
