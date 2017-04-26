@@ -48,11 +48,11 @@ dnl Output files
 
 AC_CONFIG_FILES([
 Makefile
+lib/Makefile
 examples/Makefile
 examples/snippets/Makefile
-examples/shell/foosh/Makefile
+exercises/shell/foosh/Makefile
 tools/Makefile
-lib/Makefile
 extras/Makefile])	
 
 AC_OUTPUT			dnl Do it

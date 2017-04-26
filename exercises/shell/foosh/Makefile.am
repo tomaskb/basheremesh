@@ -17,7 +17,7 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_srcdir)/lib -Werror
+AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_builddir)/lib -I$(top_srcdir)/lib -Werror
 AM_CFLAGS =   @C_FLAGS@ 
 AM_LDFLAGS =  @LD_FLAGS@ 
 ACLOCAL_AMFLAGS = -I m4
@@ -26,7 +26,7 @@ EXTRA_PROGRAMS = foosh
 
 foosh_SOURCES = main.c
 
-foosh_LDADD = $(top_srcdir)/lib/libposixeg.la
+foosh_LDADD = $(top_builddir)/lib/libposixeg.la
 
 all-local: $(EXTRA_PROGRAMS)
 

@@ -88,7 +88,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 EXTRA_PROGRAMS = foosh$(EXEEXT)
-subdir = examples/shell/foosh
+subdir = exercises/shell/foosh
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_pthread.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
@@ -103,7 +103,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am_foosh_OBJECTS = main.$(OBJEXT)
 foosh_OBJECTS = $(am_foosh_OBJECTS)
-foosh_DEPENDENCIES = $(top_srcdir)/lib/libposixeg.la
+foosh_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -295,12 +295,12 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_srcdir)/lib -Werror
+AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_builddir)/lib -I$(top_srcdir)/lib -Werror
 AM_CFLAGS = @C_FLAGS@ 
 AM_LDFLAGS = @LD_FLAGS@ 
 ACLOCAL_AMFLAGS = -I m4
 foosh_SOURCES = main.c
-foosh_LDADD = $(top_srcdir)/lib/libposixeg.la
+foosh_LDADD = $(top_builddir)/lib/libposixeg.la
 all: all-am
 
 .SUFFIXES:
@@ -314,9 +314,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu examples/shell/foosh/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu exercises/shell/foosh/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu examples/shell/foosh/Makefile
+	  $(AUTOMAKE) --gnu exercises/shell/foosh/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

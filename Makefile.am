@@ -17,10 +17,10 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-directories = examples examples/snippets tools lib extras 
+directories = examples examples/snippets tools extras exercises/shell/foosh 
 
-SUBDIRS = lib
-DIST_SUBDIRS = $(directories)
+SUBDIRS = lib 
+DIST_SUBDIRS = $(SUBDIRS) $(directories) 
 ACLOCAL_AMFLAGS = -I m4
 
 
