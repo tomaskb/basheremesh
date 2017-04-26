@@ -18,9 +18,9 @@
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 SUBDIRS = snippets
-EXTRA_DIST = library
+EXTRA_DIST = library/main.c library/foo.c library/bar.c library/foobar.h library/Makefile library/README
 
 clean-local:
-	$(MAKE) -C library clean
+	$(MAKE) -C $(srcdir)/library clean
 
 

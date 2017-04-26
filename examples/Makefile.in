@@ -307,7 +307,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = snippets
-EXTRA_DIST = library
+EXTRA_DIST = library/main.c library/foo.c library/bar.c library/foobar.h library/Makefile library/README
 all: all-recursive
 
 .SUFFIXES:
@@ -622,7 +622,7 @@ uninstall-am:
 
 
 clean-local:
-	$(MAKE) -C library clean
+	$(MAKE) -C $(srcdir)/library clean
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -51,6 +51,8 @@ Makefile
 lib/Makefile
 examples/Makefile
 examples/snippets/Makefile
+exercises/Makefile
+exercises/shell/Makefile
 exercises/shell/foosh/Makefile
 tools/Makefile
 extras/Makefile])	
