@@ -27,5 +27,5 @@ clean-local:
 
 EXTRA_DIST = Makefiles/Makefile.bin+lib
 
-EXTRA_DIST += Makestyle/Makefile Makestyle/*.mk
+EXTRA_DIST += Makestyle/Makefile Makestyle/config.mk  Makestyle/foo.c  Makestyle/gendist.mk  Makestyle/local.mk  Makestyle/README  Makestyle/test.mk
 

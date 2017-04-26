@@ -34,9 +34,10 @@ GNU build system's scripts:
 
 POSIXeg content is organized in directories:
 
+* posixeg/instructions	 with directions for students and instructors;
 * posixeg/examples   	 with varying source code examples;
 * posixeg/exercises	 with proposed programming exercises;
-* posixeg/instructions	 with directions for students and instructors;
+* posixeg/lib		 with libposixeg, useful for the exercises;
 * posixeg/tools		 with miscellaneous utilities;
 * posixeg/doc		 with the project documentation;
 * posixeg/extras	 with some non-strict POSIX add-ons.
@@ -80,7 +81,8 @@ and library demonstrations.  These may be found under directory 'examples'.
 Included with the software, under directory 'exercises' there are also some
 programming exercises intended for students and instructors interested in
 practicing the concepts and examples.  Specific instructions are offered
-when applicable.
+when applicable. When doing exercises, libposixeg in directory 'lib' may
+be useful.
 
 Directory 'tools' contain some miscellaneous utilities which may be of use
 for practicing the programming exercises and in general. Also included, under

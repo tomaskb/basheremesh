@@ -309,7 +309,8 @@ top_srcdir = @top_srcdir@
 SUBDIRS = 
 ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = Makefiles/Makefile.bin+lib Makestyle/Makefile \
-	Makestyle/*.mk
+	Makestyle/config.mk Makestyle/foo.c Makestyle/gendist.mk \
+	Makestyle/local.mk Makestyle/README Makestyle/test.mk
 all: all-recursive
 
 .SUFFIXES:

@@ -51,7 +51,7 @@ Makefile
 examples/Makefile
 examples/snippets/Makefile
 tools/Makefile
-tools/lib/Makefile
+lib/Makefile
 extras/Makefile])	
 
 AC_OUTPUT			dnl Do it
