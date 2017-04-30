@@ -36,7 +36,7 @@ dnl Define variables to be used by Automake
 AC_SUBST([CPP_FLAGS],"-ansi -D_POSIX_C_SOURCE=200809L -Wall -Werror --pedantic") dnl Define flags
 AC_SUBST([C_FLAGS])
 AC_SUBST([LD_FLAGS])
-AC_SUBST([TEMPFILES],"*~")
+AC_SUBST([TEMPFILES],[*~ `@%:@*`])
 
 dnl Canocial check for POSIX threads.
 
@@ -55,6 +55,9 @@ exercises/Makefile
 exercises/shell/Makefile
 exercises/shell/foosh/Makefile
 exercises/shell/tests/Makefile
+exercises/runcmd/Makefile
+exercises/runcmd/lib/Makefile
+exercises/runcmd/test/Makefile
 extras/Makefile
 tools/Makefile])	
 

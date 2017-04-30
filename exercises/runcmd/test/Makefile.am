@@ -1,4 +1,4 @@
-##   Makefile.am - Automake script for exercises.
+##   Makefile.am - Automake script for exercises/runcmd/test.
 ##
 ##   Copyright (c) 2014, Francisco Jose Monaco  <moanco@icmc.usp.br>
 ##
@@ -17,5 +17,21 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = shell runcmd
+AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result 
+AM_CFLAGS =   @C_FLAGS@ 
+AM_LDFLAGS =  @LD_FLAGS@
+
+EXTRA_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2 
+
+LDADD = $(top_builddir)/lib/libposixeg.la ../lib/libruncmd.la testutils.o
+
+test_002_CC = @PTHREAD_CC@
+test_002_LADD = @PTHREAD_LIBS@
+test_002_CFLAGS= @PTHREAD_CFLAGS@
+
+all-local: $(EXTRA_PROGRAMS)
+
+clean-local:
+	rm -f $(EXTRA_PROGRAMS)
+	rm -f @TEMPFILES@
 

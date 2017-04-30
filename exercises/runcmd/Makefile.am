@@ -1,4 +1,4 @@
-##   Makefile.am - Automake script for exercises.
+##   Makefile.am - Automake script for exercises/runcmd/test.
 ##
 ##   Copyright (c) 2014, Francisco Jose Monaco  <moanco@icmc.usp.br>
 ##
@@ -17,5 +17,4 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = shell runcmd
-
+SUBDIRS = lib test

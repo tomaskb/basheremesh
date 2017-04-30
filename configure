@@ -12770,7 +12770,7 @@ fi
 CPP_FLAGS="-ansi -D_POSIX_C_SOURCE=200809L -Wall -Werror --pedantic"
 
 
-TEMPFILES="*~"
+TEMPFILES=*~ `#*`
 
 
 
@@ -13419,7 +13419,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile examples/Makefile examples/snippets/Makefile exercises/Makefile exercises/shell/Makefile exercises/shell/foosh/Makefile exercises/shell/tests/Makefile extras/Makefile tools/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile examples/Makefile examples/snippets/Makefile exercises/Makefile exercises/shell/Makefile exercises/shell/foosh/Makefile exercises/shell/tests/Makefile exercises/runcmd/Makefile exercises/runcmd/lib/Makefile exercises/runcmd/test/Makefile extras/Makefile tools/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -14445,6 +14445,9 @@ do
     "exercises/shell/Makefile") CONFIG_FILES="$CONFIG_FILES exercises/shell/Makefile" ;;
     "exercises/shell/foosh/Makefile") CONFIG_FILES="$CONFIG_FILES exercises/shell/foosh/Makefile" ;;
     "exercises/shell/tests/Makefile") CONFIG_FILES="$CONFIG_FILES exercises/shell/tests/Makefile" ;;
+    "exercises/runcmd/Makefile") CONFIG_FILES="$CONFIG_FILES exercises/runcmd/Makefile" ;;
+    "exercises/runcmd/lib/Makefile") CONFIG_FILES="$CONFIG_FILES exercises/runcmd/lib/Makefile" ;;
+    "exercises/runcmd/test/Makefile") CONFIG_FILES="$CONFIG_FILES exercises/runcmd/test/Makefile" ;;
     "extras/Makefile") CONFIG_FILES="$CONFIG_FILES extras/Makefile" ;;
     "tools/Makefile") CONFIG_FILES="$CONFIG_FILES tools/Makefile" ;;
 

@@ -1,4 +1,4 @@
-##   Makefile.am - Automake script for libposixeg
+##   Makefile.am - Automake script for exercises/runcmd/lib.
 ##
 ##   Copyright (c) 2014, Francisco Jose Monaco  <moanco@icmc.usp.br>
 ##
@@ -30,18 +30,17 @@
 ## augmented the interface (new functions)       CURRENT+1 : 0 : AGE+1
 ## broken old interface (e.g. removed functions) CURRENT+1 : 0 : 0
 
-AM_CPPFLAGS = @CPP_FLAGS@ -I.
+AM_CPPFLAGS = @CPP_FLAGS@ -I$(top_builddir)/lib -I$(top_srcdir)/lib -I$(top_builddir) -I$(top_srcdir)
 AM_CFLAGS =   @C_FLAGS@
 AM_LDFLAGS =  @LD_FLAGS@
 
-libposixeg_version = 0:0:0 
+libruncmd_version = 0:0:0
 
-lib_LTLIBRARIES = libposixeg.la
+lib_LTLIBRARIES = libruncmd.la
 
-libposixeg_la_SOURCES = list.c parser.c
-libposixeg_la_LDFLAGS = -version-info $(libposixeg_version)
+libruncmd_la_SOURCES = runcmd.c 
+libruncmd_la_LDFLAGS = -version-info $(libruncmd_version)
 
-nobase_include_HEADERS = posixeg/debug.h posixeg/list.h posixeg/tparse.h
+nobase_include_HEADERS = posixeg/runcmd.h
 
-clean-local:
-	rm -f @TEMPFILES@
+
