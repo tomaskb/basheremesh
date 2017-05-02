@@ -25,7 +25,7 @@
 #include <fcntl.h>
 
 
-#include <debug.h>
+#include <posixeg/debug.h>
 #include "t.h"
 
 int  called;

@@ -21,7 +21,15 @@ AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir
 AM_CFLAGS =   @C_FLAGS@ 
 AM_LDFLAGS =  @LD_FLAGS@
 
-EXTRA_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2 
+
+#EXTRA_instdir = $(abs_srcdir)/doit
+#EXTRA_inst_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2 
+
+bindir = $(abs_srcdir)/build
+bin_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2 
+
+mytests = test-001 test-002 test-003 test-004
+
 
 LDADD = $(top_builddir)/lib/libposixeg.la ../lib/libruncmd.la testutils.o
 
@@ -34,4 +42,17 @@ all-local: $(EXTRA_PROGRAMS)
 clean-local:
 	rm -f $(EXTRA_PROGRAMS)
 	rm -f @TEMPFILES@
+
+test: $(bin_PROGRAMS)
+	$(MAKE) install
+	@echo "\n----------------------------------------------------------------------"
+	@echo "\nRunning tests\n"
+	@total=0;\
+	for i in $(mytests); do echo;\
+	./build/$$i; nerrors=$$?; total=$$(( $$total + $$nerrors)); done; \
+	echo; \
+	if test $$total -eq 0 ; then echo -n "Good! All tests ok!"; else echo -n "Found $$total error(s). Some tests failed."; fi;
+	@echo; echo
+
+
 

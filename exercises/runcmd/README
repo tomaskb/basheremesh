@@ -25,18 +25,18 @@ the exercise. There are some important rules and useful tips that you should
 not miss.
 
 If you are following the proposed exercises' roadmap, you will upload your 
-software in a public repository using a Free Software / Open Source license.
+software to a public repository using a Free Software / Open Source license.
 
 DETAILED INSTRUCTIONS
 --------------------------------------------------
 
-First, read posixeg/doc/README.
+First, read posixeg/instructions/README.
 
 Then, please, go through libruncmd specification in runcmd.txt.
 
 The file, formatted like a traditional man page, specifies the libruncmd API,
 comprised by a single function runcmd() and a set of macros. The library is
-implemented in the source file runcmd.c and the header file runcmd.h.
+implemented in the source file runcmd.c and the header file poxixeg/runcmd.h.
 
 The library can be built with the aid of the provided makefile script by issuing
 the command line at the shell prompt

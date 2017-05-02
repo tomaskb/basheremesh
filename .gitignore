@@ -2,6 +2,7 @@
 *.o
 
 \#*
+.\#*
 
 runcmd/exercise/debug.h
 
@@ -13,4 +14,10 @@ config.status
 libtool
 stamp-h1
 .deps
-							
+
+*.la
+*.lo
+.libs/
+*.log
+
+exercises/runcmd/test/build/
