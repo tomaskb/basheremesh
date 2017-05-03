@@ -20,7 +20,7 @@
 SUBDIRS = snippets
 EXTRA_DIST = library/main.c library/foo.c library/bar.c library/foobar.h library/Makefile library/README
 
-EXTRA_DIST += Makefile-eg
+EXTRA_DIST += Makefile-eg/README Makefile-eg/main.c Makefile-eg/circle.c Makefile-eg/circle.h Makefile-eg/rectangle.c Makefile-eg/rectangle.h Makefile-eg/square.c Makefile-eg/square.h Makefile-eg/deps/deps.fig  Makefile-eg/deps/deps.pdf Makefile-eg/Makefile-00 Makefile-eg/Makefile-01 Makefile-eg/Makefile-02 Makefile-eg/Makefile-03 Makefile-eg/Makefile-04 Makefile-eg/Makefile-05 Makefile-eg/Makefile-06 Makefile-eg/Makefile-07 Makefile-eg/Makefile-08 Makefile-eg/Makefile-09 
 
 
 clean-local:
