@@ -13419,7 +13419,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile examples/Makefile examples/snippets/Makefile exercises/Makefile exercises/shell/Makefile exercises/shell/foosh/Makefile exercises/shell/tests/Makefile exercises/runcmd/Makefile exercises/runcmd/lib/Makefile exercises/runcmd/test/Makefile extras/Makefile tools/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile examples/Makefile examples/snippets/Makefile exercises/Makefile exercises/shell/Makefile exercises/shell/foosh/Makefile exercises/shell/tests/Makefile exercises/runcmd/Makefile exercises/runcmd/lib/Makefile exercises/runcmd/test/Makefile extras/Makefile tools/Makefile doc/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -14450,6 +14450,7 @@ do
     "exercises/runcmd/test/Makefile") CONFIG_FILES="$CONFIG_FILES exercises/runcmd/test/Makefile" ;;
     "extras/Makefile") CONFIG_FILES="$CONFIG_FILES extras/Makefile" ;;
     "tools/Makefile") CONFIG_FILES="$CONFIG_FILES tools/Makefile" ;;
+    "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

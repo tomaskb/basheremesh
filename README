@@ -2,7 +2,7 @@
 POSIX Exempli Gratia (POSIX by example)
 
 Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
-This is Free Open Source Software. For licensing, see COPYING.TXT
+This is Free Open Source Software. For licensing, see COPYING.
 
 ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ The project can be found at https://gitlab.com/monaco/posixeg
 QUICK START
 -----------
 
-After either cloning POSIXeg from the Git repository or unpacking a
+After either cloning POSIXeg from the VCS repository or unpacking a
 distribution tarball, build the project by invoking of the provided
 GNU build system's scripts:
 
@@ -45,7 +45,7 @@ POSIXeg content is organized in directories:
 Unlike the usual Autotools approach, POSIXeg build scripts are not configured to
 automatically compile all the software at once. Instead, for most project's
 directories,  the aforementioned steps will solely generate the needed
-Makefiles.  Each specific piece of software that is not automatically buit
+Makefiles.  Each specific piece of software that is not automatically built
 shall be individually compiled, and optionally installed, by entering the
 respective directory and issuing the appropriate building command:
 
@@ -57,13 +57,13 @@ For instance, to build programs under posixeg/examples/snippets:
    $ cd <somepath>/posixeg/examples/snippets
    $ make
 
-All other GNU build system's standard targets are available as usual.
+All other Autotools' standard targets are available as usual.
 
 Note: Before building a specific project module in this way, however, remember
-to issue 'make' command from the top source directory, as explained, as modules
-may need some automatically built resources as prerequisite.
+to issue 'make' command from the top source directory, as explained, seen that
+modules may need some automatically built resources as prerequisite.
 
-It is possible to build the entire project at once by issuing
+Alternatively, it is possible to build the entire project at once by issuing
 
    $ make force-all
 
@@ -80,15 +80,16 @@ detailed information on how to use the package contents for teaching/learning
 POSIX concepts, including a guide for available examples, as well as directions
 for practicing and verifying proposed programming exercises.
 
-The package offer several illustration of POSIX programming ranging from minimal
-self-contained code excerpts to more sophisticated stand-alone applications
-and library demonstrations.  These may be found under directory 'examples'.
+The package offers several illustration of POSIX programming ranging from
+minimal self-contained code excerpts to more sophisticated stand-alone
+applications and library demonstrations.  These may be found under
+directory 'examples'.
 
 Included with the software, under directory 'exercises' there are also some
 programming exercises intended for students and instructors interested in
 practicing the concepts and examples.  Specific instructions are offered
 when applicable. When doing exercises, libposixeg in directory 'lib' may
-be useful.
+be useful. See lib/README for further details.
 
 Directory 'tools' contain some miscellaneous utilities which may be of use
 for practicing the programming exercises and in general. Also included, under

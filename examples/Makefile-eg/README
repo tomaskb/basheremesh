@@ -2,10 +2,9 @@
 POSIX Exempli Gratia (POSIX by example)
 
 Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
-This is Free Open Source Software. For licensing, see COPYING.TXT
+This is Free Open Source Software. For licensing, see COPYING.
 
 -------------------------------------------------------------------
-
 
 
 Step-by-step example of how to prepare a Makefile for a simple, single-binary, C project.

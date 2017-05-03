@@ -1,15 +1,17 @@
 
-    Libruncmd is part of POSIX Exempli Gratia (POSIX by example)
+    POSIX Exempli Gratia (POSIX by example)
 
     Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
-
     This is Free Open Source Software. For licensing, see COPYING
-
     POSIX-eg repository can be found at https://gitlab.com/monaco/posixeg
+
+------------------------------------------------------------------------------
+
+			RUNCMD EXERCISE
 
 
 OVERVIEW
---------------------------------------------------
+--------
 
 Libruncmd is a small C library providing some simple functionality specified in
 the companion file runcmd.txt.  The file, presented as a man-page like document,
@@ -28,7 +30,7 @@ If you are following the proposed exercises' roadmap, you will upload your
 software to a public repository using a Free Software / Open Source license.
 
 DETAILED INSTRUCTIONS
---------------------------------------------------
+---------------------
 
 First, read posixeg/instructions/README.
 

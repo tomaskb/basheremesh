@@ -1,4 +1,11 @@
 
+POSIX Exempli Gratia (POSIX by example)
+
+Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
+This is Free Open Source Software. For licensing, see COPYING.
+
+-------------------------------------------------------------------
+
 Examples of how to create both static and shared libraries.
 
 foobar.h    declares foo() and bar()

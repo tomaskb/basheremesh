@@ -59,7 +59,8 @@ exercises/runcmd/Makefile
 exercises/runcmd/lib/Makefile
 exercises/runcmd/test/Makefile
 extras/Makefile
-tools/Makefile])	
+tools/Makefile
+doc/Makefile])	
 
 AC_OUTPUT			dnl Do it
 

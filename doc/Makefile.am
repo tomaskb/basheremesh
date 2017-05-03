@@ -1,4 +1,4 @@
-##   Makefile.am - Main Automake script.
+##   Makefile.am - Automake script for doc.
 ##
 ##   Copyright (c) 2014, Francisco Jose Monaco  <moanco@icmc.usp.br>
 ##
@@ -17,28 +17,5 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-other_dirs = examples tools extras exercises 
-install_dirs = lib
-
-SUBDIRS = lib doc
-DIST_SUBDIRS = $(SUBDIRS) $(other_dirs) 
-ACLOCAL_AMFLAGS = -I m4
-
-
-force-all:
-	for i in $(other_dirs) ; do $(MAKE) $(AM_MAKEFLAGS) -C $$i; done
-
-clean-local:
-	for i in $(other_dirs) ; do \
-	   if test -f $$i/Makefile ; then $(MAKE) $(AM_MAKEFLAGS) -C $$i clean; fi\
-        done
-	rm -f $(@TEMPFILES@)
-
-install-exec-local:
-	for i in $(install_dirs) ; do $(MAKE) $(AM_MAKEFLAGS) -C $$i install; done
-
-uninstall-local:
-	for i in $(install_dirs) ; do $(MAKE) $(AM_MAKEFLAGS) -C $$i uninstall; done
-
-
+dist_doc_DATA = ../README
 
