@@ -2,29 +2,183 @@
     Exempli Gratia (POSIX by example)
 
     Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
-
     This is Free Open Source Software. For licensing, see COPYING
-
     POSIX-eg repository can be found at https://gitlab.com/monaco/posixeg
 
 
 INTRODUCTION
---------------------------------------------------
+------------
 
 If you intend to do the proposed programming exercuse and use the automate
 testing tools to assess your solutions, you should follow the specifications
-of each  problem carefully.  Unless, otherwise specified, the following general
+of each  problem carefully.  Unless, otherwise indicated, the following general
 rules apply.  Be aware of projct-specific requirements that, however, may
 superpose these general rules.
 
-COPYRIGHT
---------------------------------------------------
+Unless otherwise specified, it is assumed that your project will be released
+under an open source distribution license.  This will make your project
+available for other students to explore, contributing to the free open
+source community in return for all the quality free resources you have
+access to.  Moreover, in order to link against POSIXeg library, if your
+project needs so, being covered by a GNU GPL compatible license is a
+requirement.
 
-If you are going to make your project public, you should abide to applicable
-authors right laws and ethical practice. Although many programmers are either
-unaware or negligent about this matter, there are legal issues that you should
-take care of, as you may unadvertently be liable to copyright infringement or 
-ideological falsehood.
+PROJECT STRUCTURE
+-----------------
+
+These directions assumes your project named 'myproject' is hosted under a Git
+repository system. The instructor may have either provided you the link to
+your repository or asked you to create one.
+
+In any case, your project's directory tree should be like this
+
+   yourproject
+     |_README             
+     |_AUTHORS            
+     |_COPYING
+     |_INSTALL
+     |_...
+
+File README should be a text file containing essential information about
+your project. While there is no strict rule for README, a reasonable
+introduction should mention the project's name, purposes, authors and licensing
+information. It helps to have basic instructions for installation and execution.
+To that end, you may refer to the files AUTHORS, COPYING and INSTALL. Moreover,
+being your project an open source software, you are required to inform where
+the project can be obtained from. For instance, a minimal note might be
+
+   "Myproject is (...)
+    For copyright and licensing information see files AUTHORS and COPYING.
+    Myporoject's source code may be obtained from (URL).
+    Installation and execution are covered in file INSTALL."
+
+You should list the software authors on the file AUTHORS. Please, provide
+full names and e-mails.
+
+Unless otherwise specified, it is requested that your project be licensed
+under the terms of the GNU General Public License vr3.  In this case, file
+COPYING should be a copy of the license terms. You may find the text of
+GNU GPL vr in http://www.gnu.org/licenses/gpl.txt.  For conveniece, this
+file can be also found in posixeg/tools/gpl.txt.
+
+You must provide a file INSTALL with directions to build, install and use your
+software. If you comply with conventional standards and do not need too specific
+instructions, a simple annotation may be enough. For instance, a minimal
+installation note might be
+
+   "To build the software run make. 
+    To install the software, run make install. Set the user variable PREFIX to
+    overwrite default installation path.
+
+Note: if the exercise requires you to use autotools, the file INSTALL will be
+automatically generated for you, and therefore you need not to worry about
+writing it yourself.
+
+Each exercised will require you to create a module under your project, which
+should be contained in a subdirectory of top-level source directory named 
+after POSIXeg's corresponding directory. For  instance, the hypothetical 
+exercise posixeg/exercise/foo will require you to create a  subdirectory 
+foo under your project:
+
+   yourproject
+     |_README             
+     |_AUTHORS            
+     |_COPYING
+     |_INSTALL
+     |_foo
+
+
+RELEASE POLICY
+--------------
+
+This exercise roadmap assumes your project 'myprioject' is hosted under a 
+Git repository.  All deliveries for evaluation are expected in form of
+releases published in the repository.  A release is an annotated tag
+identified by a release code and a release number as in
+
+  <release_code>-<release_number>
+
+The release code indentify which module is being released, and the release
+number identify which partial delivery it refers to.  Unless otherwise
+specified, the release code is the module's directory name and release number
+is a sequential three-digit number.  For instance, the first and second partial
+releases of exercise/foo should be, respectively
+
+  foo-001
+  foo-002
+
+In order to make a release, you shall use the standard git tag commands and
+push the tag into the main repository:
+
+ $ git tag -a foo-001
+ $ git push origin foo-001
+
+Please, refer to git documentation for further instructions.
+
+Unless otherwise specified, your delivered code should be in the master branch.
+
+BUILD SYSTEM
+------------
+
+Each module under your project should contain a Makefile script which the user 
+may use for building and installing your software. If you provide a custom
+Makefile, it must implement at least the following rules:
+
+   make	     		build the sofware
+   make install		install the software 
+   make uninstall	uninstall what 'install' rule has installed
+   make dist		pack source for distribution
+   make distcheck	verify whether the distributed source can be correctly
+   			built (i.e. it has all the needed files)
+
+Your rules should honor the user variable PREFIX, which may be either defined
+as an enviroment variable or passed through make command line. For example 
+
+   $ cd myproject/foo
+   $ make PREFIX=/tmp/foo
+   $ make PREFIX=/tmp/foo install
+
+should install 
+
+   * executables under		$(PREFIX)/bin
+   * libraries under    	$(PREFIX)/lib
+   * headers under              $(PREFIX)/include/myproject
+   * fixed data under           $(PREFIX)/share/myproject
+   * documentation under        $(PREFIX)/share/doc/myproject
+
+If PREFIX is not set, it should default to /usr/local.
+
+This is particularly important because the review of your exercise may use
+automated test tools that will look for your files in specific places. If
+they are not found as where they are expected to be found, the tests may
+fail.  For instance, some tests requires linking POSIXeg's test programs 
+against your project's libraries. The test cases will search for your 
+library in $(PREFIX)/lib and in $(PREFIX)/include.  If they are not there, 
+the test will fail.
+
+While you may create your own Makefile, the specification of some
+exercises may alternatively request you to rely on GNU Build System, a.k.a
+Autotools.  It this requirement is part of the exercise, you shall not
+write a custom Makefile. Rather, you shall provide the needed Makefile.am
+scripts and rely on Autotools utilities to generate the Makefiles. The
+build scripts produced by Autoconf and Automake already implement all
+the required build and install rules.  In this case, the user is expected
+to execute
+
+   $ cd myproject
+   $ ./configure --prefix=/tmp/foo
+   $ make
+   $ make install
+
+
+COPYRIGHT
+----------
+
+Since you are going to make your project public, you should observe  
+applicable authors right laws and ethical practice. Although many programmers 
+are either unaware or negligent about this matter, there are legal issues that 
+you should take care of, as you may unadvertently be liable to copyright 
+infringement or ideological falsehood.
 
 The source files you have authored yourself should be attributed to yourself. 
 To that end, every source file should have a copyright claim and licensing 
@@ -48,7 +202,7 @@ your software under GPL, a suggestion might be
     You should have received a copy of the GNU General Public License
     along with Foo.  If not, see <http://www.gnu.org/licenses/>.
 
-It is important that you put this note at the beginning of the source file.
+It is important that you put this note at the beginning of every source file.
 
 The source files that you have borrowed from open source projects "as is" should
 retain their original  copyright information. It would be a copyright 
@@ -80,7 +234,7 @@ derivative work might be
     along with Foo.  If not, see <http://www.gnu.org/licenses/>.
 
 As the program author and copyright holder, you may choose whatever license
-you prefer. Bear in mind, however, that your license may be compatible with
+you prefer. Bear in mind, however, that your license must be compatible with
 the licenses of the other software your project makes use of. For instance,
 if your project is a derivative work of a software covered by GNU GPL, you
 may not use a proprietary license for your code.  Related issues apply if
@@ -92,10 +246,12 @@ safely use GNU GPL v3 for the software that interacts with POSIXeg.
 REPOSITORY MANAGEMENT
 --------------------------------------------------
 
+Keep your repository clean and healthy.
+
 * Do not upload generated files to the main repository. These include
 object code (*.o) binaries, libraries (*.a, *.so) and temporary files. As a rule
-of thumb, if 'make' has produced the files, do not upload it; only sources should
-go to the repository.
+of thumb, if 'make' has produced the files, do not upload it; only sources 
+should go to the repository.
 
 * If the exercise's instructions specify what files should go into your project
 directory and what files should not be included, follow the directions strictly.
@@ -140,7 +296,7 @@ others. Please, refer to Git documentation for further details.
 the following workflow
 
   $ git pull                              make sure you have the newest changes
-  $ git checkout -b some_tag              create a new local branch
+  $ git checkout -b some_tag              create a new local branch ane checkout it
 
   do your editings
 

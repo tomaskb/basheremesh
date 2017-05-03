@@ -4,7 +4,6 @@
     Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
     This is Free Open Source Software. For licensing, see COPYING
     POSIX-eg repository can be found at https://gitlab.com/monaco/posixeg
---------------------------------------------------------------------------
 
 
 OVERVIEW
@@ -12,13 +11,13 @@ OVERVIEW
 
 Foosh - The Foo Shell
 
-Foosh is a minimal bolierplate for a shell command line interpreter.
+Foosh is a minimal boilerplate for a shell command line interpreter.
 
 The example reads strings from the standard input and parse it.
 
-No command execution is actually performand.
+No command execution is actually performed.
 
-Foosh implements the trivial command line grammar defined by libtparser.
+Foosh implements the trivial command line grammar defined by libposixeg.
 
 Implementation of pipeline execution is left as an exercise.
 
@@ -27,7 +26,7 @@ BUILD AND INSTALL
 --------------------------------------------------
 
 Your project's development environment shall rely on the GNU Build system
-(Autotools).  Developers may be able to bootstrap the project by issuing
+x(Autotools).  Developers may be able to bootstrap the project by issuing
 
   $ cd yourproject
   $ ./autogen.sh
