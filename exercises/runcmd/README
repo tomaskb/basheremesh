@@ -7,8 +7,8 @@
 
 
 
-RUNCMD EXERCISE
---------------------------------------------------------------------------
+    	     		    RUNCMD EXERCISE
+			    ---------------
 
 OVERVIEW
 --------
@@ -27,7 +27,7 @@ the exercise. There are some important rules and useful tips that you should
 not miss.
 
 If you are following the proposed exercises' roadmap, you will upload your 
-software to a public repository using a Free Software / Open Source license.
+software to a public Git repository using a Free Software / Open Source license.
 
 INSTRUCTIONS
 ------------
@@ -67,7 +67,7 @@ There are also some test programs which you should find under runcmd/test.
 
 Note: you should have already issued make install from runcmd directory.
 
-The test suite consists in several checks, all of them should ideally
+The test suite consists of several checks, all of them should ideally
 report success.  The provided implementation is, however, incomplete and,
 therefore, some tests will fail. Your task consists in finishing the library
 implementation so that it complies with the man page (runcmd.txt)
@@ -111,7 +111,8 @@ ROADMAP
 3) Provide a Makefile to build and install your library.
 
    Please, consult posixeg/instructions/README and make sure your Makefile
-   complies with the specifications.
+   complies with the specifications (rules to build and install, honoring
+   the user variable PREFIX).
 
 RELEASE IDENTIFIER
 ------------------
@@ -120,10 +121,11 @@ The release code for this exercise is runcmd.
 
 Unless otherwise specified, the release numbers of this expercises are
 
-* 001 : test cases T1-001 to T1-007
-* 002 : test cases T1-001 to T1-008
-* 003 : test cases T1-001 to T4-001
-* 004 : migration to Autotools
+* 000 : upodate the project tree structure and contents, if not already done
+* 001 : pass test cases from T1-001 to T1-007 (ignore remaining tests)
+* 002 : pass test cases from T1-001 to T1-008 (ignore remaining tests)
+* 003 : pass test cases from T1-001 to T4-001 (that is all)
+* 004 : migrate your project to GNU build system, if not already done
 
 
 
