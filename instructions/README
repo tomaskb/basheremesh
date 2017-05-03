@@ -127,6 +127,9 @@ Makefile, it must implement at least the following rules:
    make	     		build the sofware
    make install		install the software 
    make uninstall	uninstall what 'install' rule has installed
+
+It is not required but it will be much appreciated if you also implement
+
    make dist		pack source for distribution
    make distcheck	verify whether the distributed source can be correctly
    			built (i.e. it has all the needed files)
