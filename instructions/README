@@ -204,7 +204,7 @@ To that end, every source file should have a copyright claim and licensing
 information at the beginning of the text. For instance, if you are releasing 
 your software under GPL, a suggestion might be
 
-    Copyright (c) <Your Name> <year> 
+    Copyright (c) <year> <Your Name> 
 
     This file is part of Foo.
 
