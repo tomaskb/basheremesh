@@ -171,6 +171,25 @@ to execute
    $ make install
 
 
+CAVEATS
+-------
+
+You should not copy files from POSIXeg's runcmd source code; rather, you
+are entitled to create your own implementation. You may, however, link your
+source code agains libposixeg if you ever find it useful.
+
+Your implementation must use **exclusively** the standard C library (aka libc)
+and no other external library. This is part of the exercise.
+
+The evaluation of the exercise will be performed by compiling your code with
+
+
+   gcc -Wall -Werror --ansi --pedantic-errors -D_POSIX_C_SOURCE=200809L
+
+and it is expected that it is built without errors or warnings. Therefore,
+make sure your implementation is adherent to ISO/ANSI/Standard C (c89/90)
+and POSIX (IEEE 1003.1-2008). 
+
 COPYRIGHT
 ----------
 
@@ -309,6 +328,20 @@ the following workflow
 This may save you time if you later want to move back to the master branch
 before committing your changes (or to get rid of bad ideas without compromising
 your master branch).
+
+POSIXeg CHANGES AND UPDATES
+--------------------------------------------------
+
+Eventual changes in POSIXeg such as bug fixes and other improvements may affect
+the test programs against which your libruncmd implementation will be evaluated.
+
+Therefore, your are urged to keep an eye on POSIXeg updates during the whole
+course of development of your exercise by monitoring the POSIXeg repository at
+
+    https://gitlab.com/monaco/posixeg
+
+You are also strongly encouraged to report bugs and suggest improvements by 
+emailing the author at moanco@icmc.usp.br
 
 
 
