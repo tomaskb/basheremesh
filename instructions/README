@@ -32,7 +32,7 @@ your repository or asked you to create one.
 
 In any case, your project's directory tree should be like this
 
-   yourproject
+   myrproject
      |_README             
      |_AUTHORS            
      |_COPYING
@@ -67,8 +67,8 @@ instructions, a simple annotation may be enough. For instance, a minimal
 installation note might be
 
    "To build the software run make. 
-    To install the software, run make install. Set the user variable PREFIX to
-    overwrite default installation path.
+    To install the software, run make install. 
+    Set the user variable PREFIX to overwrite default installation path.
 
 Note: if the exercise requires you to use autotools, the file INSTALL will be
 automatically generated for you, and therefore you need not to worry about
@@ -77,15 +77,17 @@ writing it yourself.
 Each exercised will require you to create a module under your project, which
 should be contained in a subdirectory of top-level source directory named 
 after POSIXeg's corresponding directory. For  instance, the hypothetical 
-exercise posixeg/exercise/foo will require you to create a  subdirectory 
-foo under your project:
+exercises posixeg/exercise/foo and posixeg/exercises/bar will require you 
+to create the subdirectories foo and bar under your project's top source
+directory:
 
-   yourproject
+   myproject
      |_README             
      |_AUTHORS            
      |_COPYING
      |_INSTALL
      |_foo
+     |_bar
 
 
 RELEASE POLICY
@@ -106,6 +108,8 @@ releases of exercise/foo should be, respectively
 
   foo-001
   foo-002
+
+Note: optional the exercise may specify a pre-release 000.
 
 In order to make a release, you shall use the standard git tag commands and
 push the tag into the main repository:
@@ -158,6 +162,9 @@ fail.  For instance, some tests requires linking POSIXeg's test programs
 against your project's libraries. The test cases will search for your 
 library in $(PREFIX)/lib and in $(PREFIX)/include.  If they are not there, 
 the test will fail.
+
+    Autotools
+    ---------
 
 While you may create your own Makefile, the specification of some
 exercises may alternatively request you to rely on GNU Build System, a.k.a
@@ -287,10 +294,10 @@ GENERAL RECOMMENDATIONS
 Recommendations in this section are not meant as strict rules but offer useful
 guidelines to keep your project well structured and easy to manage.
 
-You may manage your VCS repository in the usual way. Notice, however the 
+* You may manage your VCS repository in the usual way. Notice, however the 
 following suggestions.
 
-* Try not to commit broken implementation to the master branch of the main 
+Try not to commit broken implementation to the master branch of the main 
 repository. This includes buggy code or code that does not compile, as it may
 cause troubles to your development teammates.  Instead, if you want to share 
 some incomplete code, do it in a separate branch. You may create a new branch
@@ -314,7 +321,7 @@ To checkout a specific branch from the repository
 You may use this mechanism to share code for discussions with teammates and
 others. Please, refer to Git documentation for further details.
 
-* As a suggestion, before starting to work in a new issue, you may go through
+As a suggestion, before starting to work in a new issue, you may go through
 the following workflow
 
   $ git pull                              make sure you have the newest changes
@@ -332,6 +339,16 @@ This may save you time if you later want to move back to the master branch
 before committing your changes (or to get rid of bad ideas without compromising
 your master branch).
 
+* If possible, you are strongly encouraged to code in English. This has the 
+advantage of broadening the visibility of your project and enhancing its 
+potential to bring in collaborators. While many non-native speakers may be 
+reticent in this respect due to lack of fluency, actually most developers around 
+the world will prize your courage and good will rathar than complain about your 
+average skills. Have you ever downloaded a cool piece of software which you 
+would like to study and perhaps use, but came across variable names, function
+names and comments in some language completely unkown to you, say Klingon or 
+the like?  If not possible, well this should prevent you from coding at all.
+
 POSIXeg CHANGES AND UPDATES
 --------------------------------------------------
 
@@ -344,7 +361,7 @@ course of development of your exercise by monitoring the POSIXeg repository at
     https://gitlab.com/monaco/posixeg
 
 You are also strongly encouraged to report bugs and suggest improvements by 
-emailing the author at moanco@icmc.usp.br
+emailing the author.
 
 
 
