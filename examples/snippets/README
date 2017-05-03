@@ -1,7 +1,17 @@
 
+POSIX Exempli Gratia (POSIX by example)
+
+Copyright (c) 2015 Francisco Jose Monaco <monaco@icmc.usp.br>
+This is Free Open Source Software. For licensing, see COPYING.TXT
+
+-------------------------------------------------------------------
+
 POSIX snippets.
 
-To build the examples: run 'make'.
+To build the examples, from within examples/snippets issue
+
+  $ make
+
 
 These are very simple examples of POSIX functions usage:
 

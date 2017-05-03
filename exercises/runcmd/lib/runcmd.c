@@ -28,7 +28,7 @@
 #include <string.h>
 
 #include <posixeg/runcmd.h>
-#include <posixeg/debug.h>
+#include <posixeg/bdebug.h>
 
 
 /* Executes 'command' in a subprocess. Information on the subprocess execution

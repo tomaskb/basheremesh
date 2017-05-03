@@ -38,17 +38,27 @@ The file, formatted like a traditional man page, specifies the libruncmd API,
 comprised by a single function runcmd() and a set of macros. The library is
 implemented in the source file runcmd.c and the header file poxixeg/runcmd.h.
 
-The library can be built with the aid of the provided makefile script by issuing
+The library can be built with the aid of the provided Makefile by issuing
 the command line at the shell prompt
 
+    $ cd <somepath>/posixeg/exercises/runcmd
     $ make
+
+Note: you should have already evoked autotools configure script from the
+top source directory. If not, consult posixeg/README and issue
+
+    $ cd <somepath>/posixeg
+    $ ./configure
+
+before trying to build runcmd.
 
 The command shall build both the static and the shared versions of the library, 
 libruncmd.a and libruncmd.so, respectively, as well as some executable programs
 meant for testing the function runcmd.
 
-You may execute the program test-runcmd directly at the command line. 
-Alternatively, you may execute the tests by issuing
+You should find the the (libtool) library libruncmd under directory runcmd/lib.
+There are also some test programs which you should find under runcmd/test.
+
 
     $ make test
 

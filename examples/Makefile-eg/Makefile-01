@@ -1,0 +1,52 @@
+# Makefile 01 - Default and phony targets.
+
+# Copyright (c) 2015, Monaco F. J. <moanco@icmc.usp.br>
+#
+# This file is part of POSIXeg.
+#
+# POSIXeg is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Default target
+
+all: main
+
+# Binary
+
+main : main.o circle.o rectangle.o square.o
+	gcc main.o circle.o rectangle.o square.o -o main
+
+# Objects
+
+main.o : main.c circle.h rectangle.h square.h
+	gcc -I. -c main.c
+
+circle.o : circle.c circle.h
+	gcc -I. -c circle.c
+
+rectangle.o : rectangle.c
+	gcc -I. -c rectangle.c
+
+square.o : square.c rectangle.h
+	gcc -I. -c square.c
+
+# Cleaning
+
+.PHONY: clean
+
+clean:
+	rm -f *.o main
+	rm -f *~ \#*
+
+
+

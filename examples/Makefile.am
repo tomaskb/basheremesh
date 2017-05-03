@@ -20,6 +20,9 @@
 SUBDIRS = snippets
 EXTRA_DIST = library/main.c library/foo.c library/bar.c library/foobar.h library/Makefile library/README
 
+EXTRA_DIST += Makefile-eg
+
+
 clean-local:
 	$(MAKE) $(AM_MAKEFLAGS) -C $(srcdir)/library clean
 
