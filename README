@@ -32,6 +32,21 @@ GNU build system's scripts:
     $ ./configure
     $ make
 
+Note:
+
+    optionally, POSIXeg may be installed by issuing
+
+       $ make install
+
+    and to install the software in a specific path, say /tmp/foo, issue
+
+       $ ./configure --prefix=/tmp/foo
+       $ make
+       $ make install
+
+     this should install binnaries in /tmp/foo/bin, libraries in
+     /tmp/foo/lib, header sin /tmp/foo/include and so on.
+
 POSIXeg content is organized in directories:
 
 * posixeg/instructions	 with directions for students and instructors;
@@ -68,7 +83,6 @@ Alternatively, it is possible to build the entire project at once by issuing
    $ make force-all
 
 from the project's top source directory.
-
 
 File posixeg/INSTALL contains detailed building and installation instructions.
 
