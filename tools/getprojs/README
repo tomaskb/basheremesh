@@ -1,0 +1,15 @@
+
+Fetch projects from remote repositories.
+--------------------------------------------------
+
+This utility may come in handy for instructors.
+
+getprojs.sh	Updates all projects from from a git respository
+
+   This script reads a list of project names from a file containing repository
+   names and updates a local copy of each listed repositories. If a local
+   repository is found, the project is pulled; otherwise it is clonned. Errors
+   are reported in a log file. 
+
+   Please refer to the script's source code for further information and
+   configuration directions.

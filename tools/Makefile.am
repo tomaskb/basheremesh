@@ -18,7 +18,7 @@
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-EXTRA_DIST = copyrigh-header.txt  gpl.txt  lgpl.txt
+EXTRA_DIST = copyrigh-header.txt  gpl.txt  lgpl.txt getprojs/README getprojs/getprojs.sh
 
 clean-local:
 	rm -f @TEMPFILES@
