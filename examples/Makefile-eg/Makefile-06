@@ -36,13 +36,13 @@ all: $(BIN)
 
 # Binary
 
-main : $(OBJECTS)
+$(BIN) : $(OBJECTS)
 	$(CC) $(LD_FLAGS) $(LDFLAGS) $^ -o $@
 
 # Pattern rule for object-source dependences
 
 %.o : %.c 
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(C_FLAGS)-c $<
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS)-c $<
 
 # Automatic object-header dependences
 
@@ -58,7 +58,7 @@ include $(makefiles)
 .PHONY : clean
 
 clean:
-	rm -f  * $(OBJECTS) $(BIN) *.d
+	rm -f $(OBJECTS) $(BIN) *.d
 	rm -f *~ \#*
 
 
