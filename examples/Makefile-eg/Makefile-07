@@ -41,13 +41,13 @@ all: $(BIN)
 
 # Binary
 
-main : $(OBJECTS)
+$(BIN) : $(OBJECTS)
 	gcc $(LD_FLAGS) $(LDFLAGS) $^ -o $@
 
 # Pattern rule for object-source dependences
 
 %.o : %.c 
-	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(C_FLAGS)-c $<
+	$(CC) $(CPP_FLAGS) $(CPPFLAGS) $(C_FLAGS) $(CFLAGS)-c $<
 
 # Automatic object-header dependences
 

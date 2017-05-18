@@ -29,7 +29,7 @@ all: main
 
 # Binary
 
-main : $(OBJECTS)
+$(BIN) : $(OBJECTS)
 	gcc $^ -o $@
 
 # Pattern rule for object-source dependences
