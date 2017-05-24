@@ -59,12 +59,12 @@ DESCRIPTION
 	'exec'fails to replace the subrocess image (e.g. because the program is
 	not found or the caller has no execution permission), the value exit
 	status received in 'result' is that of the unchanged subprocess image
-	and not of the specified command.  IS_EXECOK() returns EXECFAILSTATUS 
+	and not of the specified command.  EXITSTATUS() returns EXECFAILSTATUS 
 	if the function has not been able to execute 'command'. It should be 
-	bear in mind, however, that a successful executed command may itself 
-	return the value of EXITSTATUSFAIL, and this solely information may 
-	not be regarded as an evidence that command execution has failed. 
-	As for that, the macro IS_EXECKOK() may be used for disambiguation.  
+	bear in mind, however, that a successfully executed command may itself 
+	return the value EXITSTATUSFAIL, and this solely information may  not
+	be regarded as an evidence that command execution has failed. To that
+	end, the macro IS_EXECKOK() may be used for disambiguation.  
 	
 	* If a process terminates abnormally, then its exit status has no
 	 meaning. In this case, EXITSTATUS() returns zero.
@@ -74,13 +74,13 @@ DESCRIPTION
 	  EXITSTATUS() and EXECOK(), all them return zero and have no meaning.
 	  The caller process may use IS_NONBLOCK() for disambiguation. 
 
-	Subprocess's standard input, output and error may be redirected. To that
+	Subprocess' standard input, output and error may be redirected. To that
 	end the caller must pass a pointer to an array of tree integers as the
 	argument 'io'.  The integers are interpreted as files descriptors of
 	previously opened files. Files are neither closed nor flushed by the
 	function.  runcmd() does not check if write/write operations are
 	correctly performed. Note that according to this rule, if io[index] 
-	equals index, then the standard IO at descriptir index is not changed.
+	equals index, then the standard IO at descriptor index is not changed.
 	For intsance, passing io[0]=0 does not affect standard input.
 
 
@@ -129,7 +129,7 @@ EXAMPLE
 
 	executes the 'ls'. If 'ls' runs successfully and file 'foo' is found,
 	EXECOK(result), IS_NONBLOCK(result) and IS_NORMTERM(result), all them
-	return true and EXITSTATUS(result) returns o (ls returns 0 on success);
+	return true and EXITSTATUS(result) returns 0 (ls returns 0 on success);
 	if 'foo' is not found, EXITSTATUS(result) returns 2 (ls man page).
 
 	runcmd ("nosuchfile", &result, NULL);
