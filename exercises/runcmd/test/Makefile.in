@@ -108,8 +108,7 @@ PROGRAMS = $(bin_PROGRAMS)
 t1_SOURCES = t1.c
 t1_OBJECTS = t1.$(OBJEXT)
 t1_LDADD = $(LDADD)
-t1_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la \
-	../lib/libruncmd.la testutils.o
+t1_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -117,31 +116,26 @@ am__v_lt_1 =
 t2_SOURCES = t2.c
 t2_OBJECTS = t2.$(OBJEXT)
 t2_LDADD = $(LDADD)
-t2_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la \
-	../lib/libruncmd.la testutils.o
+t2_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
 test_001_SOURCES = test-001.c
 test_001_OBJECTS = test-001.$(OBJEXT)
 test_001_LDADD = $(LDADD)
-test_001_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la \
-	../lib/libruncmd.la testutils.o
+test_001_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
 test_002_SOURCES = test-002.c
 test_002_OBJECTS = test_002-test-002.$(OBJEXT)
 test_002_LDADD = $(LDADD)
-test_002_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la \
-	../lib/libruncmd.la testutils.o
+test_002_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
 test_002_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(test_002_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 test_003_SOURCES = test-003.c
 test_003_OBJECTS = test-003.$(OBJEXT)
 test_003_LDADD = $(LDADD)
-test_003_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la \
-	../lib/libruncmd.la testutils.o
+test_003_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
 test_004_SOURCES = test-004.c
 test_004_OBJECTS = test-004.$(OBJEXT)
 test_004_LDADD = $(LDADD)
-test_004_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la \
-	../lib/libruncmd.la testutils.o
+test_004_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -334,9 +328,9 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result 
 AM_CFLAGS = @C_FLAGS@ 
-AM_LDFLAGS = @LD_FLAGS@
+AM_LDFLAGS = @LD_FLAGS@ 
 mytests = test-001 test-002 test-003 test-004
-LDADD = $(top_builddir)/lib/libposixeg.la ../lib/libruncmd.la testutils.o
+LDADD = $(top_builddir)/lib/libposixeg.la testutils.o -lruncmd
 test_002_CC = @PTHREAD_CC@
 test_002_LADD = @PTHREAD_LIBS@
 test_002_CFLAGS = @PTHREAD_CFLAGS@

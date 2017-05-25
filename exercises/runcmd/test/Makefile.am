@@ -19,7 +19,7 @@
 
 AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result 
 AM_CFLAGS =   @C_FLAGS@ 
-AM_LDFLAGS =  @LD_FLAGS@
+AM_LDFLAGS =  @LD_FLAGS@ 
 
 
 #EXTRA_instdir = $(abs_srcdir)/doit
@@ -30,8 +30,7 @@ bin_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2
 
 mytests = test-001 test-002 test-003 test-004
 
-
-LDADD = $(top_builddir)/lib/libposixeg.la ../lib/libruncmd.la testutils.o
+LDADD = $(top_builddir)/lib/libposixeg.la testutils.o -lruncmd
 
 test_002_CC = @PTHREAD_CC@
 test_002_LADD = @PTHREAD_LIBS@
