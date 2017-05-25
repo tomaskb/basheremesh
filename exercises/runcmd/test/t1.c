@@ -29,7 +29,7 @@
 #include <posixeg/debug.h>
 #include "t.h"
 
-char buffer[T_TOKENSIZE];
+char buffer[T_TOKENSIZE+1];
 
 
 void giveup(int signun)
@@ -83,7 +83,7 @@ int main (int argc, char **argv)
       sysfatal (rs<0);
 
       alarm (TIMEOUT);
-      fgets (buffer, T_TOKENSIZE-1, stdin);
+      fgets (buffer, T_TOKENSIZE+1, stdin);
       alarm (0);
 
       /* If a coorect watchword was received, send the countersing. If
