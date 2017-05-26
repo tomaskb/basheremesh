@@ -47,7 +47,7 @@ issuing the command line at the shell prompt
     $ make
     $ make install
 
-Note: you should have already evoked autotools configure script from the
+Note: you should have already invoked autotools configure script from the
 top source directory. If not, consult posixeg/README and issue
 
     $ cd <somepath>/posixeg
@@ -65,7 +65,8 @@ There are also some test programs which you should find under runcmd/test.
     $ cd <somepath>/posixeg/exercises/runcmd/test
     $ make test
 
-Note: you should have already issued make install from runcmd directory.
+Note: you should have already issued make install from runcmd directory as
+aforementioned.
 
 The test suite consists of several checks, all of them should ideally
 report success.  The provided implementation is, however, incomplete and,
@@ -84,7 +85,7 @@ ROADMAP
 1) Create a subdirectory runcmd within your project's main directory. 
 
    For instance if your project lies on <somepath>/myproject, create a
-    runcmd directory <somepath>/myproject/runcmd
+   runcmd directory <somepath>/myproject/runcmd
 
    $ cd <somepath>/myproject
    $ mkdir runcmd
@@ -99,8 +100,14 @@ ROADMAP
    if your library has been compiled and installed under /tmp/foo, then
    in order to test your library you may do as follows:
 
-   a) install your library's objects and headers under /tmp/foo/lib
-      and /tmp/foo/include, respectively, using the appropriate command
+   a) install your library's objects and headers under
+
+      /tmp/foo/lib 
+      /tmp/foo/include/posixeg
+
+      respectively, using the appropriate install command (either from a custom
+      Makefile or autotools' configure script, according to what was specified
+      in proposed exercise's wording).
       
    b) link POSIXeg's runcmd tests to your library by using the specifial
       user flag ALTPREFIX 
