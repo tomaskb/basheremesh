@@ -17,30 +17,42 @@
 ##   You should have received a copy of the GNU General Public License
 ##   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result 
+#AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result
+
+ALTCPPFLAGS = -I$(ALTPREFIX)/include
+ALTLDFLAGS = -L$(ALTPREFIX)/lib -Wl,-rpath=$(ALTPREFIX)/lib
+
+AM_CPPFLAGS = @CPP_FLAGS@ $(ALTCPPFLAGS) -I../lib  -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result  
 AM_CFLAGS =   @C_FLAGS@ 
-AM_LDFLAGS =  @LD_FLAGS@ 
+AM_LDFLAGS =  @LD_FLAGS@ $(ALTLDFLAGS) -L../lib 
 
-
-#EXTRA_instdir = $(abs_srcdir)/doit
-#EXTRA_inst_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2 
+# make CPPFLAGS="-I/tmp/foo/include" LDFLAGS="-L/tmp/foo/lib -Wl,-rpath=/tmp/foo/lib"
 
 bindir = $(abs_srcdir)/build
 bin_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2 
 
-mytests = test-001 test-002 test-003 test-004
+EXTRA_DIST = t.h testutils.h 
 
-LDADD = $(top_builddir)/lib/libposixeg.la testutils.o -lruncmd
+test_001_SOURCES = test-001.c testutils.c 
+test_002_SOURCES = test-002.c testutils.c
+test_003_SOURCES = test-003.c testutils.c
+test_004_SOURCES = test-004.c testutils.c
+
+
+LDADD = $(top_builddir)/lib/libposixeg.la -lruncmd
 
 test_002_CC = @PTHREAD_CC@
-test_002_LADD = @PTHREAD_LIBS@
-test_002_CFLAGS= @PTHREAD_CFLAGS@
+test_002_LDADD = $(LDADD) @PTHREAD_LIBS@
+test_002_CFLAGS= $(AM_CFLAGS) @PTHREAD_CFLAGS@
 
 all-local: $(EXTRA_PROGRAMS)
 
 clean-local:
 	rm -f $(EXTRA_PROGRAMS)
 	rm -f @TEMPFILES@
+
+mytests = test-001 test-002 test-003 test-004
+
 
 test: $(bin_PROGRAMS)
 	$(MAKE) install

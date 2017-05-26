@@ -14,6 +14,8 @@
 
 @SET_MAKE@
 
+#AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result
+
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -108,7 +110,7 @@ PROGRAMS = $(bin_PROGRAMS)
 t1_SOURCES = t1.c
 t1_OBJECTS = t1.$(OBJEXT)
 t1_LDADD = $(LDADD)
-t1_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
+t1_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -116,26 +118,27 @@ am__v_lt_1 =
 t2_SOURCES = t2.c
 t2_OBJECTS = t2.$(OBJEXT)
 t2_LDADD = $(LDADD)
-t2_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
-test_001_SOURCES = test-001.c
-test_001_OBJECTS = test-001.$(OBJEXT)
+t2_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la
+am_test_001_OBJECTS = test-001.$(OBJEXT) testutils.$(OBJEXT)
+test_001_OBJECTS = $(am_test_001_OBJECTS)
 test_001_LDADD = $(LDADD)
-test_001_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
-test_002_SOURCES = test-002.c
-test_002_OBJECTS = test_002-test-002.$(OBJEXT)
-test_002_LDADD = $(LDADD)
-test_002_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
+test_001_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la
+am_test_002_OBJECTS = test_002-test-002.$(OBJEXT) \
+	test_002-testutils.$(OBJEXT)
+test_002_OBJECTS = $(am_test_002_OBJECTS)
+am__DEPENDENCIES_1 = $(top_builddir)/lib/libposixeg.la
+test_002_DEPENDENCIES = $(am__DEPENDENCIES_1)
 test_002_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(test_002_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-test_003_SOURCES = test-003.c
-test_003_OBJECTS = test-003.$(OBJEXT)
+am_test_003_OBJECTS = test-003.$(OBJEXT) testutils.$(OBJEXT)
+test_003_OBJECTS = $(am_test_003_OBJECTS)
 test_003_LDADD = $(LDADD)
-test_003_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
-test_004_SOURCES = test-004.c
-test_004_OBJECTS = test-004.$(OBJEXT)
+test_003_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la
+am_test_004_OBJECTS = test-004.$(OBJEXT) testutils.$(OBJEXT)
+test_004_OBJECTS = $(am_test_004_OBJECTS)
 test_004_LDADD = $(LDADD)
-test_004_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la testutils.o
+test_004_DEPENDENCIES = $(top_builddir)/lib/libposixeg.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -170,8 +173,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = t1.c t2.c test-001.c test-002.c test-003.c test-004.c
-DIST_SOURCES = t1.c t2.c test-001.c test-002.c test-003.c test-004.c
+SOURCES = t1.c t2.c $(test_001_SOURCES) $(test_002_SOURCES) \
+	$(test_003_SOURCES) $(test_004_SOURCES)
+DIST_SOURCES = t1.c t2.c $(test_001_SOURCES) $(test_002_SOURCES) \
+	$(test_003_SOURCES) $(test_004_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -283,8 +288,7 @@ am__tar = @am__tar@
 am__untar = @am__untar@
 ax_pthread_config = @ax_pthread_config@
 
-#EXTRA_instdir = $(abs_srcdir)/doit
-#EXTRA_inst_PROGRAMS = test-001 test-002 test-003 test-004 t1 t2 
+# make CPPFLAGS="-I/tmp/foo/include" LDFLAGS="-L/tmp/foo/lib -Wl,-rpath=/tmp/foo/lib"
 bindir = $(abs_srcdir)/build
 build = @build@
 build_alias = @build_alias@
@@ -326,14 +330,21 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = @CPP_FLAGS@ -I$(srcdir)/../lib -I$(builddir)/../lib -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result 
+ALTCPPFLAGS = -I$(ALTPREFIX)/include
+ALTLDFLAGS = -L$(ALTPREFIX)/lib -Wl,-rpath=$(ALTPREFIX)/lib
+AM_CPPFLAGS = @CPP_FLAGS@ $(ALTCPPFLAGS) -I../lib  -I$(top_srcdir)/lib -I$(top_builddir)/lib -Wno-unused-result  
 AM_CFLAGS = @C_FLAGS@ 
-AM_LDFLAGS = @LD_FLAGS@ 
-mytests = test-001 test-002 test-003 test-004
-LDADD = $(top_builddir)/lib/libposixeg.la testutils.o -lruncmd
+AM_LDFLAGS = @LD_FLAGS@ $(ALTLDFLAGS) -L../lib 
+EXTRA_DIST = t.h testutils.h 
+test_001_SOURCES = test-001.c testutils.c 
+test_002_SOURCES = test-002.c testutils.c
+test_003_SOURCES = test-003.c testutils.c
+test_004_SOURCES = test-004.c testutils.c
+LDADD = $(top_builddir)/lib/libposixeg.la -lruncmd
 test_002_CC = @PTHREAD_CC@
-test_002_LADD = @PTHREAD_LIBS@
-test_002_CFLAGS = @PTHREAD_CFLAGS@
+test_002_LDADD = $(LDADD) @PTHREAD_LIBS@
+test_002_CFLAGS = $(AM_CFLAGS) @PTHREAD_CFLAGS@
+mytests = test-001 test-002 test-003 test-004
 all: all-am
 
 .SUFFIXES:
@@ -453,6 +464,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-003.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-004.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_002-test-002.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_002-testutils.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testutils.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -491,6 +504,20 @@ test_002-test-002.obj: test-002.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-002.c' object='test_002-test-002.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_002_CFLAGS) $(CFLAGS) -c -o test_002-test-002.obj `if test -f 'test-002.c'; then $(CYGPATH_W) 'test-002.c'; else $(CYGPATH_W) '$(srcdir)/test-002.c'; fi`
+
+test_002-testutils.o: testutils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_002_CFLAGS) $(CFLAGS) -MT test_002-testutils.o -MD -MP -MF $(DEPDIR)/test_002-testutils.Tpo -c -o test_002-testutils.o `test -f 'testutils.c' || echo '$(srcdir)/'`testutils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_002-testutils.Tpo $(DEPDIR)/test_002-testutils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='testutils.c' object='test_002-testutils.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_002_CFLAGS) $(CFLAGS) -c -o test_002-testutils.o `test -f 'testutils.c' || echo '$(srcdir)/'`testutils.c
+
+test_002-testutils.obj: testutils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_002_CFLAGS) $(CFLAGS) -MT test_002-testutils.obj -MD -MP -MF $(DEPDIR)/test_002-testutils.Tpo -c -o test_002-testutils.obj `if test -f 'testutils.c'; then $(CYGPATH_W) 'testutils.c'; else $(CYGPATH_W) '$(srcdir)/testutils.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_002-testutils.Tpo $(DEPDIR)/test_002-testutils.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='testutils.c' object='test_002-testutils.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_002_CFLAGS) $(CFLAGS) -c -o test_002-testutils.obj `if test -f 'testutils.c'; then $(CYGPATH_W) 'testutils.c'; else $(CYGPATH_W) '$(srcdir)/testutils.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

@@ -99,20 +99,18 @@ ROADMAP
    if your library has been compiled and installed under /tmp/foo, then
    in order to test your library you may do as follows:
 
-   a) make sure posixeg´s libruncmd is not installed (otherwise the
-      test programs may end up by finding them instead of your own
-      implementation)
-
-   $ cd <somepath>/posixeg/runcmd/lib
-   $ make uninstall
-
-   b) install your library (at /tmp/foo/include and /tmp/foo/lib)
-
-   c) Link POSIXeg's runcmd tests to your library and run them
+   a) install your library's objects and headers under /tmp/foo/lib
+      and /tmp/foo/include, respectively, using the appropriate command
+      
+   b) link POSIXeg's runcmd tests to your library by using the specifial
+      user flag ALTPREFIX 
 
    $ cd <somepath>/posixeg/runcmd/test
    $ make clean
-   $ make CFLAGS=-I/tmp/foo/include LDFLAGS=-L/tmp/foo/lib
+   $ make ALTPREFIX=/tmp/foo
+
+   c) run the tests
+
    $ make test
 
    Please, make sure that your library can be linked to POSIXeg's
