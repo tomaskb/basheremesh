@@ -38,10 +38,10 @@ libposixeg_version = 0:0:0
 
 lib_LTLIBRARIES = libposixeg.la
 
-libposixeg_la_SOURCES = list.c parser.c
+libposixeg_la_SOURCES = list.c parser.c core.c
 libposixeg_la_LDFLAGS = -version-info $(libposixeg_version)
 
-nobase_include_HEADERS = posixeg/debug.h posixeg/list.h posixeg/tparse.h
+nobase_include_HEADERS = posixeg/debug.h posixeg/list.h posixeg/tparse.h posixeg/core.h
 
 clean-local:
 	rm -f @TEMPFILES@

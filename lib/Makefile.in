@@ -133,7 +133,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libposixeg_la_LIBADD =
-am_libposixeg_la_OBJECTS = list.lo parser.lo
+am_libposixeg_la_OBJECTS = list.lo parser.lo core.lo
 libposixeg_la_OBJECTS = $(am_libposixeg_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -335,9 +335,9 @@ AM_CFLAGS = @C_FLAGS@
 AM_LDFLAGS = @LD_FLAGS@
 libposixeg_version = 0:0:0 
 lib_LTLIBRARIES = libposixeg.la
-libposixeg_la_SOURCES = list.c parser.c
+libposixeg_la_SOURCES = list.c parser.c core.c
 libposixeg_la_LDFLAGS = -version-info $(libposixeg_version)
-nobase_include_HEADERS = posixeg/debug.h posixeg/list.h posixeg/tparse.h
+nobase_include_HEADERS = posixeg/debug.h posixeg/list.h posixeg/tparse.h posixeg/core.h
 all: all-am
 
 .SUFFIXES:
@@ -416,6 +416,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/core.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.Plo@am__quote@
 
