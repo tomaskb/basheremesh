@@ -51,7 +51,7 @@ square.o : square.c rectangle.h
 .PHONY: clean
 
 clean:
-	rm -f  * $(OBJECTS) $(BIN)
+	rm -f  $(OBJECTS) $(BIN)
 	rm -f *~ \#*
 
 
