@@ -115,7 +115,9 @@ Unless otherwise specified, the release numbers of this expercises are
 NOTES
 -----
 
-* As always, do not use any external library except the standard libc.
+* As always, do not use any external library except the standard libc
+(remember that our goal is to learn the basic mechanisms of system software,
+and therefore we want to work in low level).
 
 * As an exception, if you wish, you may link your project against libposixeg.
 This may be useful if you opt for using the provided trivial parser, which
@@ -123,8 +125,17 @@ iplements the basic foosh's grammar.  In this case, you should not include
 POSIXeg source code into your own project. Rather, assume the user has
 already installed libposixeg in this build enviroment.
 
+* If (and only if) oriented by the instructor, you may count on another
+exception of libc-only rule and use libreadline in your project, for the
+case you want to implement advanced command-line functionalities (autocomplete,
+history etc.). Assume libreadline is present in the builder's platform.
+Notice, however, that the instructor may propose extra bonification if you
+decide to implement such features youself without relying on external
+libraries! (Configuring and manipulating the terminal is also an interesting
+exercise).
+
 * If you are instructed to rely on GNU build system to build your project,
-and you are linking your shell agains libposixeg, then please, add the
+and you are linking your shell against libposixeg, then please, add the
 corresponding checks to autoconf script so that libposixeg
 installation is validated during configure stage (if not, abort).
 
