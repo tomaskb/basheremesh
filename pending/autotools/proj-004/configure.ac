@@ -36,7 +36,7 @@ AC_SYS_LONG_FILE_NAMES		dnl Check for long file name support
 dnl Replace missing functions (see also GNUlib)
 
 AC_CONFIG_LIBOBJ_DIR([replace])
-AC_SEARCH_LIBS([qux], [xpto], [], AC_MSG_WARN([*** Symbol xpto not found in libxpto]),[])
+AC_SEARCH_LIBS([qux], [xpto], [], AC_MSG_WARN([*** Symbol qux not found in libxpto]),[])
 AC_SEARCH_LIBS([baz], [xpto], [], [AC_LIBOBJ(mybaz)],[])
 
 dnl Define variables to be used by Automake
@@ -47,8 +47,7 @@ AC_SUBST([LD_FLAGS])
 
 dnl Canocial check for POSIX threads.
 
-AX_PTHREAD([
-AC_DEFINE(HAVE_PTHREAD,1,[Define to 1 if POSIX threads libraries and headers are found.]) ], 
+AX_PTHREAD([AC_DEFINE(HAVE_PTHREAD,1,[Define to 1 if POSIX threads libraries and headers are found.]) ], 
 AC_MSG_WARN([POSIX threads support not detected.]))
 
 
