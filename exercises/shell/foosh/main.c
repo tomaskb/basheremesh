@@ -21,8 +21,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <posixeg/tparse.h>
-#include <posixeg/debug.h>
+#include <posixeg/lib/tparse.h>
+#include <posixeg/lib/debug.h>
 
 #define PROMPT "@:"
 
