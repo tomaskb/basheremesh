@@ -43,52 +43,26 @@ int main (int argc, char **argv)
 
   /* This is the main loop. */
 
-  while (go_on)
-    {
-      /* Prompt. */
+  char line[BUFFER];
 
-      printf ("%s ", PROMPT);
-      fflush (stdout);
-      aux = read_command_line (command_line);
-      sysfatal (aux<0);
-
-      /* Parse command line (see tparse.*) */
-
-      if (!parse_command_line (command_line, pipeline))
-	{
-
-	  
-	  /* This is an example, of how to use pipeline_t. 
-	     See tparse.h for detailed information. */
-
-	  printf ("  Pipeline has %d command(s)\n", pipeline->ncommands);
-
-	  for (i=0; pipeline->command[i][0]; i++)
-	    {
-	      printf ("  Command %d has %d argument(s): ", i, pipeline->narguments[i]);
-	      for (j=0; pipeline->command[i][j]; j++)
-		printf ("%s ", pipeline->command[i][j]);
-	      printf ("\n");
-	    }
-	  
-
-	  if ( RUN_FOREGROUND(pipeline))
-	    printf ("  Run pipeline in foreground\n");
-	  else
-	    printf ("  Run pipeline in background\n");
-
-	  
-	  
-	  if ( REDIRECT_STDIN(pipeline))
-	    printf ("  Redirect input from %s\n", pipeline->file_in);
-	  if ( REDIRECT_STDOUT(pipeline))
-	    printf ("  Redirect output to  %s\n", pipeline->file_out);
-
-	  /* This is where we would fork and exec. */
-
-	}
+    while(1) {
+        printf("$ ");
+        if(!fgets(line, BUFFER, stdin)) break;
+        char *p = strchr(line, '\n');
+        if (p) *p = 0;
+        if(strcmp(line, "exit")==0) break;
+        char *args[] = {line, (char*)0};
+        int pid= fork();              //fork child
+        if(pid==0) {               //Child
+            execvp(line, args);
+            perror("exec");
+            exit(1);
+        } else {                    //Parent
+            wait(NULL);
+        }
     }
-
+	
+	
   release_command_line (command_line);
   release_pipeline (pipeline);
 
